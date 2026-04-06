@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  unified-web-skill:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - LP_CDP_URL=ws://lightpanda:9222
+      - PINCHTAB_BASE_URL=${PINCHTAB_BASE_URL:-}
+      - PINCHTAB_TOKEN=${PINCHTAB_TOKEN:-}
+      - OPENCLI_BIN=opencli
+      - OPENCLI_TIMEOUT_SECONDS=30
+      - RESEARCH_OPENCLI_ENABLED=true
+      - RESEARCH_OPENCLI_FALLBACK=true
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8000
+    depends_on:
+      - lightpanda
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  lightpanda:
+    image: lightpanda-io/lightpanda:latest
+    ports:
+      - "9222:9222"
+    restart: unless-stopped
