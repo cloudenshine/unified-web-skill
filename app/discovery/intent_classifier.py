@@ -11,6 +11,8 @@ import enum
 import logging
 import re
 
+from ..utils.language import detect_language as _detect_language
+
 _logger = logging.getLogger(__name__)
 
 
@@ -226,35 +228,5 @@ class IntentClassifier:
         return ["google", "duckduckgo"]
 
     def detect_language(self, text: str) -> str:
-        """Heuristic language detection.
-
-        Returns
-        -------
-        str
-            ``"zh"`` — predominantly Chinese characters.
-            ``"en"`` — predominantly ASCII / Latin.
-            ``"mixed"`` — significant mix of both.
-            ``"unknown"`` — too short or unrecognisable.
-        """
-        if not text or not text.strip():
-            return "unknown"
-
-        cjk_count = 0
-        latin_count = 0
-        for ch in text:
-            cp = ord(ch)
-            if 0x4E00 <= cp <= 0x9FFF or 0x3400 <= cp <= 0x4DBF:
-                cjk_count += 1
-            elif (0x0041 <= cp <= 0x005A) or (0x0061 <= cp <= 0x007A):
-                latin_count += 1
-
-        total = cjk_count + latin_count
-        if total == 0:
-            return "unknown"
-
-        cjk_ratio = cjk_count / total
-        if cjk_ratio > 0.6:
-            return "zh"
-        if cjk_ratio < 0.2:
-            return "en"
-        return "mixed"
+        """Delegate to shared utility."""
+        return _detect_language(text)

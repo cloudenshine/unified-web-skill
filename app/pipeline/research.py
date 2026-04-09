@@ -78,7 +78,7 @@ class ResearchPipeline:
                 engines=task.search_engines or None,
             )
             stats.total_discovered = len(candidates)
-            stats.search_engines_used = list(set(c.source_engine for c in candidates))
+            stats.search_engines_used = list(set(c.source for c in candidates))
             _logger.info(
                 "Discovered %d candidates from %d engines",
                 len(candidates),

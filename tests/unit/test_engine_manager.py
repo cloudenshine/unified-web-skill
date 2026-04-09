@@ -4,7 +4,8 @@ import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from app.engines.base import Capability, FetchResult, SearchResult, InteractResult
-from app.engines.manager import EngineManager, SmartRouter, SiteRegistry as ManagerSiteRegistry
+from app.engines.manager import EngineManager, SmartRouter
+from app.discovery.site_registry import SiteRegistry
 from app.engines.health import EngineHealthMonitor
 
 from .conftest import StubEngine, FailingEngine
@@ -62,7 +63,7 @@ class TestEngineManagerRegistration:
 
 class TestSmartRouter:
     def _make_router(self):
-        sr = ManagerSiteRegistry()
+        sr = SiteRegistry.get_instance()
         hm = EngineHealthMonitor()
         return SmartRouter(sr, hm), sr, hm
 
@@ -79,8 +80,7 @@ class TestSmartRouter:
 
     def test_site_registry_match(self):
         router, sr, hm = self._make_router()
-        # The manager's SiteRegistry uses suffix matching with "*.domain" pattern
-        sr.register_domain("*.bilibili.com", ["bb-browser", "opencli"])
+        # bilibili.com is in the builtin SiteRegistry with ["bb-browser", "opencli"]
         engines = {
             "bb-browser": StubEngine("bb-browser", {Capability.FETCH}),
             "opencli": StubEngine("opencli", {Capability.FETCH}),
@@ -96,9 +96,12 @@ class TestSmartRouter:
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
             "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
         }
+        # Use zhihu.com which IS in registry with engines ["bb-browser","opencli","scrapling"]
+        # Since only scrapling is available from the registry list, scrapling should come first
         order = router.resolve_fetch_order("https://www.zhihu.com/q/123", engines)
-        # Chinese URL should prefer lightpanda
-        assert order[0] == "lightpanda"
+        assert order[0] == "scrapling"
+        # lightpanda should still be in the list as a fallback
+        assert "lightpanda" in order
 
     def test_preferred_engines_override(self):
         router, sr, hm = self._make_router()
@@ -157,7 +160,7 @@ class TestFetchWithFallback:
     async def test_success_first_engine(self):
         mgr = EngineManager()
         mgr.register(StubEngine("scrapling", {Capability.FETCH}))
-        result = await mgr.fetch_with_fallback("https://example.com")
+        result = await mgr.fetch_with_fallback("https://example.com", no_cache=True)
         assert result.ok is True
         assert result.engine == "scrapling"
 
@@ -167,7 +170,7 @@ class TestFetchWithFallback:
         mgr.register(FailingEngine("bad"))
         mgr.register(StubEngine("good", {Capability.FETCH}))
         result = await mgr.fetch_with_fallback(
-            "https://example.com", preferred_engines=["bad", "good"]
+            "https://test-fallback.example.com", preferred_engines=["bad", "good"], no_cache=True
         )
         assert result.ok is True
         assert result.engine == "good"
@@ -178,7 +181,7 @@ class TestFetchWithFallback:
         mgr.register(FailingEngine("bad1"))
         mgr.register(FailingEngine("bad2"))
         result = await mgr.fetch_with_fallback(
-            "https://example.com", preferred_engines=["bad1", "bad2"]
+            "https://test-allfail.example.com", preferred_engines=["bad1", "bad2"], no_cache=True
         )
         assert result.ok is False
         assert "All engines exhausted" in result.error
@@ -186,7 +189,7 @@ class TestFetchWithFallback:
     @pytest.mark.asyncio
     async def test_no_engines_registered(self):
         mgr = EngineManager()
-        result = await mgr.fetch_with_fallback("https://example.com")
+        result = await mgr.fetch_with_fallback("https://test-noengine.example.com", no_cache=True)
         assert result.ok is False
         assert "No engines available" in result.error
 

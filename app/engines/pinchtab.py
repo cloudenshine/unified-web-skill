@@ -121,14 +121,8 @@ class PinchTabEngine(BaseEngine):
         instance_id = opts.get("instance_id")
         tab_id = opts.get("tab_id")
 
-        # Normalise actions to PinchTab format
-        pt_actions: list[dict[str, Any]] = []
-        for act in actions:
-            act_type = act.get("type", "")
-            if act_type in ("navigate", "click", "fill", "submit", "scroll", "screenshot"):
-                pt_actions.append(act)
-            else:
-                pt_actions.append(act)
+        # Actions are already in PinchTab format
+        pt_actions = list(actions)
 
         try:
             payload = self._rpc_payload("browser_interact", {

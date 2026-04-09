@@ -10,9 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-import re
 from typing import Any, Optional
-from urllib.parse import urlparse
 
 from .base import (
     BaseEngine,
@@ -23,56 +21,14 @@ from .base import (
     SearchResult,
 )
 from .health import EngineHealthMonitor, HealthStatus
+from ..discovery.site_registry import SiteRegistry
 
 logger = logging.getLogger(__name__)
 
 
 # ---------------------------------------------------------------------------
-# Site-registry stub
-# ---------------------------------------------------------------------------
-
-class SiteRegistry:
-    """Simple domain → preferred engine mapping.
-
-    The real implementation will be loaded from ``sites/`` YAML files;
-    this stub provides the interface the router depends on.
-    """
-
-    def __init__(self) -> None:
-        self._rules: dict[str, list[str]] = {}
-
-    def register_domain(self, domain: str, engines: list[str]) -> None:
-        """Map *domain* (or glob pattern) to a priority-ordered engine list."""
-        self._rules[domain.lower()] = engines
-
-    def lookup(self, url: str) -> list[str]:
-        """Return engine names for the domain in *url*, or ``[]``."""
-        domain = urlparse(url).hostname or ""
-        domain = domain.lower()
-
-        # Exact match
-        if domain in self._rules:
-            return list(self._rules[domain])
-
-        # Suffix match (e.g. "*.bilibili.com" → matches "www.bilibili.com")
-        for pattern, engines in self._rules.items():
-            if pattern.startswith("*.") and domain.endswith(pattern[1:]):
-                return list(engines)
-
-        return []
-
-
-# ---------------------------------------------------------------------------
 # Smart router
 # ---------------------------------------------------------------------------
-
-# Chinese TLD / domain patterns that benefit from dynamic rendering
-_CHINESE_DOMAIN_RE = re.compile(
-    r"\.(cn|com\.cn|net\.cn|org\.cn)$"
-    r"|bilibili|douyin|xiaohongshu|weibo|zhihu|baidu|taobao|jd\.com"
-    r"|qq\.com|163\.com|sohu\.com|sina\.com",
-    re.IGNORECASE,
-)
 
 # Default engine priority for plain fetch (no site-registry hit)
 _DEFAULT_FETCH_PRIORITY: list[str] = [
@@ -83,7 +39,7 @@ _DEFAULT_FETCH_PRIORITY: list[str] = [
     "clibrowser",      # zero-dependency CLI fallback
 ]
 
-# Priority for Chinese-heavy sites
+# Priority for Chinese-heavy sites (when not in site registry)
 _CHINESE_FETCH_PRIORITY: list[str] = [
     "lightpanda",
     "scrapling_pw",
@@ -117,8 +73,7 @@ class SmartRouter:
         self._health = health_monitor
 
     def _is_chinese_url(self, url: str) -> bool:
-        domain = urlparse(url).hostname or ""
-        return bool(_CHINESE_DOMAIN_RE.search(domain))
+        return self._site_registry.is_chinese_domain(url)
 
     def resolve_fetch_order(
         self,
@@ -141,8 +96,11 @@ class SmartRouter:
         if preferred:
             order = list(preferred)
         else:
-            site_engines = self._site_registry.lookup(url)
-            if site_engines:
+            site_engines = self._site_registry.get_preferred_engines(url)
+            # get_preferred_engines returns a default when URL is unknown,
+            # so check if it's a real registry hit by looking up the URL.
+            cap = self._site_registry.lookup_by_url(url)
+            if cap:
                 order = site_engines
             elif self._is_chinese_url(url):
                 order = list(_CHINESE_FETCH_PRIORITY)
@@ -225,7 +183,7 @@ class EngineManager:
     def __init__(self) -> None:
         self._engines: dict[str, Engine] = {}
         self._health_monitor = EngineHealthMonitor()
-        self._site_registry = SiteRegistry()
+        self._site_registry = SiteRegistry.get_instance()
         self._router = SmartRouter(self._site_registry, self._health_monitor)
 
     # -- registration -------------------------------------------------------

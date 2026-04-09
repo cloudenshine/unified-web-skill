@@ -11,6 +11,8 @@ import logging
 from typing import Optional
 from urllib.parse import urljoin, urlparse
 
+from ..utils.language import detect_language as _detect_language
+
 _logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
@@ -60,13 +62,6 @@ _DATE_BODY_PATTERNS: list[re.Pattern[str]] = [
     # Chinese date: 2024年1月15日
     re.compile(r"(\d{4}年\d{1,2}月\d{1,2}日)"),
 ]
-
-# CJK Unicode ranges for language detection
-_CJK_RANGES = (
-    (0x4E00, 0x9FFF),   # CJK Unified Ideographs
-    (0x3400, 0x4DBF),   # CJK Extension A
-    (0xF900, 0xFAFF),   # CJK Compatibility Ideographs
-)
 
 
 class ContentExtractor:
@@ -281,29 +276,8 @@ class ContentExtractor:
         return hashlib.sha1(text.encode("utf-8", errors="replace")).hexdigest()[:16]
 
     def detect_language(self, text: str) -> str:
-        """Detect language: 'zh', 'en', 'mixed', 'unknown'."""
-        if not text or len(text.strip()) < 5:
-            return "unknown"
-
-        cjk_count = 0
-        latin_count = 0
-        for ch in text[:2000]:
-            cp = ord(ch)
-            if any(lo <= cp <= hi for lo, hi in _CJK_RANGES):
-                cjk_count += 1
-            elif (0x41 <= cp <= 0x5A) or (0x61 <= cp <= 0x7A):
-                latin_count += 1
-
-        total = cjk_count + latin_count
-        if total == 0:
-            return "unknown"
-
-        cjk_ratio = cjk_count / total
-        if cjk_ratio > 0.6:
-            return "zh"
-        if cjk_ratio < 0.2:
-            return "en"
-        return "mixed"
+        """Delegate to shared utility (with content-appropriate defaults)."""
+        return _detect_language(text, min_length=5, sample_size=2000)
 
     # ------------------------------------------------------------------
     # Helpers

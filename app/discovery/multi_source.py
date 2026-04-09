@@ -14,44 +14,12 @@ from dataclasses import dataclass, field
 from typing import Any, Optional
 from urllib.parse import urlparse
 
+from ..engines.base import SearchResult
 from .intent_classifier import IntentClassifier, QueryIntent
 from .query_planner import QueryPlanner
 from .site_registry import SiteRegistry
 
 _logger = logging.getLogger(__name__)
-
-
-@dataclass
-class SearchResult:
-    """A single discovered URL with metadata."""
-
-    url: str
-    title: str = ""
-    snippet: str = ""
-    source_engine: str = ""          # which engine found this
-    rank: int = 0                    # position within source engine results
-    score: float = 0.0               # merged relevance score
-    content_type: str = ""           # from SiteRegistry lookup
-    metadata: dict[str, Any] = field(default_factory=dict)
-
-    @property
-    def domain(self) -> str:
-        """Extract the domain from *url*."""
-        try:
-            return urlparse(self.url).hostname or ""
-        except Exception:
-            return ""
-
-    @property
-    def url_hash(self) -> str:
-        """Normalised hash for deduplication."""
-        normalised = self.url.rstrip("/").lower()
-        # Strip common tracking params
-        if "?" in normalised:
-            base = normalised.split("?")[0]
-        else:
-            base = normalised
-        return hashlib.md5(base.encode()).hexdigest()
 
 
 class MultiSourceDiscovery:
@@ -176,7 +144,7 @@ class MultiSourceDiscovery:
                             url=r.url,
                             title=r.title,
                             snippet=r.snippet,
-                            source_engine=engine,
+                            source=engine,
                             rank=idx,
                         )
                         for idx, r in enumerate(raw)
@@ -229,7 +197,7 @@ class MultiSourceDiscovery:
                         url=r.get("href", r.get("link", "")),
                         title=r.get("title", ""),
                         snippet=r.get("body", r.get("snippet", "")),
-                        source_engine="duckduckgo",
+                        source="duckduckgo",
                         rank=idx,
                     )
                 )
@@ -261,13 +229,13 @@ class MultiSourceDiscovery:
                     existing = seen[key]
                     existing.score += 1.0  # boost for appearing in multiple sources
                     engines_set: set[str] = set(
-                        existing.metadata.get("all_engines", [existing.source_engine])
+                        existing.metadata.get("all_engines", [existing.source])
                     )
-                    engines_set.add(sr.source_engine)
+                    engines_set.add(sr.source)
                     existing.metadata["all_engines"] = sorted(engines_set)
                 else:
                     sr.score = 1.0
-                    sr.metadata["all_engines"] = [sr.source_engine]
+                    sr.metadata["all_engines"] = [sr.source]
                     seen[key] = sr
 
         return list(seen.values())

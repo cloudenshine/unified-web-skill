@@ -23,7 +23,8 @@ from .base import (
     SearchResult,
 )
 from .health import EngineHealthMonitor, HealthStatus
-from .manager import EngineManager, SiteRegistry, SmartRouter
+from .manager import EngineManager, SmartRouter
+from ..discovery.site_registry import SiteRegistry
 
 __all__ = [
     # base protocol & data models

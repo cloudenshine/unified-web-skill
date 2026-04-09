@@ -67,15 +67,40 @@ class FetchResult:
 
 @dataclass
 class SearchResult:
-    """A single hit returned by a search engine."""
+    """A single hit returned by a search engine.
+
+    Canonical model shared by engine adapters and the discovery layer.
+    """
 
     url: str
-    title: str
+    title: str = ""
     snippet: str = ""
-    source: str = ""             # search engine name
+    source: str = ""             # search engine / adapter name
     rank: int = 0
     credibility: float = 0.5
+    score: float = 0.0           # merged relevance score (discovery)
+    content_type: str = ""       # from SiteRegistry lookup
     metadata: dict[str, Any] = field(default_factory=dict)
+
+    @property
+    def domain(self) -> str:
+        """Extract the hostname from *url*."""
+        try:
+            from urllib.parse import urlparse
+            return urlparse(self.url).hostname or ""
+        except Exception:
+            return ""
+
+    @property
+    def url_hash(self) -> str:
+        """Normalised hash for deduplication."""
+        import hashlib
+        normalised = self.url.rstrip("/").lower()
+        if "?" in normalised:
+            base = normalised.split("?")[0]
+        else:
+            base = normalised
+        return hashlib.md5(base.encode()).hexdigest()
 
 
 @dataclass

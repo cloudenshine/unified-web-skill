@@ -1,0 +1,1192 @@
+[
+  {
+    "site_id": "bilibili",
+    "display_name": "哔哩哔哩",
+    "domains": [
+      "bilibili.com",
+      "b23.tv"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "bilibili/search",
+      "hot": "bilibili/hot",
+      "video": "bilibili/video"
+    },
+    "content_type": "video",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "zhihu",
+    "display_name": "知乎",
+    "domains": [
+      "zhihu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "zhihu/search",
+      "hot": "zhihu/hot",
+      "question": "zhihu/question"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "weibo",
+    "display_name": "微博",
+    "domains": [
+      "weibo.com",
+      "m.weibo.cn",
+      "weibo.cn"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "weibo/search",
+      "hot": "weibo/hot"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "xiaohongshu",
+    "display_name": "小红书",
+    "domains": [
+      "xiaohongshu.com",
+      "xhslink.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "xiaohongshu/search"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "douban",
+    "display_name": "豆瓣",
+    "domains": [
+      "douban.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "douban/search",
+      "movie": "douban/movie"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "douyin",
+    "display_name": "抖音",
+    "domains": [
+      "douyin.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "douyin/search",
+      "hot": "douyin/hot"
+    },
+    "content_type": "video",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "tieba",
+    "display_name": "百度贴吧",
+    "domains": [
+      "tieba.baidu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "tieba/search"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "qq",
+    "display_name": "腾讯网",
+    "domains": [
+      "qq.com",
+      "new.qq.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "news",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "baidu",
+    "display_name": "百度",
+    "domains": [
+      "baidu.com",
+      "m.baidu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "baidu/search"
+    },
+    "content_type": "search",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "36kr",
+    "display_name": "36氪",
+    "domains": [
+      "36kr.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "36kr/search",
+      "hot": "36kr/hot"
+    },
+    "content_type": "news",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "csdn",
+    "display_name": "CSDN",
+    "domains": [
+      "csdn.net",
+      "blog.csdn.net"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "csdn/search"
+    },
+    "content_type": "code",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "cnblogs",
+    "display_name": "博客园",
+    "domains": [
+      "cnblogs.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "cnblogs/search"
+    },
+    "content_type": "code",
+    "country": "cn",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "v2ex",
+    "display_name": "V2EX",
+    "domains": [
+      "v2ex.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "hot": "v2ex/hot"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "jike",
+    "display_name": "即刻",
+    "domains": [
+      "okjike.com",
+      "m.okjike.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "jike/search"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "hupu",
+    "display_name": "虎扑",
+    "domains": [
+      "hupu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "hot": "hupu/hot"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "linuxdo",
+    "display_name": "LINUX DO",
+    "domains": [
+      "linux.do"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "hot": "linuxdo/hot",
+      "search": "linuxdo/search"
+    },
+    "content_type": "social",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "toutiao",
+    "display_name": "今日头条",
+    "domains": [
+      "toutiao.com",
+      "m.toutiao.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "toutiao/search",
+      "hot": "toutiao/hot"
+    },
+    "content_type": "news",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "sohu",
+    "display_name": "搜狐",
+    "domains": [
+      "sohu.com",
+      "news.sohu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "news",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "xiaoyuzhoufm",
+    "display_name": "小宇宙FM",
+    "domains": [
+      "xiaoyuzhoufm.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "xiaoyuzhoufm/search"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "dynamic",
+    "notes": "Podcast platform"
+  },
+  {
+    "site_id": "qidian",
+    "display_name": "起点中文网",
+    "domains": [
+      "qidian.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "qidian/search"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "dynamic",
+    "notes": "Web novel platform"
+  },
+  {
+    "site_id": "youdao",
+    "display_name": "有道",
+    "domains": [
+      "youdao.com",
+      "dict.youdao.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "translate": "youdao/translate"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "http",
+    "notes": "Translation / dictionary"
+  },
+  {
+    "site_id": "wechat",
+    "display_name": "微信公众号",
+    "domains": [
+      "mp.weixin.qq.com",
+      "weixin.qq.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "wechat/search"
+    },
+    "content_type": "article",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "xueqiu",
+    "display_name": "雪球",
+    "domains": [
+      "xueqiu.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "xueqiu/search",
+      "hot": "xueqiu/hot"
+    },
+    "content_type": "finance",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "eastmoney",
+    "display_name": "东方财富",
+    "domains": [
+      "eastmoney.com",
+      "guba.eastmoney.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "eastmoney/search"
+    },
+    "content_type": "finance",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "boss",
+    "display_name": "BOSS直聘",
+    "domains": [
+      "zhipin.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "boss/search"
+    },
+    "content_type": "jobs",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "ctrip",
+    "display_name": "携程",
+    "domains": [
+      "ctrip.com",
+      "m.ctrip.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "ctrip/search"
+    },
+    "content_type": "shopping",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "smzdm",
+    "display_name": "什么值得买",
+    "domains": [
+      "smzdm.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "smzdm/search",
+      "hot": "smzdm/hot"
+    },
+    "content_type": "shopping",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "taobao",
+    "display_name": "淘宝",
+    "domains": [
+      "taobao.com",
+      "m.taobao.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "taobao/search"
+    },
+    "content_type": "shopping",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "jd",
+    "display_name": "京东",
+    "domains": [
+      "jd.com",
+      "m.jd.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "jd/search"
+    },
+    "content_type": "shopping",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "pinduoduo",
+    "display_name": "拼多多",
+    "domains": [
+      "pinduoduo.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "pinduoduo/search"
+    },
+    "content_type": "shopping",
+    "country": "cn",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "twitter",
+    "display_name": "X (Twitter)",
+    "domains": [
+      "twitter.com",
+      "x.com",
+      "mobile.twitter.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "twitter/search",
+      "trending": "twitter/trending"
+    },
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "dynamic",
+    "auth_required": true,
+    "auth_engine": "pinchtab"
+  },
+  {
+    "site_id": "reddit",
+    "display_name": "Reddit",
+    "domains": [
+      "reddit.com",
+      "old.reddit.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "reddit/search",
+      "hot": "reddit/hot"
+    },
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "facebook",
+    "display_name": "Facebook",
+    "domains": [
+      "facebook.com",
+      "m.facebook.com",
+      "fb.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "instagram",
+    "display_name": "Instagram",
+    "domains": [
+      "instagram.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "tiktok",
+    "display_name": "TikTok",
+    "domains": [
+      "tiktok.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "tiktok/search"
+    },
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "stealth"
+  },
+  {
+    "site_id": "discord",
+    "display_name": "Discord",
+    "domains": [
+      "discord.com",
+      "discord.gg"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "dynamic",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "telegram",
+    "display_name": "Telegram",
+    "domains": [
+      "telegram.org",
+      "t.me"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "bluesky",
+    "display_name": "Bluesky",
+    "domains": [
+      "bsky.app"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "bluesky/search"
+    },
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "linkedin",
+    "display_name": "LinkedIn",
+    "domains": [
+      "linkedin.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {
+      "search": "linkedin/search"
+    },
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "stealth",
+    "auth_required": true,
+    "auth_engine": "bb-browser"
+  },
+  {
+    "site_id": "mastodon",
+    "display_name": "Mastodon",
+    "domains": [
+      "mastodon.social",
+      "mastodon.online"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "github",
+    "display_name": "GitHub",
+    "domains": [
+      "github.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "github/search",
+      "trending": "github/trending",
+      "repo": "github/repo"
+    },
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "stackoverflow",
+    "display_name": "Stack Overflow",
+    "domains": [
+      "stackoverflow.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "stackoverflow/search"
+    },
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "hackernews",
+    "display_name": "Hacker News",
+    "domains": [
+      "news.ycombinator.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "hackernews/search",
+      "hot": "hackernews/hot"
+    },
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "medium",
+    "display_name": "Medium",
+    "domains": [
+      "medium.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "article",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "devto",
+    "display_name": "DEV Community",
+    "domains": [
+      "dev.to"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "devto/search"
+    },
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "npm",
+    "display_name": "npm",
+    "domains": [
+      "npmjs.com",
+      "www.npmjs.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "npm/search"
+    },
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "pypi",
+    "display_name": "PyPI",
+    "domains": [
+      "pypi.org"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "pypi/search"
+    },
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "arxiv",
+    "display_name": "arXiv",
+    "domains": [
+      "arxiv.org"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "arxiv/search"
+    },
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "gitlab",
+    "display_name": "GitLab",
+    "domains": [
+      "gitlab.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "mdn",
+    "display_name": "MDN Web Docs",
+    "domains": [
+      "developer.mozilla.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Mozilla developer documentation"
+  },
+  {
+    "site_id": "youtube",
+    "display_name": "YouTube",
+    "domains": [
+      "youtube.com",
+      "youtu.be",
+      "m.youtube.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "youtube/search",
+      "trending": "youtube/trending"
+    },
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "wikipedia",
+    "display_name": "Wikipedia",
+    "domains": [
+      "wikipedia.org",
+      "en.wikipedia.org",
+      "zh.wikipedia.org"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "wikipedia/search"
+    },
+    "content_type": "article",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "bbc",
+    "display_name": "BBC",
+    "domains": [
+      "bbc.com",
+      "bbc.co.uk"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "bbc/search"
+    },
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "reuters",
+    "display_name": "Reuters",
+    "domains": [
+      "reuters.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "reuters/search"
+    },
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "producthunt",
+    "display_name": "Product Hunt",
+    "domains": [
+      "producthunt.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "hot": "producthunt/hot"
+    },
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "imdb",
+    "display_name": "IMDb",
+    "domains": [
+      "imdb.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "imdb/search"
+    },
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "amazon",
+    "display_name": "Amazon",
+    "domains": [
+      "amazon.com",
+      "amazon.co.uk",
+      "amazon.co.jp"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "amazon/search"
+    },
+    "content_type": "shopping",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "nytimes",
+    "display_name": "The New York Times",
+    "domains": [
+      "nytimes.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "cnn",
+    "display_name": "CNN",
+    "domains": [
+      "cnn.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "spotify",
+    "display_name": "Spotify",
+    "domains": [
+      "spotify.com",
+      "open.spotify.com"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "dynamic",
+    "auth_required": true,
+    "auth_engine": "bb-browser",
+    "notes": "Music / podcast streaming"
+  },
+  {
+    "site_id": "twitch",
+    "display_name": "Twitch",
+    "domains": [
+      "twitch.tv"
+    ],
+    "engines": [
+      "bb-browser"
+    ],
+    "commands": {},
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "quora",
+    "display_name": "Quora",
+    "domains": [
+      "quora.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {},
+    "content_type": "article",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "google",
+    "display_name": "Google",
+    "domains": [
+      "google.com",
+      "www.google.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "google/search"
+    },
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "bing",
+    "display_name": "Bing",
+    "domains": [
+      "bing.com",
+      "www.bing.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "bing/search"
+    },
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "duckduckgo",
+    "display_name": "DuckDuckGo",
+    "domains": [
+      "duckduckgo.com"
+    ],
+    "engines": [
+      "opencli",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "duckduckgo/search"
+    },
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "sogou",
+    "display_name": "搜狗",
+    "domains": [
+      "sogou.com"
+    ],
+    "engines": [
+      "bb-browser",
+      "opencli"
+    ],
+    "commands": {
+      "search": "sogou/search"
+    },
+    "content_type": "search",
+    "country": "cn",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "yandex",
+    "display_name": "Yandex",
+    "domains": [
+      "yandex.com",
+      "yandex.ru"
+    ],
+    "engines": [
+      "bb-browser",
+      "scrapling"
+    ],
+    "commands": {
+      "search": "yandex/search"
+    },
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  }
+]

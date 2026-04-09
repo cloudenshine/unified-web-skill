@@ -1,10 +1,10 @@
 {
   "total": 31,
-  "passed": 29,
+  "passed": 28,
   "failed": 0,
-  "warned": 2,
+  "warned": 3,
   "skipped": 0,
-  "pass_rate": "93.5%",
+  "pass_rate": "90.3%",
   "results": [
     {
       "name": "import_base",
@@ -58,49 +58,49 @@
       "name": "scrapling_httpbin",
       "status": "PASS",
       "detail": "ok=True status=200 html=3713ch text=3614ch engine=scrapling-http",
-      "duration_ms": 2044.3
+      "duration_ms": 1501.5
     },
     {
       "name": "scrapling_wikipedia",
       "status": "PASS",
       "detail": "ok=True text=5812ch html=126552ch",
-      "duration_ms": 1188.4
+      "duration_ms": 1208.6
     },
     {
       "name": "bb_health",
       "status": "PASS",
       "detail": "health=True",
-      "duration_ms": 275.0
+      "duration_ms": 278.0
     },
     {
       "name": "bb_fetch",
-      "status": "PASS",
-      "detail": "ok=True text=208ch",
-      "duration_ms": 517.1
+      "status": "WARN",
+      "detail": "ok=False error=exit code 1",
+      "duration_ms": 277.2
     },
     {
       "name": "bb_search",
       "status": "PASS",
       "detail": "3 results, first=https://docs.python.org/3/library/asyncio.html",
-      "duration_ms": 3873.1
+      "duration_ms": 3237.5
     },
     {
       "name": "opencli_health",
       "status": "PASS",
       "detail": "health=True",
-      "duration_ms": 1250.6
+      "duration_ms": 1686.8
     },
     {
       "name": "opencli_fetch",
       "status": "WARN",
       "detail": "ok=False error=unsupported domain for opencli: https://httpbin.org/html",
-      "duration_ms": 0.2
+      "duration_ms": 0.0
     },
     {
       "name": "ddgs_search",
       "status": "PASS",
       "detail": "5 URLs discovered, first=https://www.scrapingbee.com/blog/web-scraping-101-with-pytho",
-      "duration_ms": 4921.6
+      "duration_ms": 2675.5
     },
     {
       "name": "registry_loaded",
@@ -147,8 +147,8 @@
     {
       "name": "pipeline_research",
       "status": "PASS",
-      "detail": "discovered=5 collected=2 records=2 engines={'scrapling-http': 2} duration=50.31s",
-      "duration_ms": 50420.4
+      "detail": "discovered=5 collected=2 records=2 engines={'scrapling-http': 2} duration=52.49s",
+      "duration_ms": 52845.7
     },
     {
       "name": "pipeline_first_record",
@@ -160,37 +160,37 @@
       "name": "mgr_fetch_fallback",
       "status": "PASS",
       "detail": "ok=True engine=scrapling-http text=3614ch",
-      "duration_ms": 0.2
+      "duration_ms": 0.4
     },
     {
       "name": "cn_baidu",
       "status": "PASS",
-      "detail": "ok text=258506ch html=673362ch",
-      "duration_ms": 3203.1
+      "detail": "ok text=259461ch html=677543ch",
+      "duration_ms": 3574.9
     },
     {
       "name": "cn_bilibili",
       "status": "PASS",
-      "detail": "ok text=1391ch html=316177ch",
-      "duration_ms": 3732.9
+      "detail": "ok text=1396ch html=315296ch",
+      "duration_ms": 4833.6
     },
     {
       "name": "mcp_health",
       "status": "PASS",
-      "detail": "status=ok engines=['bb-browser', 'opencli', 'scrapling'] count=3",
-      "duration_ms": 43.9
+      "detail": "status=ok engines=['bb-browser', 'opencli', 'scrapling', 'lightpanda', 'clibrowser'] count=5",
+      "duration_ms": 47.6
     },
     {
       "name": "error_bad_url",
       "status": "PASS",
       "detail": "ok=False error=Page.goto: Protocol error (Page.navigate): Cannot navigate to invalid URL\nCall l",
-      "duration_ms": 17784.2
+      "duration_ms": 18065.2
     },
     {
       "name": "error_timeout",
       "status": "WARN",
       "detail": "ok=True error=",
-      "duration_ms": 45564.4
+      "duration_ms": 45968.4
     }
   ]
 }

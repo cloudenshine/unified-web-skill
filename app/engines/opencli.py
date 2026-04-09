@@ -9,18 +9,6 @@ from urllib.parse import urlparse
 
 from .base import BaseEngine, Capability, FetchResult, SearchResult
 
-_DOMAIN_MAP: dict[str, str] = {
-    "bilibili.com": "bilibili",
-    "zhihu.com": "zhihu",
-    "news.ycombinator.com": "hackernews",
-    "reddit.com": "reddit",
-    "twitter.com": "twitter",
-    "x.com": "twitter",
-    "github.com": "github",
-    "douban.com": "douban",
-    "weibo.com": "weibo",
-}
-
 # opencli exit‐code semantics
 _EXIT_MEANINGS: dict[int, str] = {
     0: "success",
@@ -33,17 +21,12 @@ _EXIT_MEANINGS: dict[int, str] = {
 
 
 def _domain_to_site(url: str) -> str | None:
-    """Resolve a URL to an opencli site identifier via domain mapping."""
-    try:
-        host = urlparse(url).hostname or ""
-        host = host.removeprefix("www.")
-    except Exception:
-        return None
-    if host in _DOMAIN_MAP:
-        return _DOMAIN_MAP[host]
-    for suffix, site in _DOMAIN_MAP.items():
-        if host.endswith("." + suffix):
-            return site
+    """Resolve a URL to an opencli site identifier via SiteRegistry."""
+    from ..discovery.site_registry import SiteRegistry
+    registry = SiteRegistry.get_instance()
+    cap = registry.lookup_by_url(url)
+    if cap and "opencli" in cap.engines:
+        return cap.site_id
     return None
 
 

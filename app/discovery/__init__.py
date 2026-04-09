@@ -5,6 +5,7 @@ Handles search/discovery of URLs, intent classification,
 query expansion, and the site capability registry.
 """
 
+from ..engines.base import SearchResult
 from .intent_classifier import IntentClassifier, QueryIntent
 from .multi_source import MultiSourceDiscovery
 from .query_planner import QueryPlanner
@@ -17,4 +18,5 @@ __all__ = [
     "QueryPlanner",
     "SiteRegistry",
     "SiteCapability",
+    "SearchResult",
 ]
