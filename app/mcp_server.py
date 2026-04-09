@@ -786,11 +786,19 @@ def _start_http():
     async def _health_endpoint(request):
         em = _get_engine_manager()
         engine_names = list(em._engines.keys()) if em else []
+        cache_info = {}
+        try:
+            from . import cache as _cache
+            cache_info = _cache.stats()
+        except Exception:
+            pass
         return JSONResponse({
             "status": "ok",
             "service": "unified-web-skill",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "engines": engine_names,
+            "engine_count": len(engine_names),
+            "cache": cache_info,
         })
 
     # Build the MCP ASGI app

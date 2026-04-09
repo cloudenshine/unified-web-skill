@@ -164,7 +164,8 @@ class BBBrowserEngine(BaseEngine):
 
         if rc != 0:
             self._logger.warning("search via %s failed: %s", adapter, stderr[:200])
-            return []
+            # Fallback: DuckDuckGo via ddgs
+            return self._ddgs_fallback(query, max_results, language)
 
         results: list[SearchResult] = []
         try:
@@ -183,6 +184,36 @@ class BBBrowserEngine(BaseEngine):
         except (json.JSONDecodeError, ValueError):
             self._logger.warning("failed to parse search output as JSON")
 
+        # If bb-browser returned empty, fall back to DuckDuckGo
+        if not results:
+            return self._ddgs_fallback(query, max_results, language)
+
+        return results
+
+    @staticmethod
+    def _ddgs_fallback(query: str, max_results: int, language: str) -> list[SearchResult]:
+        """DuckDuckGo search fallback when bb-browser search adapters fail."""
+        try:
+            from ddgs import DDGS
+        except ImportError:
+            try:
+                from duckduckgo_search import DDGS
+            except ImportError:
+                return []
+        region = "cn-zh" if language == "zh" else "wt-wt"
+        results: list[SearchResult] = []
+        try:
+            ddgs = DDGS()
+            for idx, r in enumerate(ddgs.text(query, region=region, max_results=max_results)):
+                results.append(SearchResult(
+                    url=r.get("href", r.get("link", "")),
+                    title=r.get("title", ""),
+                    snippet=r.get("body", r.get("snippet", "")),
+                    source="bb-browser:ddgs-fallback",
+                    rank=idx,
+                ))
+        except Exception:
+            pass
         return results
 
     async def interact(

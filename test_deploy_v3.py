@@ -360,9 +360,10 @@ async def test_mcp_http():
         with urllib.request.urlopen(req, timeout=5) as resp:
             data = json.loads(resp.read())
             dur = (time.monotonic() - t0) * 1000
-            engines = data.get("engines", {})
+            engines = data.get("engines", [])
+            engine_count = data.get("engine_count", len(engines))
             record("mcp_health", "PASS",
-                   f"status={data.get('status')} engines={list(engines.keys())}", dur)
+                   f"status={data.get('status')} engines={engines} count={engine_count}", dur)
     except Exception as e:
         record("mcp_health", "WARN", f"HTTP health check failed: {e} (MCP may be stdio-only)")
 

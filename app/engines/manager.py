@@ -308,24 +308,31 @@ class EngineManager:
         *,
         preferred_engines: list[str] | None = None,
         timeout: int = 30,
+        no_cache: bool = False,
         **opts: Any,
     ) -> FetchResult:
         """Fetch *url*, trying engines in priority order with automatic fallback.
 
-        Priority order when *preferred_engines* is ``None``:
-
-        1. ``SiteRegistry`` match (bb-browser / opencli adapter).
-        2. HTTP impersonation (Scrapling HTTP tier).
-        3. Lightpanda CDP.
-        4. Dynamic (Scrapling Playwright).
-        5. Stealth (Scrapling StealthyFetcher).
-        6. CLIBrowser (zero-dependency fallback).
-
-        On each failure the next engine is tried.  Health monitor counters
-        are updated so the circuit breaker can trip on repeated failures.
+        Checks cache first (unless *no_cache* is True). On success, stores
+        result in cache for future requests.
 
         Returns a :class:`FetchResult` — **never raises**.
         """
+        # Check cache first
+        if not no_cache:
+            try:
+                from .. import cache as _cache
+                cached = _cache.get(url)
+                if cached:
+                    return FetchResult(
+                        ok=True, url=url, html=cached.get("html", ""),
+                        text=cached.get("text", ""), status=cached.get("status", 200),
+                        engine=cached.get("engine", "cache"),
+                        metadata={"cached": True},
+                    )
+            except Exception:
+                pass
+
         order = self._router.resolve_fetch_order(
             url, self._engines, preferred=preferred_engines,
         )
@@ -347,6 +354,14 @@ class EngineManager:
                 if result.ok:
                     self._health_monitor.record_success(engine_name)
                     result.engine = result.engine or engine_name
+                    # Store in cache
+                    if not no_cache:
+                        try:
+                            from .. import cache as _cache
+                            _cache.put(url, result.html, result.text,
+                                       result.status, result.engine)
+                        except Exception:
+                            pass
                     return result
 
                 # Engine returned ok=False — treat as soft failure

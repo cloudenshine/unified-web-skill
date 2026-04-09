@@ -8,7 +8,7 @@ import time
 from typing import Any
 from urllib.parse import urlparse
 
-from .base import BaseEngine, Capability, FetchResult
+from .base import BaseEngine, Capability, FetchResult, SearchResult
 
 _BLOCK_MARKERS: list[str] = [
     "captcha",
@@ -49,7 +49,18 @@ def _is_cn_domain(url: str) -> bool:
 
 
 def _extract_text_from_html(html: str) -> str:
-    """Best-effort plain text extraction from HTML without external deps."""
+    """Extract clean text from HTML using trafilatura with regex fallback."""
+    if not html:
+        return ""
+    try:
+        import trafilatura
+        text = trafilatura.extract(html, include_comments=False, include_tables=True,
+                                   no_fallback=False, favor_recall=True)
+        if text and len(text) > 50:
+            return text
+    except Exception:
+        pass
+    # Fallback: simple regex stripping
     import re
     text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.S | re.I)
     text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.S | re.I)
@@ -65,6 +76,13 @@ class ScraplingEngine(BaseEngine):
         self._timeout_http = int(os.environ.get("SCRAPLING_TIMEOUT_HTTP", "10"))
         self._timeout_dynamic = int(os.environ.get("SCRAPLING_TIMEOUT_DYNAMIC", "30"))
         self._timeout_stealth = int(os.environ.get("SCRAPLING_TIMEOUT_STEALTH", "60"))
+        # Fix SSL certs for curl_cffi on Windows
+        if os.name == "nt" and not os.environ.get("CURL_CA_BUNDLE"):
+            try:
+                import certifi
+                os.environ["CURL_CA_BUNDLE"] = certifi.where()
+            except ImportError:
+                pass
         super().__init__()
 
     @property
@@ -73,7 +91,7 @@ class ScraplingEngine(BaseEngine):
 
     @property
     def capabilities(self) -> set[Capability]:
-        return {Capability.FETCH}
+        return {Capability.FETCH, Capability.SEARCH}
 
     # ------------------------------------------------------------------
 
@@ -163,13 +181,16 @@ class ScraplingEngine(BaseEngine):
         )
 
     async def _tier_dynamic(self, url: str, t0: float) -> FetchResult:
-        from scrapling import AsyncFetcher
+        from scrapling import DynamicFetcher
 
-        loop = asyncio.get_running_loop()
-        resp = await loop.run_in_executor(
-            None,
-            lambda: AsyncFetcher(auto_match=True).get(url, timeout=self._timeout_dynamic),
-        )
+        try:
+            resp = await DynamicFetcher().async_fetch(url, timeout=self._timeout_dynamic * 1000)
+        except Exception as exc:
+            dur = (time.monotonic() - t0) * 1000
+            return FetchResult(
+                ok=False, url=url, engine="scrapling-dynamic",
+                duration_ms=dur, error=str(exc),
+            )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
         text = resp.get_all_text(" ") if hasattr(resp, "get_all_text") else ""
@@ -187,11 +208,14 @@ class ScraplingEngine(BaseEngine):
     async def _tier_stealth(self, url: str, t0: float) -> FetchResult:
         from scrapling import StealthyFetcher
 
-        loop = asyncio.get_running_loop()
-        resp = await loop.run_in_executor(
-            None,
-            lambda: StealthyFetcher(auto_match=False).get(url, timeout=self._timeout_stealth),
-        )
+        try:
+            resp = await StealthyFetcher().async_fetch(url, timeout=self._timeout_stealth * 1000)
+        except Exception as exc:
+            dur = (time.monotonic() - t0) * 1000
+            return FetchResult(
+                ok=False, url=url, engine="scrapling-stealth",
+                duration_ms=dur, error=str(exc),
+            )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
         text = resp.get_all_text(" ") if hasattr(resp, "get_all_text") else ""
@@ -205,3 +229,51 @@ class ScraplingEngine(BaseEngine):
             status=status, duration_ms=dur,
             error="blocked" if blocked else "",
         )
+
+    # -- search via DuckDuckGo -----------------------------------------
+
+    async def search(
+        self,
+        query: str,
+        *,
+        max_results: int = 10,
+        language: str = "zh",
+        **opts: Any,
+    ) -> list[SearchResult]:
+        """Search using DuckDuckGo (ddgs library) in a thread-pool executor."""
+        loop = asyncio.get_running_loop()
+        try:
+            results = await loop.run_in_executor(
+                None, self._ddgs_search, query, max_results, language,
+            )
+            return results
+        except Exception as exc:
+            self._logger.warning("search failed: %s", exc)
+            return []
+
+    @staticmethod
+    def _ddgs_search(query: str, max_results: int, language: str) -> list[SearchResult]:
+        DDGS = None
+        try:
+            from ddgs import DDGS
+        except ImportError:
+            try:
+                from duckduckgo_search import DDGS
+            except ImportError:
+                return []
+
+        region = "cn-zh" if language == "zh" else "wt-wt"
+        results: list[SearchResult] = []
+        try:
+            ddgs = DDGS()
+            for idx, r in enumerate(ddgs.text(query, region=region, max_results=max_results)):
+                results.append(SearchResult(
+                    url=r.get("href", r.get("link", "")),
+                    title=r.get("title", ""),
+                    snippet=r.get("body", r.get("snippet", "")),
+                    source="scrapling-ddgs",
+                    rank=idx,
+                ))
+        except Exception:
+            pass
+        return results

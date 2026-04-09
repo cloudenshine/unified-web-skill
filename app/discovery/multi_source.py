@@ -162,11 +162,13 @@ class MultiSourceDiscovery:
         self, engine: str, query: str, max_results: int, language: str
     ) -> list[SearchResult]:
         """Route a search to the appropriate backend."""
-        # If an engine_manager is wired up, delegate to it
         if self._engine_manager is not None:
             try:
+                # Check if the named engine exists; if not, use any SEARCH-capable engine
+                em_engine = self._engine_manager.get_engine(engine) if hasattr(self._engine_manager, 'get_engine') else None
+                engine_list = [engine] if em_engine else None
                 raw = await self._engine_manager.search_multi(
-                    query=query, engines=[engine], max_results=max_results, language=language
+                    query=query, engines=engine_list, max_results=max_results, language=language
                 )
                 if raw:
                     return [

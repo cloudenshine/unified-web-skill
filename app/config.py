@@ -46,6 +46,25 @@ DEFAULT_MAX_PAGES = int(os.environ.get("DEFAULT_MAX_PAGES", "20"))
 DEFAULT_QPS = float(os.environ.get("DEFAULT_QPS", "2.0"))
 MAX_PROXY_RETRIES = int(os.environ.get("MAX_PROXY_RETRIES", "3"))
 
+# === Rate Limiting ===
+RATE_LIMIT_ENABLED = os.environ.get("RATE_LIMIT_ENABLED", "true").lower() == "true"
+RATE_LIMIT_DEFAULT_QPS = float(os.environ.get("RATE_LIMIT_DEFAULT_QPS", "2.0"))
+RATE_LIMIT_PER_DOMAIN: dict[str, float] = {}
+_rl_env = os.environ.get("RATE_LIMIT_DOMAINS", "")
+if _rl_env:
+    for pair in _rl_env.split(","):
+        if "=" in pair:
+            domain, qps = pair.strip().split("=", 1)
+            try:
+                RATE_LIMIT_PER_DOMAIN[domain.strip()] = float(qps.strip())
+            except ValueError:
+                pass
+
+# === Cache ===
+FETCH_CACHE_ENABLED = os.environ.get("FETCH_CACHE_ENABLED", "true").lower() == "true"
+FETCH_CACHE_TTL = int(os.environ.get("FETCH_CACHE_TTL", "3600"))
+FETCH_CACHE_MAX_MB = int(os.environ.get("FETCH_CACHE_MAX_MB", "100"))
+
 # === Engine Priority (default order) ===
 ENGINE_PRIORITY = os.environ.get("ENGINE_PRIORITY", "bb-browser,opencli,scrapling,lightpanda,clibrowser").split(",")
 

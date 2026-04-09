@@ -114,11 +114,23 @@ class ContentExtractor:
     def extract_text(self, html: str, max_chars: int = 10000) -> str:
         """Extract readable text from HTML.
 
-        Tries scrapling Adaptor first for CSS-based extraction,
-        falls back to regex tag stripping.
+        Priority: trafilatura → scrapling Adaptor → regex fallback.
         """
         if not html:
             return ""
+
+        # Strategy 0: trafilatura (best quality for article pages)
+        try:
+            import trafilatura
+            text = trafilatura.extract(html, include_comments=False,
+                                       include_tables=True, no_fallback=False,
+                                       favor_recall=True)
+            if text and len(text) > 80:
+                return text[:max_chars]
+        except ImportError:
+            _logger.debug("trafilatura not available")
+        except Exception as exc:
+            _logger.debug("trafilatura extraction failed: %s", exc)
 
         # Strategy 1: scrapling Adaptor
         try:
