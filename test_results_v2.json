@@ -1,0 +1,289 @@
+[
+  {
+    "tool": "engine_init",
+    "test": "opencli_register",
+    "status": "PASS",
+    "detail": "caps=['fetch', 'search', 'structured']",
+    "ms": 0
+  },
+  {
+    "tool": "engine_init",
+    "test": "bb-browser_register",
+    "status": "PASS",
+    "detail": "caps=['fetch', 'search', 'interact', 'structured']",
+    "ms": 0
+  },
+  {
+    "tool": "engine_init",
+    "test": "scrapling_register",
+    "status": "PASS",
+    "detail": "caps=['fetch']",
+    "ms": 0
+  },
+  {
+    "tool": "health_check",
+    "test": "opencli_health",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "health_check",
+    "test": "bb-browser_health",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "health_check",
+    "test": "scrapling_health",
+    "status": "PASS",
+    "detail": "healthy=True",
+    "ms": 2194
+  },
+  {
+    "tool": "engine_status",
+    "test": "http_health",
+    "status": "PASS",
+    "detail": "version=3.0.0, engines=3: ['bb-browser', 'opencli', 'scrapling']",
+    "ms": 71
+  },
+  {
+    "tool": "web_fetch",
+    "test": "simple_html",
+    "status": "WARN",
+    "detail": "engine=, empty text, ok=False, err=All engines exhausted. Last error: unsupported domain for opencli: https://example.com",
+    "ms": 4187
+  },
+  {
+    "tool": "web_fetch",
+    "test": "httpbin_html",
+    "status": "WARN",
+    "detail": "engine=scrapling-http, empty text, ok=True, err=",
+    "ms": 1238
+  },
+  {
+    "tool": "web_fetch",
+    "test": "json_api",
+    "status": "WARN",
+    "detail": "engine=scrapling-http, empty text, ok=True, err=",
+    "ms": 1319
+  },
+  {
+    "tool": "ddgs_direct",
+    "test": "text_search",
+    "status": "PASS",
+    "detail": "results=5, urls=['https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html', 'https://realpython.com/async-io-python/', 'https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/']",
+    "ms": 2594
+  },
+  {
+    "tool": "discovery",
+    "test": "discover_Python asyncio ",
+    "status": "PASS",
+    "detail": "found=5, urls=['https://realpython.com/async-io-python/', 'https://codesamplez.com/programming/python-asyncio-tutorial', 'https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html']",
+    "ms": 4059
+  },
+  {
+    "tool": "discovery",
+    "test": "discover_AI最新技术趋势",
+    "status": "PASS",
+    "detail": "found=5, urls=['https://www.aibase.com/zh/daily', 'https://aivertical.chinacloudsites.cn/', 'https://zhuanlan.zhihu.com/p/2021956366105866774']",
+    "ms": 6234
+  },
+  {
+    "tool": "intent",
+    "test": "classify_Python异步编程",
+    "status": "PASS",
+    "detail": "got=informational, expected=informational",
+    "ms": 1
+  },
+  {
+    "tool": "intent",
+    "test": "classify_今天的科技新闻",
+    "status": "PASS",
+    "detail": "got=news, expected=news",
+    "ms": 0
+  },
+  {
+    "tool": "intent",
+    "test": "classify_iPhone 16 ",
+    "status": "WARN",
+    "detail": "got=informational, expected=transactional",
+    "ms": 0
+  },
+  {
+    "tool": "intent",
+    "test": "classify_GitHub热门项目",
+    "status": "WARN",
+    "detail": "got=informational, expected=code",
+    "ms": 0
+  },
+  {
+    "tool": "intent",
+    "test": "classify_如何使用Docker",
+    "status": "PASS",
+    "detail": "got=informational, expected=informational",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "load_registry",
+    "status": "PASS",
+    "detail": "total_sites=67",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_zhihu.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_weibo.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_github.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_twitter.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_reddit.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_youtube.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_bilibili.com",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_arxiv.org",
+    "status": "PASS",
+    "detail": "found, engines=?",
+    "ms": 0
+  },
+  {
+    "tool": "bb-browser",
+    "test": "health_check",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "bb-browser",
+    "test": "fetch_example",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "bb-browser",
+    "test": "search_baidu",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "opencli",
+    "test": "health_check",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "opencli",
+    "test": "fetch_github",
+    "status": "FAIL",
+    "detail": "name 'os' is not defined",
+    "ms": 0
+  },
+  {
+    "tool": "opencli",
+    "test": "search_github",
+    "status": "WARN",
+    "detail": "results=0",
+    "ms": 0
+  },
+  {
+    "tool": "scrapling",
+    "test": "health_check",
+    "status": "PASS",
+    "detail": "healthy=True",
+    "ms": 1373
+  },
+  {
+    "tool": "scrapling",
+    "test": "fetch_example",
+    "status": "WARN",
+    "detail": "ok=False, text_len=0",
+    "ms": 4140
+  },
+  {
+    "tool": "pipeline",
+    "test": "research_asyncio",
+    "status": "WARN",
+    "detail": "total=0, success=0",
+    "ms": 8205
+  },
+  {
+    "tool": "cn_sites",
+    "test": "zhihu_hot",
+    "status": "WARN",
+    "detail": "engine=, len=0, ok=False",
+    "ms": 182
+  },
+  {
+    "tool": "cn_sites",
+    "test": "bilibili_main",
+    "status": "WARN",
+    "detail": "engine=scrapling-http, len=0, ok=True",
+    "ms": 270
+  },
+  {
+    "tool": "errors",
+    "test": "nonexistent_domain",
+    "status": "PASS",
+    "detail": "ok=False, err=All engines exhausted. Last error: No module named 'patchright'",
+    "ms": 4618
+  },
+  {
+    "tool": "errors",
+    "test": "http_404",
+    "status": "PASS",
+    "detail": "ok=False, err=All engines exhausted. Last error: No module named 'patchright'",
+    "ms": 1415
+  },
+  {
+    "tool": "errors",
+    "test": "invalid_url",
+    "status": "PASS",
+    "detail": "ok=False, err=All engines exhausted. Last error: No module named 'patchright'",
+    "ms": 10218
+  }
+]

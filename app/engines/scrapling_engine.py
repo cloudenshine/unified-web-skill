@@ -48,6 +48,16 @@ def _is_cn_domain(url: str) -> bool:
     return any(host == d or host.endswith("." + d) for d in _CN_DOMAINS)
 
 
+def _extract_text_from_html(html: str) -> str:
+    """Best-effort plain text extraction from HTML without external deps."""
+    import re
+    text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.S | re.I)
+    text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.S | re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
 class ScraplingEngine(BaseEngine):
     """3-tier Scrapling engine: HTTP → Dynamic → Stealth."""
 
@@ -140,11 +150,14 @@ class ScraplingEngine(BaseEngine):
         )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
+        text = resp.get_all_text(" ") if hasattr(resp, "get_all_text") else ""
+        if not text and html:
+            text = _extract_text_from_html(html)
         status = resp.status
         blocked = _is_blocked(status, html)
         return FetchResult(
             ok=not blocked and status < 400,
-            url=url, engine="scrapling-http", html=html,
+            url=url, engine="scrapling-http", html=html, text=text,
             status=status, duration_ms=dur,
             error="blocked" if blocked else "",
         )
@@ -159,11 +172,14 @@ class ScraplingEngine(BaseEngine):
         )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
+        text = resp.get_all_text(" ") if hasattr(resp, "get_all_text") else ""
+        if not text and html:
+            text = _extract_text_from_html(html)
         status = resp.status
         blocked = _is_blocked(status, html)
         return FetchResult(
             ok=not blocked and status < 400,
-            url=url, engine="scrapling-dynamic", html=html,
+            url=url, engine="scrapling-dynamic", html=html, text=text,
             status=status, duration_ms=dur,
             error="blocked" if blocked else "",
         )
@@ -178,11 +194,14 @@ class ScraplingEngine(BaseEngine):
         )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
+        text = resp.get_all_text(" ") if hasattr(resp, "get_all_text") else ""
+        if not text and html:
+            text = _extract_text_from_html(html)
         status = resp.status
         blocked = _is_blocked(status, html)
         return FetchResult(
             ok=not blocked and status < 400,
-            url=url, engine="scrapling-stealth", html=html,
+            url=url, engine="scrapling-stealth", html=html, text=text,
             status=status, duration_ms=dur,
             error="blocked" if blocked else "",
         )

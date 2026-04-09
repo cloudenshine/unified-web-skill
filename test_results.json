@@ -1,0 +1,261 @@
+[
+  {
+    "tool": "engine_init",
+    "test": "opencli_register",
+    "status": "PASS",
+    "detail": "caps=['search', 'fetch', 'structured']",
+    "ms": 0
+  },
+  {
+    "tool": "engine_init",
+    "test": "bb-browser_register",
+    "status": "PASS",
+    "detail": "caps=['interact', 'search', 'fetch', 'structured']",
+    "ms": 0
+  },
+  {
+    "tool": "engine_init",
+    "test": "clibrowser_register",
+    "status": "PASS",
+    "detail": "caps=['search', 'fetch']",
+    "ms": 0
+  },
+  {
+    "tool": "engine_init",
+    "test": "scrapling_register",
+    "status": "PASS",
+    "detail": "caps=['fetch']",
+    "ms": 0
+  },
+  {
+    "tool": "health_check",
+    "test": "opencli_health",
+    "status": "WARN",
+    "detail": "healthy=False",
+    "ms": 6
+  },
+  {
+    "tool": "health_check",
+    "test": "bb-browser_health",
+    "status": "WARN",
+    "detail": "healthy=False",
+    "ms": 2
+  },
+  {
+    "tool": "health_check",
+    "test": "clibrowser_health",
+    "status": "WARN",
+    "detail": "healthy=False",
+    "ms": 2
+  },
+  {
+    "tool": "health_check",
+    "test": "scrapling_health",
+    "status": "WARN",
+    "detail": "healthy=False",
+    "ms": 14
+  },
+  {
+    "tool": "engine_status",
+    "test": "get_status",
+    "status": "PASS",
+    "detail": "{\"status\": \"ok\", \"version\": \"3.0.0\", \"engines\": [\"bb-browser\", \"opencli\", \"scrapling\", \"clibrowser\"], \"count\": 4}",
+    "ms": 0
+  },
+  {
+    "tool": "web_fetch",
+    "test": "simple_html",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 7
+  },
+  {
+    "tool": "web_fetch",
+    "test": "httpbin_html",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 3
+  },
+  {
+    "tool": "web_fetch",
+    "test": "json_api",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 4
+  },
+  {
+    "tool": "intent_classify",
+    "test": "classify_Python异步编程",
+    "status": "PASS",
+    "detail": "intent=informational, expected_hint=academic/code",
+    "ms": 2
+  },
+  {
+    "tool": "intent_classify",
+    "test": "classify_今天的科技新闻",
+    "status": "PASS",
+    "detail": "intent=news, expected_hint=news",
+    "ms": 0
+  },
+  {
+    "tool": "intent_classify",
+    "test": "classify_iPhone 16 ",
+    "status": "PASS",
+    "detail": "intent=transactional, expected_hint=shopping",
+    "ms": 0
+  },
+  {
+    "tool": "web_search",
+    "test": "search_Python asyncio ",
+    "status": "WARN",
+    "detail": "found=0 urls",
+    "ms": 1392
+  },
+  {
+    "tool": "web_search",
+    "test": "search_最新AI技术趋势",
+    "status": "WARN",
+    "detail": "found=0 urls",
+    "ms": 1620
+  },
+  {
+    "tool": "web_cli",
+    "test": "opencli_wikipedia",
+    "status": "WARN",
+    "detail": "results=0",
+    "ms": 0
+  },
+  {
+    "tool": "web_cli",
+    "test": "opencli_github",
+    "status": "WARN",
+    "detail": "results=0",
+    "ms": 0
+  },
+  {
+    "tool": "web_cli",
+    "test": "bb-browser_google",
+    "status": "WARN",
+    "detail": "results=0",
+    "ms": 23
+  },
+  {
+    "tool": "web_crawl",
+    "test": "crawl_example.com",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 3
+  },
+  {
+    "tool": "research",
+    "test": "pipeline_What is Python async",
+    "status": "FAIL",
+    "detail": "ResearchPipeline.run() got an unexpected keyword argument 'query'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "load_registry",
+    "status": "PASS",
+    "detail": "sites=0",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_zhihu.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_weibo.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_github.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_twitter.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_reddit.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_youtube.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_bilibili.com",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "site_registry",
+    "test": "lookup_arxiv.org",
+    "status": "FAIL",
+    "detail": "'SiteRegistry' object has no attribute 'lookup'",
+    "ms": 0
+  },
+  {
+    "tool": "cn_sites",
+    "test": "zhihu_hot",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 21
+  },
+  {
+    "tool": "cn_sites",
+    "test": "weibo_hot",
+    "status": "FAIL",
+    "detail": "'FetchResult' object has no attribute 'content'",
+    "ms": 4
+  },
+  {
+    "tool": "edge_cases",
+    "test": "nonexistent_domain",
+    "status": "WARN",
+    "detail": "unexpected AttributeError: 'FetchResult' object has no attribute 'content'",
+    "ms": 0
+  },
+  {
+    "tool": "edge_cases",
+    "test": "http_404",
+    "status": "WARN",
+    "detail": "unexpected AttributeError: 'FetchResult' object has no attribute 'content'",
+    "ms": 1
+  },
+  {
+    "tool": "edge_cases",
+    "test": "http_500",
+    "status": "WARN",
+    "detail": "unexpected AttributeError: 'FetchResult' object has no attribute 'content'",
+    "ms": 1
+  },
+  {
+    "tool": "edge_cases",
+    "test": "invalid_url",
+    "status": "WARN",
+    "detail": "unexpected AttributeError: 'FetchResult' object has no attribute 'content'",
+    "ms": 0
+  }
+]

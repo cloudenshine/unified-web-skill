@@ -1,0 +1,196 @@
+{
+  "total": 31,
+  "passed": 28,
+  "failed": 0,
+  "warned": 3,
+  "skipped": 0,
+  "pass_rate": "90.3%",
+  "results": [
+    {
+      "name": "import_base",
+      "status": "PASS",
+      "detail": "FetchResult, SearchResult, BaseEngine, Engine OK",
+      "duration_ms": 0
+    },
+    {
+      "name": "import_scrapling",
+      "status": "PASS",
+      "detail": "ScraplingEngine OK",
+      "duration_ms": 0
+    },
+    {
+      "name": "import_bb",
+      "status": "PASS",
+      "detail": "BBBrowserEngine OK",
+      "duration_ms": 0
+    },
+    {
+      "name": "import_opencli",
+      "status": "PASS",
+      "detail": "OpenCLIEngine OK",
+      "duration_ms": 0
+    },
+    {
+      "name": "engine_manager_init",
+      "status": "PASS",
+      "detail": "EngineManager created, 3 engines: ['scrapling', 'bb-browser', 'opencli']",
+      "duration_ms": 0
+    },
+    {
+      "name": "engine_registered_scrapling",
+      "status": "PASS",
+      "detail": "Engine 'scrapling' registered",
+      "duration_ms": 0
+    },
+    {
+      "name": "engine_registered_bb-browser",
+      "status": "PASS",
+      "detail": "Engine 'bb-browser' registered",
+      "duration_ms": 0
+    },
+    {
+      "name": "engine_registered_opencli",
+      "status": "PASS",
+      "detail": "Engine 'opencli' registered",
+      "duration_ms": 0
+    },
+    {
+      "name": "scrapling_httpbin",
+      "status": "PASS",
+      "detail": "ok=True status=200 html=3713ch text=3614ch engine=scrapling-http",
+      "duration_ms": 1916.3
+    },
+    {
+      "name": "scrapling_wikipedia",
+      "status": "PASS",
+      "detail": "ok=True text=5812ch html=126552ch",
+      "duration_ms": 1261.1
+    },
+    {
+      "name": "bb_health",
+      "status": "PASS",
+      "detail": "health=True",
+      "duration_ms": 288.1
+    },
+    {
+      "name": "bb_fetch",
+      "status": "PASS",
+      "detail": "ok=True text=208ch",
+      "duration_ms": 561.0
+    },
+    {
+      "name": "bb_search",
+      "status": "WARN",
+      "detail": "0 results returned",
+      "duration_ms": 432.8
+    },
+    {
+      "name": "opencli_health",
+      "status": "PASS",
+      "detail": "health=True",
+      "duration_ms": 1254.6
+    },
+    {
+      "name": "opencli_fetch",
+      "status": "WARN",
+      "detail": "ok=False error=unsupported domain for opencli: https://httpbin.org/html",
+      "duration_ms": 0.1
+    },
+    {
+      "name": "ddgs_search",
+      "status": "PASS",
+      "detail": "5 URLs discovered, first=https://www.scrapingbee.com/blog/web-scraping-101-with-pytho",
+      "duration_ms": 6341.8
+    },
+    {
+      "name": "registry_loaded",
+      "status": "PASS",
+      "detail": "67 sites loaded",
+      "duration_ms": 0
+    },
+    {
+      "name": "registry_zhihu",
+      "status": "PASS",
+      "detail": "zhihu=found",
+      "duration_ms": 0
+    },
+    {
+      "name": "registry_github",
+      "status": "PASS",
+      "detail": "github=found",
+      "duration_ms": 0
+    },
+    {
+      "name": "intent_latest_AI_news_2024",
+      "status": "PASS",
+      "detail": "intent=news",
+      "duration_ms": 0
+    },
+    {
+      "name": "intent_什么是机器学习",
+      "status": "PASS",
+      "detail": "intent=informational",
+      "duration_ms": 0
+    },
+    {
+      "name": "intent_buy_iPhone_15_best_p",
+      "status": "PASS",
+      "detail": "intent=transactional",
+      "duration_ms": 0
+    },
+    {
+      "name": "intent_Python_tutorial_for_",
+      "status": "PASS",
+      "detail": "intent=informational",
+      "duration_ms": 0
+    },
+    {
+      "name": "pipeline_research",
+      "status": "PASS",
+      "detail": "discovered=5 collected=2 records=2 engines={'scrapling-http': 2} duration=8.13s",
+      "duration_ms": 8258.0
+    },
+    {
+      "name": "pipeline_first_record",
+      "status": "PASS",
+      "detail": "url=https://realpython.com/async-io-python/ text=10000ch engine=scrapling-http",
+      "duration_ms": 0
+    },
+    {
+      "name": "mgr_fetch_fallback",
+      "status": "PASS",
+      "detail": "ok=True engine=scrapling-http text=3614ch",
+      "duration_ms": 1466.6
+    },
+    {
+      "name": "cn_baidu",
+      "status": "PASS",
+      "detail": "ok text=257942ch html=617876ch",
+      "duration_ms": 272.5
+    },
+    {
+      "name": "cn_bilibili",
+      "status": "PASS",
+      "detail": "ok text=847ch html=109021ch",
+      "duration_ms": 286.4
+    },
+    {
+      "name": "mcp_health",
+      "status": "WARN",
+      "detail": "HTTP health check failed: 'list' object has no attribute 'keys' (MCP may be stdio-only)",
+      "duration_ms": 0
+    },
+    {
+      "name": "error_bad_url",
+      "status": "PASS",
+      "detail": "ok=False error=No module named 'patchright'",
+      "duration_ms": 10193.4
+    },
+    {
+      "name": "error_timeout",
+      "status": "PASS",
+      "detail": "ok=False error=No module named 'patchright'",
+      "duration_ms": 32049.6
+    }
+  ]
+}

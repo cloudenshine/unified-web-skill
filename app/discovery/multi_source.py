@@ -165,28 +165,26 @@ class MultiSourceDiscovery:
         # If an engine_manager is wired up, delegate to it
         if self._engine_manager is not None:
             try:
-                raw = await self._engine_manager.search(
-                    engine=engine, query=query, max_results=max_results, language=language
+                raw = await self._engine_manager.search_multi(
+                    query=query, engines=[engine], max_results=max_results, language=language
                 )
-                return [
-                    SearchResult(
-                        url=r.get("url", ""),
-                        title=r.get("title", ""),
-                        snippet=r.get("snippet", ""),
-                        source_engine=engine,
-                        rank=idx,
-                    )
-                    for idx, r in enumerate(raw)
-                    if r.get("url")
-                ]
+                if raw:
+                    return [
+                        SearchResult(
+                            url=r.url,
+                            title=r.title,
+                            snippet=r.snippet,
+                            source_engine=engine,
+                            rank=idx,
+                        )
+                        for idx, r in enumerate(raw)
+                        if r.url
+                    ]
             except Exception as exc:
                 _logger.warning("engine_manager.search(%s) failed: %s", engine, exc)
 
-        # Fallback: DuckDuckGo direct search
-        if engine in ("duckduckgo", "google", "bing", "baidu"):
-            return await self._search_duckduckgo(query, max_results=max_results, language=language)
-
-        return []
+        # Universal fallback: always try DuckDuckGo when the named engine yields nothing
+        return await self._search_duckduckgo(query, max_results=max_results, language=language)
 
     async def _search_duckduckgo(
         self, query: str, max_results: int = 10, language: str = "zh"
@@ -208,27 +206,31 @@ class MultiSourceDiscovery:
 
     @staticmethod
     def _ddgs_text(query: str, max_results: int, language: str) -> list[SearchResult]:
-        """Synchronous wrapper around ``duckduckgo_search.DDGS``."""
+        """Synchronous wrapper around ``ddgs.DDGS`` (or legacy ``duckduckgo_search``)."""
+        DDGS = None
         try:
-            from duckduckgo_search import DDGS  # type: ignore[import-untyped]
+            from ddgs import DDGS  # type: ignore[import-untyped]
         except ImportError:
-            _logger.debug("duckduckgo-search not installed; skipping fallback")
-            return []
+            try:
+                from duckduckgo_search import DDGS  # type: ignore[import-untyped]
+            except ImportError:
+                _logger.debug("neither ddgs nor duckduckgo-search installed; skipping")
+                return []
 
         region = "cn-zh" if language == "zh" else "wt-wt"
         results: list[SearchResult] = []
         try:
-            with DDGS() as ddgs:
-                for idx, r in enumerate(ddgs.text(query, region=region, max_results=max_results)):
-                    results.append(
-                        SearchResult(
-                            url=r.get("href", ""),
-                            title=r.get("title", ""),
-                            snippet=r.get("body", ""),
-                            source_engine="duckduckgo",
-                            rank=idx,
-                        )
+            ddgs = DDGS()
+            for idx, r in enumerate(ddgs.text(query, region=region, max_results=max_results)):
+                results.append(
+                    SearchResult(
+                        url=r.get("href", r.get("link", "")),
+                        title=r.get("title", ""),
+                        snippet=r.get("body", r.get("snippet", "")),
+                        source_engine="duckduckgo",
+                        rank=idx,
                     )
+                )
         except Exception as exc:
             _logger.warning("DDGS.text() error: %s", exc)
         return results

@@ -59,9 +59,10 @@ class SiteRegistry:
 
     @classmethod
     def get_instance(cls) -> SiteRegistry:
-        """Return the global singleton, creating it if needed."""
+        """Return the global singleton, creating and loading builtins if needed."""
         if cls._instance is None:
             cls._instance = cls()
+            cls._instance.load_builtin()
         return cls._instance
 
     @classmethod

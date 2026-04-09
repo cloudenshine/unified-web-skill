@@ -16,6 +16,7 @@ import contextlib
 import enum
 import hashlib
 import logging
+import os
 import time
 from dataclasses import dataclass, field
 from typing import Any, Optional, Protocol, runtime_checkable
@@ -280,11 +281,30 @@ class BaseEngine(abc.ABC):
     async def _run_subprocess(
         self, cmd: list[str], *, timeout: int = 30
     ) -> tuple[int, str, str]:
-        """Run a subprocess with timeout protection. Returns (returncode, stdout, stderr)."""
+        """Run a subprocess with timeout protection. Returns (returncode, stdout, stderr).
+
+        On Windows, automatically resolves npm-style `.cmd` wrappers when a bare
+        binary name is supplied (e.g. ``bb-browser`` → ``bb-browser.cmd``).
+        """
+        import shutil
+        import sys
+
+        resolved_cmd = list(cmd)
+        binary = resolved_cmd[0]
+
+        # On Windows, bare binary names from npm need .cmd extension
+        if sys.platform == "win32" and not os.path.isabs(binary):
+            # Try to find the .cmd wrapper
+            for ext in (".cmd", ".bat", ".exe", ""):
+                found = shutil.which(binary + ext)
+                if found:
+                    resolved_cmd[0] = found
+                    break
+
         proc: asyncio.subprocess.Process | None = None
         try:
             proc = await asyncio.create_subprocess_exec(
-                *cmd,
+                *resolved_cmd,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )
