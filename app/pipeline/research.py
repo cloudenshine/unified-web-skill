@@ -15,7 +15,7 @@ Flow:
 import asyncio
 import logging
 import time
-from typing import Optional
+from typing import Any, Callable, Coroutine, Optional
 from urllib.parse import urlparse
 
 from ..models import ResearchTask, ResearchRecord, ResearchResult, ResearchStats
@@ -48,11 +48,32 @@ class ResearchPipeline:
         self._rate_limiter = DomainRateLimiter()
         self._registry = SiteRegistry.get_instance()
 
-    async def run(self, task: ResearchTask) -> ResearchResult:
+    # Type alias for the progress callback (e.g. Context.report_progress)
+    ProgressCb = Callable[..., Coroutine[Any, Any, None]]
+
+    async def run(
+        self,
+        task: ResearchTask,
+        progress_cb: Optional[ProgressCb] = None,
+    ) -> ResearchResult:
         """Execute complete research pipeline."""
         start = time.monotonic()
         stats = ResearchStats()
         records: list[ResearchRecord] = []
+
+        # Helper: report progress to MCP client so it resets its 60s timeout.
+        _step = 0
+        _total_steps = 5  # intent + expand + discover + fetch + save
+
+        async def _progress(step_label: str) -> None:
+            nonlocal _step
+            _step += 1
+            if progress_cb is not None:
+                try:
+                    await progress_cb(_step, _total_steps)
+                except Exception:
+                    pass  # never let progress reporting break the pipeline
+            _logger.info("Progress %d/%d: %s", _step, _total_steps, step_label)
 
         _logger.info("Starting research: query='%s', lang=%s", task.query, task.language)
 
@@ -60,6 +81,7 @@ class ResearchPipeline:
             # Step 1: Classify intent
             intent = self._classifier.classify(task.query, task.language)
             _logger.info("Intent: %s", intent.value)
+            await _progress("intent classified")
 
             # Step 2: Expand queries (intent-aware)
             queries = self._planner.expand(
@@ -69,6 +91,7 @@ class ResearchPipeline:
                 intent=intent,
             )
             _logger.info("Expanded to %d queries", len(queries))
+            await _progress("queries expanded")
 
             # Step 3: Discover URLs via multi-source search
             candidates = await self._discovery.discover(
@@ -84,14 +107,17 @@ class ResearchPipeline:
                 len(candidates),
                 len(stats.search_engines_used),
             )
+            await _progress("URLs discovered")
 
             # Step 4: Apply domain filters
             candidates = self._apply_filters(candidates, task)
 
             # Step 5: Concurrent fetch with EngineManager fallback
             sem = asyncio.Semaphore(task.max_concurrency)
+            _fetch_done = 0
 
             async def _fetch_one(url: str, credibility: float) -> Optional[ResearchRecord]:
+                nonlocal _fetch_done
                 async with sem:
                     try:
                         # Rate limit per domain
@@ -148,12 +174,25 @@ class ResearchPipeline:
                     except Exception as exc:
                         _logger.warning("Unexpected error fetching %s: %s", url, exc)
                         return None
+                    finally:
+                        # Report per-page progress to keep MCP timeout alive
+                        _fetch_done += 1
+                        if progress_cb is not None:
+                            try:
+                                await progress_cb(_fetch_done, _total_fetch)
+                            except Exception:
+                                pass
 
             # Calculate credibility scores for candidates
             candidate_list = [
                 (c.url, score_credibility(c.url, trusted_mode=task.trusted_mode))
                 for c in candidates[:task.max_pages]
             ]
+            _total_fetch = len(candidate_list)
+
+            # Update total steps for progress reporting
+            _total_steps = _total_fetch + 2  # fetch pages + dedup + save
+            _step = 0  # reset for fetch phase
 
             # Execute concurrent fetches
             tasks_list = [_fetch_one(url, cred) for url, cred in candidate_list]
@@ -177,6 +216,8 @@ class ResearchPipeline:
                 durations = [r.fetch_duration_ms for r in records if r.fetch_duration_ms > 0]
                 stats.avg_fetch_ms = round(sum(durations) / len(durations), 2) if durations else 0
 
+            await _progress("fetch & quality complete")
+
         except Exception as exc:
             _logger.error("Pipeline error: %s", exc, exc_info=True)
 
@@ -196,6 +237,7 @@ class ResearchPipeline:
         except Exception as exc:
             _logger.error("Storage error: %s", exc)
 
+        await _progress("results saved")
         _logger.info("Research complete: %d records in %ss", len(records), stats.total_duration_s)
         return result
 

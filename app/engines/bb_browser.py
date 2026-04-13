@@ -83,6 +83,11 @@ class BBBrowserEngine(BaseEngine):
 
     # ------------------------------------------------------------------
 
+    async def _daemon_available(self) -> bool:
+        """Quick check if bb-browser daemon is running (subprocess-based, non-blocking)."""
+        rc, out, _ = await self._run_subprocess([self._bin, "daemon", "status"], timeout=5)
+        return rc == 0 and "running" in out.lower()
+
     async def health_check(self) -> bool:
         rc, out, _ = await self._run_subprocess([self._bin, "status"], timeout=10)
         if rc == 0:
@@ -106,7 +111,15 @@ class BBBrowserEngine(BaseEngine):
             if extra_args:
                 cmd.extend(extra_args)
         else:
-            # Generic URL fetch
+            # Generic URL fetch — requires daemon to be running
+            daemon_ok = await self._daemon_available()
+            if not daemon_ok:
+                dur = (time.monotonic() - t0) * 1000
+                return FetchResult(
+                    ok=False, url=url, engine=self.name,
+                    status=0, duration_ms=dur,
+                    error="bb-browser daemon not running (start with 'bb-browser daemon start')",
+                )
             cmd = [self._bin, "open", url, "--json"]
 
         rc, stdout, stderr = await self._run_subprocess(cmd, timeout=timeout)
@@ -124,6 +137,7 @@ class BBBrowserEngine(BaseEngine):
         text = stdout
         metadata: dict[str, Any] = {}
         if not platform:
+            # daemon must be running at this point (checked above)
             get_cmd = [self._bin, "get", "text", "--json"]
             rc2, text_out, _ = await self._run_subprocess(get_cmd, timeout=timeout)
             if rc2 == 0:
@@ -156,8 +170,9 @@ class BBBrowserEngine(BaseEngine):
         elif search_engine and search_engine in _SEARCH_ENGINES:
             adapter = _SEARCH_ENGINES[search_engine]
         else:
-            # Default: google for English, baidu for Chinese
-            adapter = "baidu/search" if language == "zh" else "google/search"
+            # Default: baidu for Chinese, duckduckgo for English
+            # (google/search is unreliable due to anti-bot detection)
+            adapter = "baidu/search" if language == "zh" else "duckduckgo/search"
 
         cmd = [self._bin, "site", adapter, query, "--json"]
         rc, stdout, stderr = await self._run_subprocess(cmd, timeout=30)

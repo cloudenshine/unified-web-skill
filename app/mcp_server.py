@@ -24,15 +24,16 @@ import time
 from typing import Any
 from urllib.parse import urljoin, urlparse
 
-from . import config
+from . import __version__, config
 from .models import ResearchTask, ResearchResult
 
 # MCP import with graceful fallback
 try:
-    from mcp.server.fastmcp import FastMCP
+    from mcp.server.fastmcp import FastMCP, Context
     HAS_MCP = True
 except ImportError:
     HAS_MCP = False
+    Context = None  # type: ignore[assignment,misc]
 
 logging.basicConfig(
     level=logging.INFO,
@@ -134,6 +135,7 @@ if mcp is not None:
     @mcp.tool()
     async def research_and_collect(
         query: str,
+        ctx: Context,
         language: str = "zh",
         max_sources: int = 30,
         max_pages: int = 20,
@@ -205,7 +207,7 @@ if mcp is not None:
                 from .research_pipeline import ResearchPipeline  # type: ignore[no-redef]
 
             pipeline = ResearchPipeline(engine_manager=em)
-            result: ResearchResult = await pipeline.run(task)
+            result: ResearchResult = await pipeline.run(task, progress_cb=ctx.report_progress)
 
             return {
                 "ok": True,
@@ -795,7 +797,7 @@ def _start_http():
         return JSONResponse({
             "status": "ok",
             "service": "unified-web-skill",
-            "version": "3.1.0",
+            "version": __version__,
             "engines": engine_names,
             "engine_count": len(engine_names),
             "cache": cache_info,

@@ -36,7 +36,7 @@ _DEFAULT_FETCH_PRIORITY: list[str] = [
     "lightpanda",      # CDP-based lightweight browser
     "scrapling_pw",    # Scrapling Playwright tier
     "scrapling_stealth",  # Scrapling StealthyFetcher
-    "clibrowser",      # zero-dependency CLI fallback
+    # "clibrowser",    # disabled: binary not available
 ]
 
 # Priority for Chinese-heavy sites (when not in site registry)
@@ -45,7 +45,7 @@ _CHINESE_FETCH_PRIORITY: list[str] = [
     "scrapling_pw",
     "scrapling_stealth",
     "scrapling",
-    "clibrowser",
+    # "clibrowser",    # disabled: binary not available
 ]
 
 # Engines that support interactive actions
