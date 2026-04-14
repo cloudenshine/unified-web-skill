@@ -15,6 +15,7 @@ Flow:
 import asyncio
 import logging
 import time
+import inspect
 from typing import Any, Callable, Coroutine, Optional
 from urllib.parse import urlparse
 
@@ -70,7 +71,9 @@ class ResearchPipeline:
             _step += 1
             if progress_cb is not None:
                 try:
-                    await progress_cb(_step, _total_steps)
+                    result = progress_cb(_step, _total_steps)
+                    if inspect.isawaitable(result):
+                        await result
                 except Exception:
                     pass  # never let progress reporting break the pipeline
             _logger.info("Progress %d/%d: %s", _step, _total_steps, step_label)
@@ -179,7 +182,9 @@ class ResearchPipeline:
                         _fetch_done += 1
                         if progress_cb is not None:
                             try:
-                                await progress_cb(_fetch_done, _total_fetch)
+                                result = progress_cb(_fetch_done, _total_fetch)
+                                if inspect.isawaitable(result):
+                                    await result
                             except Exception:
                                 pass
 

@@ -135,7 +135,6 @@ if mcp is not None:
     @mcp.tool()
     async def research_and_collect(
         query: str,
-        ctx: Context,
         language: str = "zh",
         max_sources: int = 30,
         max_pages: int = 20,
@@ -151,6 +150,7 @@ if mcp is not None:
         search_engines: str = "",
         enable_stealth: bool = False,
         max_concurrency: int = 5,
+        ctx: Context = None,
     ) -> dict:
         """Complete research pipeline: query expansion → multi-source discovery → concurrent fetch → quality validation → structured output.
 
@@ -207,7 +207,8 @@ if mcp is not None:
                 from .research_pipeline import ResearchPipeline  # type: ignore[no-redef]
 
             pipeline = ResearchPipeline(engine_manager=em)
-            result: ResearchResult = await pipeline.run(task, progress_cb=ctx.report_progress)
+            progress_cb = ctx.report_progress if ctx is not None else None
+            result: ResearchResult = await pipeline.run(task, progress_cb=progress_cb)
 
             return {
                 "ok": True,
