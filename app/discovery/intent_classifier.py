@@ -151,7 +151,7 @@ def _compile_patterns() -> dict[QueryIntent, list[re.Pattern[str]]]:
 
 _SOURCE_MAP: dict[tuple[QueryIntent, str], list[str]] = {
     # zh
-    (QueryIntent.INFORMATIONAL, "zh"): ["baidu", "zhihu", "google", "wikipedia"],
+    (QueryIntent.INFORMATIONAL, "zh"): ["baidu", "zhihu", "google"],
     (QueryIntent.NAVIGATIONAL, "zh"):  ["baidu", "google"],
     (QueryIntent.TRANSACTIONAL, "zh"): ["taobao", "jd", "smzdm", "baidu"],
     (QueryIntent.NEWS, "zh"):          ["baidu", "toutiao", "36kr", "weibo"],

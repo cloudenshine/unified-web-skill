@@ -129,31 +129,40 @@ class MultiSourceDiscovery:
     async def _dispatch_search(
         self, engine: str, query: str, max_results: int, language: str
     ) -> list[SearchResult]:
-        """Route a search to the appropriate backend."""
+        """Route a search to the appropriate backend.
+
+        Only dispatches to the *named* engine if it is registered and has
+        SEARCH capability.  Unknown engine names (e.g. "baidu", "toutiao")
+        are silently skipped rather than triggering a full all-engines search.
+        """
         if self._engine_manager is not None:
             try:
-                # Check if the named engine exists; if not, use any SEARCH-capable engine
-                em_engine = self._engine_manager.get_engine(engine) if hasattr(self._engine_manager, 'get_engine') else None
-                engine_list = [engine] if em_engine else None
-                raw = await self._engine_manager.search_multi(
-                    query=query, engines=engine_list, max_results=max_results, language=language
+                em_engine = (
+                    self._engine_manager.get_engine(engine)
+                    if hasattr(self._engine_manager, "get_engine")
+                    else None
                 )
-                if raw:
-                    return [
-                        SearchResult(
-                            url=r.url,
-                            title=r.title,
-                            snippet=r.snippet,
-                            source=engine,
-                            rank=idx,
-                        )
-                        for idx, r in enumerate(raw)
-                        if r.url
-                    ]
+                if em_engine is not None:
+                    raw = await self._engine_manager.search_multi(
+                        query=query, engines=[engine], max_results=max_results, language=language
+                    )
+                    if raw:
+                        return [
+                            SearchResult(
+                                url=r.url,
+                                title=r.title,
+                                snippet=r.snippet,
+                                source=engine,
+                                rank=idx,
+                            )
+                            for idx, r in enumerate(raw)
+                            if r.url
+                        ]
+                # Named engine not registered — skip, do not fan out to all engines
             except Exception as exc:
                 _logger.warning("engine_manager.search(%s) failed: %s", engine, exc)
 
-        # Universal fallback: always try DuckDuckGo when the named engine yields nothing
+        # Fallback: use DuckDuckGo directly (only once per query, controlled by caller)
         return await self._search_duckduckgo(query, max_results=max_results, language=language)
 
     async def _search_duckduckgo(
@@ -162,14 +171,19 @@ class MultiSourceDiscovery:
         """Fallback: use ``duckduckgo-search`` library directly.
 
         Runs the synchronous DDGS call in a thread-pool executor so we
-        don't block the event loop.
+        don't block the event loop.  Capped at 12 s to prevent slow
+        DuckDuckGo responses from stalling the discovery phase.
         """
         loop = asyncio.get_running_loop()
         try:
-            results = await loop.run_in_executor(
-                None, self._ddgs_text, query, max_results, language
+            results = await asyncio.wait_for(
+                loop.run_in_executor(None, self._ddgs_text, query, max_results, language),
+                timeout=12.0,
             )
             return results
+        except asyncio.TimeoutError:
+            _logger.warning("duckduckgo search timed out for %r", query)
+            return []
         except Exception as exc:
             _logger.warning("duckduckgo fallback failed for %r: %s", query, exc)
             return []

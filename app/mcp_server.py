@@ -150,6 +150,7 @@ if mcp is not None:
         search_engines: str = "",
         enable_stealth: bool = False,
         max_concurrency: int = 5,
+        timeout_seconds: int = 15,
         ctx: Context = None,
     ) -> dict:
         """Complete research pipeline: query expansion → multi-source discovery → concurrent fetch → quality validation → structured output.
@@ -171,6 +172,7 @@ if mcp is not None:
             search_engines: Comma-separated search engine names to use.
             enable_stealth: Use stealth/anti-detection fetching.
             max_concurrency: Maximum concurrent fetch operations.
+            timeout_seconds: Per-URL fetch timeout in seconds.
 
         Returns:
             dict with keys: ok, query, records, stats, queries_used, output_files
@@ -196,6 +198,7 @@ if mcp is not None:
                 search_engines=_parse_csv(search_engines),
                 enable_stealth=enable_stealth,
                 max_concurrency=max_concurrency,
+                timeout_seconds=timeout_seconds,
             )
 
             em = _get_engine_manager()

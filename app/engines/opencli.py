@@ -35,7 +35,7 @@ class OpenCLIEngine(BaseEngine):
 
     def __init__(self) -> None:
         self._bin = os.environ.get("OPENCLI_BIN", "opencli")
-        self._timeout = int(os.environ.get("OPENCLI_TIMEOUT_SECONDS", "30"))
+        self._timeout = int(os.environ.get("OPENCLI_TIMEOUT_SECONDS", "12"))
         super().__init__()
 
     @property
@@ -56,7 +56,8 @@ class OpenCLIEngine(BaseEngine):
         return False
 
     async def fetch(self, url: str, *, timeout: int = 0, **opts: Any) -> FetchResult:
-        timeout = timeout or self._timeout
+        # Cap at self._timeout — callers must not extend it beyond the configured limit
+        timeout = min(timeout or self._timeout, self._timeout)
         t0 = time.monotonic()
         site = _domain_to_site(url)
         if site is None:

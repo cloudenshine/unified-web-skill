@@ -37,7 +37,14 @@ def _is_blocked(status: int, body: str) -> bool:
     if status in _BLOCK_STATUS:
         return True
     lower = (body or "").lower()
-    return any(m in lower for m in _BLOCK_MARKERS)
+    # Short pages (<3000 chars) may be genuine block/challenge pages.
+    # Longer pages that contain "cloudflare" are simply using Cloudflare CDN —
+    # checking every marker on them would produce false positives (e.g. claude.com).
+    if len(lower) < 3000:
+        return any(m in lower for m in _BLOCK_MARKERS)
+    # For full-length pages, only flag on unambiguous hard block markers.
+    hard_markers = ["captcha", "access denied", "ip has been blocked", "challenge-running"]
+    return any(m in lower for m in hard_markers)
 
 
 def _is_cn_domain(url: str) -> bool:
@@ -73,7 +80,7 @@ class ScraplingEngine(BaseEngine):
     """3-tier Scrapling engine: HTTP → Dynamic → Stealth."""
 
     def __init__(self) -> None:
-        self._timeout_http = int(os.environ.get("SCRAPLING_TIMEOUT_HTTP", "10"))
+        self._timeout_http = int(os.environ.get("SCRAPLING_TIMEOUT_HTTP", "8"))
         self._timeout_dynamic = int(os.environ.get("SCRAPLING_TIMEOUT_DYNAMIC", "30"))
         self._timeout_stealth = int(os.environ.get("SCRAPLING_TIMEOUT_STEALTH", "60"))
         # Fix SSL certs for curl_cffi on Windows

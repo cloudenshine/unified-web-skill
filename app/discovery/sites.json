@@ -906,8 +906,7 @@
       "m.youtube.com"
     ],
     "engines": [
-      "bb-browser",
-      "opencli"
+      "scrapling"
     ],
     "commands": {
       "search": "youtube/search",
