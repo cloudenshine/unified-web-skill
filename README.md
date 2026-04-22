@@ -88,22 +88,47 @@ python server_v2.py
 
 ## Integration
 
-### OpenClaw
+### Step 1 — Find your paths
 
-Add to `~/.openclaw/openclaw.json`:
+Before editing any config, run these commands to get the correct values for your machine:
+
+```bash
+# Python executable (use this as "command")
+where python          # Windows
+which python3         # macOS / Linux
+
+# Project directory (use this as "cwd")
+cd /path/to/unified-web-skill && pwd
+
+# bb-browser binary (if installed)
+where bb-browser      # Windows
+which bb-browser      # macOS / Linux
+
+# opencli binary (if installed)
+where opencli         # Windows
+which opencli         # macOS / Linux
+```
+
+> **Why absolute paths?**
+> OpenClaw and most GUI launchers spawn the MCP server as a subprocess with a minimal PATH
+> that often differs from your shell's PATH. Bare names like `"bb-browser"` work in the
+> terminal but silently fail when launched from a GUI. `core/probe.py` does attempt
+> auto-discovery, but explicit paths are the reliable fallback.
+
+---
+
+### OpenClaw (`~/.openclaw/openclaw.json`)
 
 ```json
 {
   "mcp": {
     "servers": {
       "unified-web-skill": {
-        "command": "C:\\Program Files\\Python312\\python.exe",
-        "args": ["E:\\path\\to\\unified-web-skill\\server_v2.py", "--stdio"],
-        "cwd": "E:\\path\\to\\unified-web-skill",
+        "command": "<absolute path to python or python3>",
+        "args": ["<absolute path to server_v2.py>", "--stdio"],
+        "cwd": "<absolute path to the unified-web-skill directory>",
         "env": {
-          "BB_BROWSER_BIN": "D:\\Programs\\npm\\bb-browser.CMD",
-          "OPENCLI_BIN": "D:\\Programs\\npm\\opencli.CMD",
-          "OUTPUT_DIR": "E:\\path\\to\\unified-web-skill\\outputs"
+          "OUTPUT_DIR": "<absolute path to unified-web-skill/outputs>"
         }
       }
     }
@@ -111,23 +136,98 @@ Add to `~/.openclaw/openclaw.json`:
 }
 ```
 
-> **Critical**: Use absolute paths for `command` and binary env vars.
-> Bare names like `"bb-browser"` fail when Node.js inherits a different PATH than your shell.
-> `core/probe.py` handles this automatically via `shutil.which()` + Windows npm fallbacks.
+If bb-browser / opencli are **not** on the system PATH of the process that launches OpenClaw,
+add their paths explicitly:
 
-### Claude Code
+```json
+"env": {
+  "BB_BROWSER_BIN": "<absolute path to bb-browser or bb-browser.CMD>",
+  "OPENCLI_BIN":    "<absolute path to opencli or opencli.CMD>",
+  "OUTPUT_DIR":     "<absolute path to unified-web-skill/outputs>"
+}
+```
+
+**Platform examples:**
+
+<details>
+<summary>Windows</summary>
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "unified-web-skill": {
+        "command": "C:\\Python312\\python.exe",
+        "args": ["C:\\Projects\\unified-web-skill\\server_v2.py", "--stdio"],
+        "cwd": "C:\\Projects\\unified-web-skill",
+        "env": {
+          "BB_BROWSER_BIN": "C:\\Users\\YourName\\AppData\\Roaming\\npm\\bb-browser.cmd",
+          "OPENCLI_BIN":    "C:\\Users\\YourName\\AppData\\Roaming\\npm\\opencli.cmd",
+          "OUTPUT_DIR":     "C:\\Projects\\unified-web-skill\\outputs"
+        }
+      }
+    }
+  }
+}
+```
+
+</details>
+
+<details>
+<summary>macOS / Linux</summary>
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "unified-web-skill": {
+        "command": "/usr/local/bin/python3",
+        "args": ["/home/yourname/projects/unified-web-skill/server_v2.py", "--stdio"],
+        "cwd": "/home/yourname/projects/unified-web-skill",
+        "env": {
+          "OUTPUT_DIR": "/home/yourname/projects/unified-web-skill/outputs"
+        }
+      }
+    }
+  }
+}
+```
+
+On macOS/Linux, `shutil.which()` usually finds bb-browser/opencli automatically if they
+are in `/usr/local/bin` or `~/.npm-global/bin`. Only add `BB_BROWSER_BIN` / `OPENCLI_BIN`
+if `python check_v2.py` reports Ring 2 as offline.
+
+</details>
+
+---
+
+### Claude Code (`.mcp.json` or project settings)
 
 ```json
 {
   "mcpServers": {
     "unified-web-skill": {
-      "command": "python",
+      "command": "python3",
       "args": ["server_v2.py", "--stdio"],
       "cwd": "/path/to/unified-web-skill"
     }
   }
 }
 ```
+
+Claude Code typically inherits the shell PATH, so bare `python3` usually works.
+Use the absolute Python path if you get "command not found" errors.
+
+---
+
+### Verify after configuration
+
+```bash
+python check_v2.py
+```
+
+All four rings should show `[OK] online`. If Ring 2 shows offline, set `BB_BROWSER_BIN`
+and `OPENCLI_BIN` to the absolute paths found with `where` / `which`.
 
 ---
 
