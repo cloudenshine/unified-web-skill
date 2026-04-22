@@ -1,12 +1,29 @@
+# ── Core MCP ──────────────────────────────────────────────────────────────
 mcp>=1.0.0
+
+# ── Ring 0: HTTP fetch + search ───────────────────────────────────────────
+httpx>=0.27.0
+ddgs>=9.0.0           # DuckDuckGo search (renamed from duckduckgo-search)
+
+# ── Ring 0: Content extraction ────────────────────────────────────────────
+beautifulsoup4>=4.12.0
+trafilatura>=1.6.0    # Rich article extraction (optional, improves quality)
+
+# ── Ring 1: Browser automation ────────────────────────────────────────────
+playwright>=1.40.0
+patchright>=1.50.0    # Stealth Chromium fork — Cloudflare/bot-detection bypass
+
+# ── Legacy v1 app/ engines (backward compat) ──────────────────────────────
 scrapling>=0.4.4
 pydantic>=2.0.0
-httpx>=0.27.0
-ddgs>=9.0.0
 curl_cffi>=0.15.0
 browserforge>=1.0.0
+
+# ── Optional: HTTP server mode ────────────────────────────────────────────
 fastapi>=0.111.0
 uvicorn>=0.30.0
 websockets>=12.0
+
+# ── Dev / testing ─────────────────────────────────────────────────────────
 pytest>=8.0.0
 pytest-asyncio>=0.23.0
