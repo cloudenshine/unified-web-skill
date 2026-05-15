@@ -35,7 +35,7 @@ class OpenCLIEngine(BaseEngine):
 
     def __init__(self) -> None:
         self._bin = os.environ.get("OPENCLI_BIN", "opencli")
-        self._timeout = int(os.environ.get("OPENCLI_TIMEOUT_SECONDS", "12"))
+        self._timeout = int(os.environ.get("OPENCLI_TIMEOUT_SECONDS", "20"))
         super().__init__()
 
     @property
@@ -54,6 +54,13 @@ class OpenCLIEngine(BaseEngine):
             self._logger.debug("opencli version: %s", out.strip())
             return True
         return False
+
+    async def version_info(self) -> dict[str, Any]:
+        return await self._version_from_command(
+            [self._bin, "--version"],
+            provider=self.name,
+            timeout=5,
+        )
 
     async def fetch(self, url: str, *, timeout: int = 0, **opts: Any) -> FetchResult:
         # Cap at self._timeout — callers must not extend it beyond the configured limit

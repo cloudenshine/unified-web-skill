@@ -1,0 +1,172 @@
+{
+  "now": "2026-05-14T00:00:00+00:00",
+  "created_at": "2026-05-14T00:00:00+00:00",
+  "task": {
+    "query": "global health news update",
+    "language": "en",
+    "max_sources": 10
+  },
+  "queries_used": [
+    "global health news update",
+    "WHO Reuters Guardian RSS"
+  ],
+  "stats": {
+    "total_discovered": 4,
+    "total_collected": 4,
+    "skipped_quality": 1,
+    "skipped_duplicate": 1,
+    "skipped_blocked": 1,
+    "engines_used": {
+      "scrapling-http": 4
+    }
+  },
+  "records": [
+    {
+      "url": "https://www.who.int/news/item/global-health-update",
+      "title": "WHO global health update",
+      "text": "WHO news fixture.",
+      "summary": "WHO news fixture.",
+      "text_length": 3600,
+      "published_at": "2026-05-14",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "rss",
+      "credibility": 0.74,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://www.reuters.com/world/health/global-health-update?utm_source=rss",
+      "title": "Reuters health report",
+      "text": "Reuters news fixture.",
+      "summary": "Reuters news fixture.",
+      "text_length": 4000,
+      "published_at": "2026-05-13",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "rss",
+      "credibility": 0.78,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://www.theguardian.com/world/2025/may/health-context",
+      "title": "Guardian health context",
+      "text": "Guardian news fixture.",
+      "summary": "Guardian news fixture.",
+      "text_length": 3200,
+      "published_at": "2025-05-20",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "rss",
+      "credibility": 0.68,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://www.reuters.com/world/health/global-health-update",
+      "title": "Reuters duplicate",
+      "text": "Duplicate news fixture.",
+      "summary": "Duplicate news fixture.",
+      "text_length": 2500,
+      "published_at": "2026-05-13",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "rss",
+      "credibility": 0.82,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    }
+  ],
+  "expected": {
+    "accepted_canonical_order": [
+      "https://www.reuters.com/world/health/global-health-update",
+      "https://www.who.int/news/item/global-health-update",
+      "https://www.theguardian.com/world/2025/may/health-context"
+    ],
+    "citation_canonical_order": [
+      "https://www.reuters.com/world/health/global-health-update",
+      "https://www.who.int/news/item/global-health-update",
+      "https://www.theguardian.com/world/2025/may/health-context"
+    ],
+    "rejected_records": [
+      {
+        "url": "https://www.reuters.com/world/health/global-health-update",
+        "reason": "duplicate_url",
+        "duplicate_of": "https://www.reuters.com/world/health/global-health-update"
+      }
+    ],
+    "score_breakdowns": [
+      {
+        "credibility": 0.44,
+        "credibility_calibration": 0.011,
+        "content_length": 0.25,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.462,
+        "credibility_calibration": 0.055,
+        "content_length": 0.225,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.385,
+        "credibility_calibration": 0.011,
+        "content_length": 0.2,
+        "freshness": 0.07,
+        "provider_trace": 0.1
+      }
+    ],
+    "stats": {
+      "source_count": 3,
+      "rejected_count": 1,
+      "engines_used": {
+        "scrapling-http": 4
+      },
+      "failure_stats": {
+        "skipped_quality": 1,
+        "skipped_duplicate": 1,
+        "skipped_blocked": 1
+      },
+      "rejection_reasons": {
+        "duplicate_url": 1
+      },
+      "language_distribution": {
+        "en": 3
+      },
+      "provider_distribution": {
+        "scrapling-http": 3
+      },
+      "source_type_distribution": {
+        "direct": 1,
+        "search": 2
+      },
+      "domain_distribution": {
+        "reuters.com": 1,
+        "theguardian.com": 1,
+        "who.int": 1
+      },
+      "score_summary": {
+        "count": 3,
+        "max": 0.89,
+        "min": 0.755,
+        "avg": 0.844,
+        "quality_buckets": {
+          "high": 2,
+          "medium": 1,
+          "low": 0
+        }
+      }
+    }
+  }
+}

@@ -66,6 +66,22 @@ def _url_to_platform(url: str) -> str | None:
     return None
 
 
+def _build_fetch_command(binary: str, url: str, opts: dict[str, Any]) -> list[str]:
+    """Build the bb-browser command for URL fetches.
+
+    Latest bb-browser requires a concrete site adapter such as
+    ``youtube/search``. Plain platform names like ``youtube`` are not valid
+    adapter commands, so ordinary URL fetches use the generic fetch path.
+    """
+    platform = _url_to_platform(url)
+    command = opts.get("command", "")
+    if platform and command:
+        adapter = f"{platform}/{command}"
+        extra_args: list[str] = opts.get("args", [])
+        return [binary, "site", adapter] + extra_args + ["--json"]
+    return [binary, "fetch", url]
+
+
 class BBBrowserEngine(BaseEngine):
     """Wraps the ``bb-browser`` CLI — 126+ site adapters, structured output."""
 
@@ -86,41 +102,27 @@ class BBBrowserEngine(BaseEngine):
     async def _daemon_available(self) -> bool:
         """Quick check if bb-browser daemon is running (subprocess-based, non-blocking)."""
         rc, out, _ = await self._run_subprocess([self._bin, "daemon", "status"], timeout=5)
-        return rc == 0 and "running" in out.lower()
+        normalized = out.lower()
+        return rc == 0 and "running" in normalized and "not running" not in normalized
 
     async def health_check(self) -> bool:
         rc, out, _ = await self._run_subprocess([self._bin, "status"], timeout=10)
-        if rc == 0:
+        normalized = out.lower()
+        if rc == 0 and "not running" not in normalized:
             return True
         # fallback: try daemon status
-        rc2, out2, _ = await self._run_subprocess([self._bin, "daemon", "status"], timeout=10)
-        return rc2 == 0
+        return await self._daemon_available()
+
+    async def version_info(self) -> dict[str, Any]:
+        return await self._version_from_command(
+            [self._bin, "--version"],
+            provider=self.name,
+            timeout=5,
+        )
 
     async def fetch(self, url: str, *, timeout: int = 30, **opts: Any) -> FetchResult:
         t0 = time.monotonic()
-        platform = _url_to_platform(url)
-
-        if platform:
-            command = opts.get("command", "")
-            if command:
-                adapter = f"{platform}/{command}"
-            else:
-                adapter = platform
-            cmd = [self._bin, "site", adapter, "--json"]
-            extra_args: list[str] = opts.get("args", [])
-            if extra_args:
-                cmd.extend(extra_args)
-        else:
-            # Generic URL fetch — requires daemon to be running
-            daemon_ok = await self._daemon_available()
-            if not daemon_ok:
-                dur = (time.monotonic() - t0) * 1000
-                return FetchResult(
-                    ok=False, url=url, engine=self.name,
-                    status=0, duration_ms=dur,
-                    error="bb-browser daemon not running (start with 'bb-browser daemon start')",
-                )
-            cmd = [self._bin, "open", url, "--json"]
+        cmd = _build_fetch_command(self._bin, url, opts)
 
         rc, stdout, stderr = await self._run_subprocess(cmd, timeout=timeout)
         dur = (time.monotonic() - t0) * 1000
@@ -133,15 +135,9 @@ class BBBrowserEngine(BaseEngine):
                 error=stderr[:300] or f"exit code {rc}",
             )
 
-        # For generic open, get text content
+        # For generic fetch, text is already in stdout (HTML)
         text = stdout
         metadata: dict[str, Any] = {}
-        if not platform:
-            # daemon must be running at this point (checked above)
-            get_cmd = [self._bin, "get", "text", "--json"]
-            rc2, text_out, _ = await self._run_subprocess(get_cmd, timeout=timeout)
-            if rc2 == 0:
-                text = text_out
 
         # Parse JSON if available
         try:

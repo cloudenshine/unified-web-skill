@@ -505,20 +505,25 @@ ENGINE_PRIORITY=bb-browser,opencli,scrapling,lightpanda,clibrowser
 
 ---
 
-## 引擎选择指南 / Engine Selection Guide
+## 引擎选择指南
 
-| 场景 | 推荐引擎 | 理由 |
-|------|---------|------|
-| 获取 B站/知乎/微博等中文站点数据 | bb-browser, opencli | 站点适配器，结构化输出 |
-| 通用网页抓取 | scrapling | 3 层降级，覆盖面广 |
-| 反爬严格的站点 | scrapling (stealth), clibrowser (--stealth) | 反检测能力 |
-| 需要登录的站点 | bb-browser, pinchtab | 支持认证会话 |
-| 需要浏览器交互 | pinchtab, bb-browser, lightpanda | INTERACT 能力 |
-| 搜索聚合 | bb-browser | 5+ 搜索引擎适配器 |
-| 低资源环境 | clibrowser | 零依赖，单二进制 |
-| 高性能批量抓取 | lightpanda | 9x 速度, 16x 省内存 |
-| CI/CD 环境 | scrapling (http), clibrowser | 无需外部服务 |
-| 云端部署 | pinchtab | 远程浏览器，无需本地浏览器 |
+总原则：同等结果质量下，优先选择更轻、更稳定、依赖更少的路径。`bb-browser`
+daemon 已恢复，但它应作为结构化 adapter、动态浏览器和交互会话的强能力补位层，
+不应成为所有复杂网页的默认入口。
+
+| 网页/数据类型 | 首选路径 | fallback | 理由 |
+|------|---------|----------|------|
+| 官方 API / JSON endpoint | scrapling HTTP | 无或站点 API provider | 成本最低、结构最稳定、最适合批量验证 |
+| RSS / Atom feed | scrapling HTTP | 无 | 新闻和更新流最稳定的全球覆盖主干 |
+| 官方文档 / 静态页面 / 百科 | scrapling | opencli（若有结构化 adapter） | 资源占用小，文本提取稳定 |
+| 包注册表 / 学术元数据 / 金融公开数据 | scrapling HTTP | opencli 或专用 API provider | 通常有稳定 API 或静态页面 |
+| 已有站点 adapter 且 opencli 能返回同等质量 | opencli | bb-browser site, scrapling | 无 daemon 依赖，资源更小 |
+| 已有站点 adapter 且 bb-browser 覆盖更好 | bb-browser site | opencli, scrapling | 结构化输出更好，但需要 daemon 健康 |
+| JS 渲染但无需登录的公开页面 | scrapling dynamic/stealth 或 lightpanda | bb-browser generic fetch | 仅在 HTTP 不足时进入浏览器路径 |
+| 需要点击、滚动、表单、截图 | bb-browser 或 pinchtab | lightpanda（能力足够时） | 需要 INTERACT 能力和会话状态 |
+| 需要登录/cookie 的页面 | bb-browser 或 pinchtab | 无 | 必须显式依赖用户 session 或凭证 |
+| CAPTCHA、短信验证、严格反爬、付费墙 | 记录 boundary | 官方 API 或用户凭证 | 不作为可靠自治路线 |
+| CI/CD 或低资源默认环境 | scrapling HTTP | opencli | 尽量避免 daemon、浏览器进程和外部服务 |
 
 ---
 

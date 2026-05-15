@@ -1,176 +1,148 @@
-# Phase 3.1 Provider Routing Strategy Design
+# Phase 3.1 Provider 路由策略设计
 
-## Purpose
+## 目的
 
-`unified-web-skill` should optimize global web access by choosing the lightest
-provider that can produce the required result. The product target is global
-resource access across languages and content categories, not a Chinese-only
-resource collection. Chinese platforms remain a valuable hard-case subset.
+`unified-web-skill` 的目标是成为面向 AI Agent 的全球 Web Access MCP
+Router。它不应只服务中文资源，也不应把所有复杂网页都交给重型浏览器路径。
+正确方向是：在能得到同等结果质量时，始终选择更轻、更快、更稳定的 provider。
 
-The repaired `bb-browser` daemon restores the hard-path capability, but
-`bb-browser` should not become the default path for all difficult pages. It is a
-high-capability structured/browser fallback for sources where lighter providers
-cannot produce equivalent results.
+`bb-browser` daemon 已经修复，这恢复了高难度站点适配器和浏览器交互能力。
+但它应该是强能力补位层，而不是默认主路径。全球资源覆盖的主干仍应建立在
+API、RSS、JSON、静态 HTML 和稳定结构化适配器上。
 
-## Core Principle
+## 核心原则
 
-For equivalent output quality, prefer providers in this order:
+同等输出质量下，provider 优先级如下：
 
-1. Public API, RSS, or JSON endpoint through lightweight HTTP.
-2. Static or mostly static HTML fetch through `scrapling`.
-3. Site-specific structured adapter through `opencli` or `bb-browser`.
-4. Dynamic browser fetch for JavaScript-rendered pages.
-5. Interactive browser session for login, click, scroll, form, cookie, or
-   screenshot workflows.
-6. Boundary recording for CAPTCHA, SMS, strict anti-bot, and paid paywalls.
+1. 公开 API、RSS、JSON endpoint，通过轻量 HTTP 获取。
+2. 静态或半静态 HTML 页面，通过 `scrapling` 获取。
+3. 已有站点结构化适配器，通过 `opencli` 或 `bb-browser site` 获取。
+4. 需要 JavaScript 渲染的公开页面，进入动态浏览器抓取。
+5. 需要登录、cookie、点击、滚动、表单或截图的页面，进入交互式浏览器会话。
+6. CAPTCHA、短信验证、强指纹封锁、付费墙等场景只记录边界，不作为默认自动化目标。
 
-This keeps the default route fast, low-resource, and stable while preserving
-browser capability for the cases that actually need it.
+这条顺序保证默认路线低资源、高吞吐、易测试，同时保留浏览器能力处理真正困难的网页。
 
-## Provider Classes
+## Provider 分层
 
-### Lightweight HTTP
+### 轻量 HTTP 层
 
-Primary provider: `scrapling`
+首选 provider：`scrapling`
 
-Use for:
+适用场景：
 
-- Official APIs and JSON endpoints.
-- RSS and Atom feeds.
-- Public documentation and static pages.
-- Package registries and scholarly metadata APIs.
-- Simple public news, finance, encyclopedia, and reference pages.
+- 官方 API、JSON endpoint。
+- RSS / Atom feed。
+- 官方文档、百科、静态页面。
+- 包注册表、学术元数据 API、金融公开数据。
+- 简单新闻页、参考资料页。
 
-Trade-off:
+权衡：
 
-- Lowest resource cost and best batch stability.
-- Limited when content depends on client-side JavaScript or session state.
+- 成本最低，批量验证最稳定。
+- 对依赖客户端 JavaScript 或用户 session 的页面能力有限。
 
-### Structured CLI Adapters
+### 结构化 CLI 适配器层
 
-Primary provider: `opencli` when it returns equivalent quality.
-Secondary provider: `bb-browser` when the adapter is broader or better.
+首选 provider：同等效果下优先 `opencli`。
+补位 provider：当覆盖或质量更好时使用 `bb-browser`。
 
-Use for:
+适用场景：
 
-- Known site commands such as Hacker News, Reddit, YouTube, Bilibili, arXiv, and
-  platform-specific search.
-- Cases where native JSON-like output is more useful than scraping rendered HTML.
+- Hacker News、Reddit、YouTube、Bilibili、arXiv 等已有 adapter 的站点。
+- 需要结构化 JSON-like 输出，而不是普通页面文本的任务。
 
-Trade-off:
+权衡：
 
-- More stable than visual browser scraping when adapters are maintained.
-- Adapter schema and command availability can change, so verification must be
-  separate from generic URL fetch verification.
+- 比视觉浏览器抓取更稳定、更省资源。
+- adapter 命令和输出 schema 可能变化，所以必须单独验证，不能被通用 URL fetch 掩盖。
 
-### Dynamic Browser Fetch
+### 动态浏览器抓取层
 
-Providers: optional browser-capable engines such as `lightpanda`, Scrapling
-dynamic/stealth tiers, or `bb-browser` generic page open.
+可用 provider：`lightpanda`、Scrapling dynamic/stealth tier、`bb-browser` 通用页面打开。
 
-Use for:
+适用场景：
 
-- JavaScript-rendered pages where HTTP returns empty or incomplete content.
-- Public pages that need rendering but not login or fine-grained interaction.
+- HTTP 返回空内容或不完整内容的 JS 页面。
+- 不需要登录、不需要复杂交互，但需要渲染后的公开内容。
 
-Trade-off:
+权衡：
 
-- Higher CPU and memory cost than HTTP.
-- More moving parts and longer timeouts.
+- CPU、内存和超时成本高于 HTTP。
+- 依赖浏览器进程、CDP 或额外 runtime，稳定性更容易受环境影响。
 
-### Interactive Session
+### 交互式会话层
 
-Providers: `bb-browser`, `pinchtab`, or another configured browser interaction
-provider.
+可用 provider：`bb-browser`、`pinchtab` 或其他交互型 browser provider。
 
-Use for:
+适用场景：
 
-- Login-gated pages when the user has supplied valid session state.
-- Cookie reuse, click flows, scroll loading, forms, and screenshot workflows.
-- Browser automation tasks where the page state matters.
+- 用户提供有效 session/cookie 后访问登录态页面。
+- 点击、滚动加载、表单、截图、状态保持。
+- 页面状态本身就是任务目标的浏览器自动化。
 
-Trade-off:
+权衡：
 
-- Highest local complexity and runtime fragility.
-- Must not be part of the default batch verification path.
+- 本地复杂度最高，也最脆弱。
+- 不应进入默认批量 verification，只能作为单独 runtime 轨道。
 
-### Boundary Cases
+### 边界场景
 
-Cases such as CAPTCHA, SMS checks, paid subscription paywalls, and strict
-fingerprint blocking should be recorded as access boundaries. The system can
-report the limitation and prefer official APIs or user-provided credentials when
-available, but it should not pretend these are reliable autonomous routes.
+CAPTCHA、短信校验、强指纹检测、付费订阅墙等场景应明确记录为 access
+boundary。系统可以报告限制、建议官方 API 或要求用户提供合法凭证，但不应假装这些路径能稳定自治完成。
 
-## Source Matrix Changes
+## Source Matrix 变更
 
-The global source matrix should become a routing-decision matrix, not just a
-list of representative URLs.
+`app/discovery/global_sources.json` 不再只是代表 URL 清单，而应成为 provider
+路由决策矩阵。
 
-Add these fields to each source entry:
+每个 source 需要补齐：
 
-- `access_type`: one of `api`, `rss`, `static_html`, `structured_adapter`,
-  `dynamic_browser`, `interactive_session`, or `boundary`.
-- `preferred_provider`: the provider expected to be best under normal
-  conditions.
-- `fallback_providers`: ordered provider names to try when the preferred path is
-  unavailable or insufficient.
-- `cost_tier`: `low`, `medium`, or `high`.
-- `stability_tier`: `stable`, `variable`, or `fragile`.
-- `promotion_status`: `matrix_only`, `verified_candidate`, `promoted`, or
-  `blocked`.
-- `failure_modes`: a list using stable values such as `timeout`, `blocked`,
-  `auth_required`, `captcha`, `empty_content`, `adapter_changed`, and
-  `parser_changed`.
+- `access_type`: `api`、`rss`、`static_html`、`structured_adapter`、
+  `dynamic_browser`、`interactive_session`、`boundary`。
+- `preferred_provider`: 正常情况下成本和稳定性最优的 provider。
+- `fallback_providers`: 首选 provider 不可用或质量不足时的降级链。
+- `cost_tier`: `low`、`medium`、`high`。
+- `stability_tier`: `stable`、`variable`、`fragile`。
+- `promotion_status`: `matrix_only`、`verified_candidate`、`promoted`、`blocked`。
+- `failure_modes`: 稳定枚举，例如 `timeout`、`blocked`、`auth_required`、
+  `captcha`、`empty_content`、`adapter_changed`、`parser_changed`、
+  `dynamic_required`、`rate_limited`。
 
-Existing fields such as `difficulty`, `expected_provider`, and `requires_auth`
-can remain temporarily for backward compatibility. The new fields should become
-the authoritative decision fields.
+旧字段 `difficulty`、`expected_provider`、`requires_auth` 暂时保留，用于兼容现有验证工具。新字段是后续路由决策的主依据。
 
-## Routing Rules
+## 路由规则
 
-Runtime routing should eventually be driven by verified source or site profiles:
+运行时路由后续应逐步由已验证的 source/site profile 驱动：
 
-- If a source has `access_type` of `api` or `rss`, use HTTP first.
-- If a source is `static_html`, use `scrapling` first.
-- If a source is `structured_adapter`, use the best verified adapter provider
-  first, then fall back to HTTP or browser only if useful.
-- If a source is `dynamic_browser`, use browser-capable providers only after
-  HTTP is known to be insufficient.
-- If a source is `interactive_session`, require an interaction-capable provider
-  and preserve session/cookie assumptions explicitly.
-- If a source is `boundary`, do not auto-promote it into default routing.
+- `api` / `rss`: HTTP first，通常是 `scrapling`。
+- `static_html`: `scrapling` first。
+- `structured_adapter`: 先用已验证 adapter provider，再根据需要 fallback 到 HTTP 或 browser。
+- `dynamic_browser`: 只有在 HTTP 明确不足时才进入浏览器路径。
+- `interactive_session`: 必须使用支持交互的 provider，并显式记录 session/cookie 假设。
+- `boundary`: 不自动晋升到默认运行时路由。
 
-`sites.json` should receive only verified and intentionally promoted site rules.
-The source matrix can contain many benchmark and research candidates that never
-belong in runtime routing.
+`sites.json` 只接收已经验证且有意晋升的运行时规则。Source Matrix 可以包含大量 benchmark、研究候选和边界样本，它们不必也不应全部进入运行时路由。
 
-## Verification Strategy
+## 验证策略
 
-Keep verification tracks separate:
+verification 必须分轨：
 
-- HTTP/RSS/API batch: fast global coverage and regression stability.
-- Structured adapter batch: concrete `opencli` and `bb-browser site` commands.
-- Browser runtime batch: daemon, CDP, dynamic rendering, and interaction health.
-- Boundary batch: records failure modes without treating failures as product
-  regressions.
+- HTTP/RSS/API 批次：验证全球覆盖主干和回归稳定性。
+- 结构化 adapter 批次：直接验证 `opencli` 和 `bb-browser site` 命令。
+- 浏览器 runtime 批次：验证 daemon、CDP、动态渲染和交互能力。
+- 边界批次：记录失败模式，不把预期边界当作产品回归。
 
-Success criteria for Phase 3.1:
+## Phase 3.1 成功标准
 
-- The matrix schema can express cost, stability, access type, preferred provider,
-  fallbacks, and promotion status.
-- Tests enforce valid strategy fields and forbid unknown enum values.
-- At least the existing 50 sources are classified without reducing current test
-  coverage.
-- Documentation explains when to choose `scrapling`, `opencli`, `bb-browser`,
-  browser providers, or boundary recording.
-- Full deterministic tests and diagnostics still pass after the schema change.
+- Source Matrix schema 能表达 access type、首选 provider、fallback、成本、稳定性和晋升状态。
+- 测试约束所有策略字段的合法枚举，禁止未知值。
+- 现有 50 个 source 已完成分类，不降低现有覆盖测试。
+- 文档说明何时选择 `scrapling`、`opencli`、`bb-browser`、浏览器 provider 或边界记录。
+- schema 变更后，focused tests、`check.py` 和完整 deterministic tests 仍通过。
 
-## Execution Boundary
+## 执行边界
 
-Phase 3.1 should not add a large new source batch first. It should classify the
-existing 50 sources, update validation tests, update documentation, and only
-then resume expansion toward 100 global sources.
+Phase 3.1 不先扩展到 100 个 source。它先分类现有 50 个 source，更新测试和中文文档，然后再继续扩展。
 
-This keeps the project clean: each new global source added after Phase 3.1 must
-already carry a routing decision, cost expectation, fallback path, and promotion
-status.
+这样后续每新增一个全球 source，都必须同时带上路由决策、成本预期、fallback 路径和晋升状态，避免项目再次进入“资源越堆越乱”的状态。

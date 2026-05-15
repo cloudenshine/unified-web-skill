@@ -125,6 +125,18 @@ class TestBaseEngine:
         assert await eng.health_check() is True
 
     @pytest.mark.asyncio
+    async def test_default_version_info(self):
+        eng = ConcreteEngine()
+
+        info = await eng.version_info()
+
+        assert info == {
+            "ok": False,
+            "version": "",
+            "error": "version check not implemented",
+        }
+
+    @pytest.mark.asyncio
     async def test_fetch_not_implemented_with_capability(self):
         eng = ConcreteEngine()
         with pytest.raises(NotImplementedError):
@@ -164,6 +176,32 @@ class TestBaseEngine:
 
 class TestRunSubprocess:
     @pytest.mark.asyncio
+    async def test_version_from_command_success(self):
+        eng = ConcreteEngine()
+
+        info = await eng._version_from_command(
+            ["python", "-c", "print('tool 1.2.3')"],
+            provider="tool",
+            timeout=10,
+        )
+
+        assert info == {"ok": True, "version": "tool 1.2.3", "error": ""}
+
+    @pytest.mark.asyncio
+    async def test_version_from_command_failure(self):
+        eng = ConcreteEngine()
+
+        info = await eng._version_from_command(
+            ["nonexistent_binary_xyz_123", "--version"],
+            provider="missing",
+            timeout=5,
+        )
+
+        assert info["ok"] is False
+        assert info["version"] == ""
+        assert "binary not found" in info["error"]
+
+    @pytest.mark.asyncio
     async def test_successful_command(self):
         eng = ConcreteEngine()
         code, stdout, stderr = await eng._run_subprocess(
@@ -189,6 +227,43 @@ class TestRunSubprocess:
         )
         assert code == 75
         assert "timeout" in stderr
+
+    @pytest.mark.asyncio
+    async def test_timeout_drains_process_pipes_after_kill(self, monkeypatch):
+        class HangingProcess:
+            returncode = None
+
+            def __init__(self):
+                self.killed = False
+                self.communicate_calls = 0
+
+            async def communicate(self):
+                self.communicate_calls += 1
+                if not self.killed:
+                    await asyncio.sleep(10)
+                return b"", b""
+
+            def kill(self):
+                self.killed = True
+
+        proc = HangingProcess()
+
+        async def fake_create_subprocess_exec(*args, **kwargs):
+            return proc
+
+        monkeypatch.setattr(
+            asyncio,
+            "create_subprocess_exec",
+            fake_create_subprocess_exec,
+        )
+        eng = ConcreteEngine()
+
+        code, stdout, stderr = await eng._run_subprocess(["slow"], timeout=0.01)
+
+        assert code == 75
+        assert stderr == "timeout"
+        assert proc.killed is True
+        assert proc.communicate_calls == 2
 
 
 # ── _timed context manager ──────────────────────────────────────────

@@ -1,0 +1,2691 @@
+[
+  {
+    "source_id": "docs_mdn_css_grid",
+    "site_id": "mdn",
+    "display_name": "MDN Web Docs",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Stable public technical documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_python_asyncio",
+    "site_id": "python_docs",
+    "display_name": "Python Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://docs.python.org/3/library/asyncio.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official library documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_github_fastapi",
+    "site_id": "github",
+    "display_name": "GitHub",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://github.com/fastapi/fastapi",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Repository page; GitHub API provider can be preferred later.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "code_stackoverflow_python_asyncio",
+    "site_id": "stackoverflow",
+    "display_name": "Stack Overflow",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://stackoverflow.com/questions/tagged/python-asyncio",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Question listing with bot-detection risk; bb-browser verified after strict scrapling returned 403.",
+    "access_type": "static_html",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "scrapling",
+      "opencli"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "academic_arxiv_cs_ai",
+    "site_id": "arxiv",
+    "display_name": "arXiv",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://arxiv.org/list/cs.AI/recent",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Recent academic paper listing; bb-browser verified after opencli local adapter load failure in Phase 3.8 final sweep.",
+    "access_type": "structured_adapter",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "opencli",
+      "scrapling"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "adapter_changed",
+      "timeout"
+    ]
+  },
+  {
+    "source_id": "academic_pubmed_search",
+    "site_id": "pubmed",
+    "display_name": "PubMed",
+    "category": "academic",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pubmed.ncbi.nlm.nih.gov/?term=machine+learning",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Biomedical search result page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "news_reuters_world",
+    "site_id": "reuters",
+    "display_name": "Reuters",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://www.reuters.com/world/",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Current news page; bb-browser verified after strict scrapling returned 401.",
+    "access_type": "static_html",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "scrapling",
+      "opencli"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "news_bbc_world",
+    "site_id": "bbc",
+    "display_name": "BBC News",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.bbc.com/news/world",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public global news section.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "social_reddit_programming",
+    "site_id": "reddit",
+    "display_name": "Reddit",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://www.reddit.com/r/programming/",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Social/forum page with bot-detection risk.",
+    "access_type": "structured_adapter",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "opencli",
+      "scrapling"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "adapter_changed",
+      "blocked",
+      "dynamic_required"
+    ]
+  },
+  {
+    "source_id": "social_hackernews_frontpage",
+    "site_id": "hackernews",
+    "display_name": "Hacker News",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://news.ycombinator.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Simple HTML front page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "finance_sec_company_search",
+    "site_id": "sec",
+    "display_name": "SEC EDGAR",
+    "category": "finance",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.sec.gov/edgar/search/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official filings search entry point.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "finance_yahoo_markets",
+    "site_id": "yahoo_finance",
+    "display_name": "Yahoo Finance",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://finance.yahoo.com/markets/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Market data page with dynamic content.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "commerce_amazon_search",
+    "site_id": "amazon",
+    "display_name": "Amazon",
+    "category": "commerce",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://www.amazon.com/s?k=laptop",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Commerce search page with strong bot detection; strict bb-browser verified once in Phase 3.8 but remains high-cost boundary.",
+    "access_type": "boundary",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "pinchtab"
+    ],
+    "cost_tier": "high",
+    "stability_tier": "fragile",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "auth_required",
+      "captcha",
+      "blocked",
+      "dynamic_required"
+    ]
+  },
+  {
+    "source_id": "commerce_producthunt",
+    "site_id": "producthunt",
+    "display_name": "Product Hunt",
+    "category": "commerce",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://www.producthunt.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Product discovery page; blocked after scrapling, bb-browser, and opencli follow-up in Phase 3.8.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "fragile",
+    "promotion_status": "blocked",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "search_duckduckgo_python",
+    "site_id": "duckduckgo",
+    "display_name": "DuckDuckGo",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://duckduckgo.com/?q=python+asyncio",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "General search provider benchmark; bb-browser verified after strict scrapling returned weak content.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "scrapling",
+      "lightpanda"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "search_bing_python",
+    "site_id": "bing",
+    "display_name": "Bing",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://www.bing.com/search?q=python+asyncio",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Search result page; useful for discovery comparison.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "video_youtube_search",
+    "site_id": "youtube",
+    "display_name": "YouTube",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://www.youtube.com/results?search_query=python+asyncio",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Dynamic video search page.",
+    "access_type": "structured_adapter",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "opencli",
+      "scrapling"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "adapter_changed",
+      "blocked",
+      "dynamic_required"
+    ]
+  },
+  {
+    "source_id": "video_bilibili_search",
+    "site_id": "bilibili",
+    "display_name": "Bilibili",
+    "category": "video",
+    "region": "cn",
+    "languages": [
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://search.bilibili.com/all?keyword=python",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Chinese video search page.",
+    "access_type": "structured_adapter",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "opencli",
+      "scrapling"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "adapter_changed",
+      "blocked",
+      "dynamic_required"
+    ]
+  },
+  {
+    "source_id": "docs_wikipedia_ai",
+    "site_id": "wikipedia",
+    "display_name": "Wikipedia",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Encyclopedic public page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "social_zhihu_topic",
+    "site_id": "zhihu",
+    "display_name": "Zhihu",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://www.zhihu.com/topic/19552832",
+    "expected_provider": "bb-browser",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Chinese Q&A/social page with dynamic rendering risk.",
+    "access_type": "interactive_session",
+    "preferred_provider": "bb-browser",
+    "fallback_providers": [
+      "pinchtab"
+    ],
+    "cost_tier": "high",
+    "stability_tier": "fragile",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "auth_required",
+      "captcha",
+      "blocked",
+      "dynamic_required"
+    ]
+  },
+  {
+    "source_id": "docs_react_learn",
+    "site_id": "react_docs",
+    "display_name": "React Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://react.dev/learn",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Modern framework documentation with mostly static content.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_typescript_handbook",
+    "site_id": "typescript_docs",
+    "display_name": "TypeScript Handbook",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official static language handbook.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_kubernetes_concepts",
+    "site_id": "kubernetes_docs",
+    "display_name": "Kubernetes Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://kubernetes.io/docs/concepts/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official cloud-native documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_django_intro",
+    "site_id": "django_docs",
+    "display_name": "Django Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://docs.djangoproject.com/en/stable/intro/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official web framework documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_pypi_requests",
+    "site_id": "pypi",
+    "display_name": "PyPI",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pypi.org/project/requests/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Python package registry page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_npm_react",
+    "site_id": "npm",
+    "display_name": "npm Registry",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.npmjs.com/package/react",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "JavaScript package registry page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "code_crates_tokio",
+    "site_id": "crates_io",
+    "display_name": "crates.io",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://crates.io/api/v1/crates/tokio",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Rust package registry API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_crossref_works",
+    "site_id": "crossref",
+    "display_name": "Crossref",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.crossref.org/works?query=machine%20learning&rows=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public scholarly metadata API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_doaj_search",
+    "site_id": "doaj",
+    "display_name": "DOAJ",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://doaj.org/search/articles?source=%7B%22query%22%3A%7B%22query_string%22%3A%7B%22query%22%3A%22machine%20learning%22%7D%7D%7D",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Open access journal article search.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_npr_world",
+    "site_id": "npr",
+    "display_name": "NPR World",
+    "category": "news",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://feeds.npr.org/1004/rss.xml",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public world-news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_guardian_world_rss",
+    "site_id": "guardian",
+    "display_name": "The Guardian World News",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://www.theguardian.com/world/rss",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public world-news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "finance_fred_gdp",
+    "site_id": "fred",
+    "display_name": "FRED",
+    "category": "finance",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://fred.stlouisfed.org/series/GDP",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official economic data series page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "finance_worldbank_gdp",
+    "site_id": "worldbank",
+    "display_name": "World Bank Data",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.worldbank.org/v2/country/WLD/indicator/NY.GDP.MKTP.CD?format=json&per_page=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public macroeconomic API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "finance_ecb_rates",
+    "site_id": "ecb",
+    "display_name": "European Central Bank",
+    "category": "finance",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official exchange-rate statistics page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "commerce_ebay_search",
+    "site_id": "ebay",
+    "display_name": "eBay",
+    "category": "commerce",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://www.ebay.com/sch/i.html?_nkw=laptop",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Marketplace search page for commerce coverage.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "search_brave_python",
+    "site_id": "brave_search",
+    "display_name": "Brave Search",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://search.brave.com/search?q=python%20asyncio",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "General search provider benchmark.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "video_vimeo_categories",
+    "site_id": "vimeo",
+    "display_name": "Vimeo",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://vimeo.com/categories",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Video platform category page without login requirement.",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "lightpanda",
+      "bb-browser"
+    ],
+    "cost_tier": "medium",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "dynamic_required",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "social_mastodon_explore",
+    "site_id": "mastodon",
+    "display_name": "Mastodon",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://mastodon.social/api/v1/trends/statuses",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public federated social API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "docs_nodejs_api",
+    "site_id": "nodejs_docs",
+    "display_name": "Node.js Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://nodejs.org/api/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official runtime API documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_rust_book",
+    "site_id": "rust_book",
+    "display_name": "The Rust Programming Language",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://doc.rust-lang.org/book/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official language book.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_rubygems_rails",
+    "site_id": "rubygems",
+    "display_name": "RubyGems",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://rubygems.org/gems/rails",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Ruby package registry page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "code_packagist_laravel",
+    "site_id": "packagist",
+    "display_name": "Packagist",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://repo.packagist.org/p2/laravel/framework.json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "PHP package registry metadata endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_openalex_works",
+    "site_id": "openalex",
+    "display_name": "OpenAlex",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.openalex.org/works?search=machine%20learning&per-page=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public scholarly metadata API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_europepmc_search",
+    "site_id": "europepmc",
+    "display_name": "Europe PMC",
+    "category": "academic",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=machine%20learning&format=json&pageSize=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public biomedical literature API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "news_un_global_rss",
+    "site_id": "un_news",
+    "display_name": "UN News RSS",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public United Nations news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_cbc_world_rss",
+    "site_id": "cbc",
+    "display_name": "CBC World RSS",
+    "category": "news",
+    "region": "ca",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.cbc.ca/webfeed/rss/rss-world",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public world-news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "finance_bankofcanada_fx",
+    "site_id": "bankofcanada",
+    "display_name": "Bank of Canada Valet",
+    "category": "finance",
+    "region": "ca",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.bankofcanada.ca/valet/observations/FXUSDCAD/json?recent=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public exchange-rate API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "search_wikipedia_api",
+    "site_id": "wikipedia_api",
+    "display_name": "Wikipedia Search API",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=artificial%20intelligence&format=json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public encyclopedia search API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "video_peertube_instances",
+    "site_id": "peertube",
+    "display_name": "PeerTube",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://instances.joinpeertube.org/api/v1/instances?start=0&count=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public federated video platform instance API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "social_lemmy_posts",
+    "site_id": "lemmy",
+    "display_name": "Lemmy Public API",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://lemmy.world/api/v3/post/list?sort=Active&limit=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public federated forum API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "docs_go_tutorial",
+    "site_id": "go_docs",
+    "display_name": "Go Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://go.dev/doc/tutorial/getting-started",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Go getting-started tutorial.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_php_manual",
+    "site_id": "php_docs",
+    "display_name": "PHP Manual",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.php.net/manual/en/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official PHP manual index.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_postgresql_manual",
+    "site_id": "postgresql_docs",
+    "display_name": "PostgreSQL Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.postgresql.org/docs/current/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official PostgreSQL documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_keras_getting_started",
+    "site_id": "keras_docs",
+    "display_name": "Keras Getting Started",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://keras.io/getting_started/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Keras getting-started documentation; replaces TensorFlow page that triggered OAuth redirects in live verification.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_pytorch_get_started",
+    "site_id": "pytorch_docs",
+    "display_name": "PyTorch Get Started",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pytorch.org/get-started/locally/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official PyTorch getting-started page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_pandas_user_guide",
+    "site_id": "pandas_docs",
+    "display_name": "pandas User Guide",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pandas.pydata.org/docs/user_guide/index.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official pandas user guide.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_maven_central_solr",
+    "site_id": "maven_central",
+    "display_name": "Maven Central Search API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://search.maven.org/solrsearch/select?q=g:org.apache.commons%20AND%20a:commons-lang3&rows=5&wt=json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Maven Central package search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "code_nuget_newtonsoft",
+    "site_id": "nuget",
+    "display_name": "NuGet Registration API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.nuget.org/v3/registration5-semver1/newtonsoft.json/index.json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public NuGet package registration endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "code_dockerhub_nginx",
+    "site_id": "dockerhub",
+    "display_name": "Docker Hub API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://hub.docker.com/v2/repositories/library/nginx/tags?page_size=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Docker Hub image tags API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "code_conda_forge_numpy",
+    "site_id": "anaconda",
+    "display_name": "Anaconda Package API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.anaconda.org/package/conda-forge/numpy",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Anaconda package metadata endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_datacite_works",
+    "site_id": "datacite",
+    "display_name": "DataCite REST API",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.datacite.org/works?query=machine%20learning&page%5Bsize%5D=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public DOI metadata API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_clinicaltrials_search",
+    "site_id": "clinicaltrials",
+    "display_name": "ClinicalTrials.gov API",
+    "category": "academic",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://clinicaltrials.gov/api/v2/studies?query.term=machine%20learning&pageSize=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public clinical studies API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_biorxiv_recent",
+    "site_id": "biorxiv",
+    "display_name": "bioRxiv API",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.biorxiv.org/details/biorxiv/2025-01-01/2025-01-31/0",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public preprint metadata API; replaces Semantic Scholar endpoint that returned rate limiting in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "news_aljazeera_rss",
+    "site_id": "aljazeera",
+    "display_name": "Al Jazeera RSS",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.aljazeera.com/xml/rss/all.xml",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public global news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_dw_world_rss",
+    "site_id": "dw",
+    "display_name": "Deutsche Welle RSS",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://rss.dw.com/xml/rss-en-world",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public world-news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_france24_world_rss",
+    "site_id": "france24",
+    "display_name": "France 24 RSS",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.france24.com/en/rss",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public France 24 English RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_abc_world_rss",
+    "site_id": "abc_news",
+    "display_name": "ABC News International RSS",
+    "category": "news",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://abcnews.go.com/abcnews/internationalheadlines",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public international headlines RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "finance_treasury_fiscaldata",
+    "site_id": "us_treasury",
+    "display_name": "US Treasury FiscalData API",
+    "category": "finance",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/rates_of_exchange?fields=country_currency_desc,exchange_rate,record_date&page%5Bsize%5D=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official US Treasury public finance API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "finance_frankfurter_rates",
+    "site_id": "frankfurter",
+    "display_name": "Frankfurter Exchange Rates API",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.frankfurter.app/latest?from=USD",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public exchange-rate API; replaces IMF endpoint that failed TLS/CDP checks in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "finance_open_exchange_rates_status",
+    "site_id": "open_er_api",
+    "display_name": "Open Exchange Rates Public API",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://open.er-api.com/v6/latest/USD",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public exchange-rate JSON endpoint; replaces Nasdaq docs page that was blocked in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "commerce_openfoodfacts_search",
+    "site_id": "openfoodfacts",
+    "display_name": "Open Food Facts API",
+    "category": "commerce",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://world.openfoodfacts.org/cgi/search.pl?search_terms=coffee&search_simple=1&action=process&json=1&page_size=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public product database API. Kept in rate-limited watch because world.openfoodfacts.org returned repeated 503 responses during final strict promoted HTTP regression.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "commerce_itunes_search",
+    "site_id": "itunes",
+    "display_name": "iTunes Search API",
+    "category": "commerce",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://itunes.apple.com/search?term=notebook&limit=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public product/media search API; replaces Mercado Libre endpoint that returned 403 in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "search_internet_archive_advanced",
+    "site_id": "internet_archive",
+    "display_name": "Internet Archive Advanced Search API",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://archive.org/advancedsearch.php?q=python&fl%5B%5D=identifier&fl%5B%5D=title&rows=5&output=json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public archive search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "video_dailymotion_search",
+    "site_id": "dailymotion",
+    "display_name": "Dailymotion API",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.dailymotion.com/videos?search=python&limit=5&fields=id,title,url",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public video search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "social_stackexchange_questions",
+    "site_id": "stackexchange",
+    "display_name": "Stack Exchange API",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&site=stackoverflow&pagesize=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Stack Exchange questions API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "docs_vite_guide",
+    "site_id": "vite_docs",
+    "display_name": "Vite Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://vite.dev/guide/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Vite guide documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_fastapi_first_steps",
+    "site_id": "fastapi_docs",
+    "display_name": "FastAPI Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://fastapi.tiangolo.com/tutorial/first-steps/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official FastAPI tutorial page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_flask_quickstart",
+    "site_id": "flask_docs",
+    "display_name": "Flask Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://flask.palletsprojects.com/en/stable/quickstart/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Flask quickstart documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_sqlalchemy_orm",
+    "site_id": "sqlalchemy_docs",
+    "display_name": "SQLAlchemy Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://docs.sqlalchemy.org/en/20/orm/quickstart.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official SQLAlchemy ORM quickstart.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_ansible_getting_started",
+    "site_id": "ansible_docs",
+    "display_name": "Ansible Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://docs.ansible.com/ansible/latest/getting_started/index.html",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Ansible getting-started documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "docs_terraform_intro",
+    "site_id": "terraform_docs",
+    "display_name": "Terraform Documentation",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://developer.hashicorp.com/terraform/intro",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Official Terraform introduction documentation.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content",
+      "blocked"
+    ]
+  },
+  {
+    "source_id": "code_hex_phoenix",
+    "site_id": "hexpm",
+    "display_name": "Hex.pm API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://hex.pm/api/packages/phoenix",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Hex package metadata API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "code_hackage_aeson",
+    "site_id": "hackage",
+    "display_name": "Hackage",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://hackage.haskell.org/package/aeson",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Haskell package page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_pkg_go_http",
+    "site_id": "pkg_go_dev",
+    "display_name": "pkg.go.dev",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pkg.go.dev/net/http",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Go package documentation page.",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "code_metacpan_mojolicious",
+    "site_id": "metacpan",
+    "display_name": "MetaCPAN API",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://fastapi.metacpan.org/v1/release/Mojolicious",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Perl module release API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_nasa_ntrs_search",
+    "site_id": "nasa_ntrs",
+    "display_name": "NASA NTRS API",
+    "category": "academic",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://ntrs.nasa.gov/api/citations/search?keyword=machine%20learning&page.size=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public NASA technical reports search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_plos_search",
+    "site_id": "plos",
+    "display_name": "PLOS Search API",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.plos.org/search?q=title:machine%20learning&rows=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public PLOS article search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "academic_arxiv_api_query",
+    "site_id": "arxiv_api",
+    "display_name": "arXiv API",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://export.arxiv.org/api/query?search_query=all:machine%20learning&start=0&max_results=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public arXiv Atom API query endpoint. Kept in rate-limited watch because export.arxiv.org returned repeated 429 responses during final strict promoted HTTP regression.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "variable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "news_nasa_rss",
+    "site_id": "nasa_news",
+    "display_name": "NASA News RSS",
+    "category": "news",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.nasa.gov/news-release/feed/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public NASA news release RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_who_rss",
+    "site_id": "who_news",
+    "display_name": "WHO News RSS",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.who.int/rss-feeds/news-english.xml",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public World Health Organization news RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_sciencedaily_rss",
+    "site_id": "sciencedaily",
+    "display_name": "ScienceDaily RSS",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.sciencedaily.com/rss/top/science.xml",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public ScienceDaily top science RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "news_esa_rss",
+    "site_id": "esa_news",
+    "display_name": "ESA RSS",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.esa.int/rssfeed/Our_Activities",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public European Space Agency activity RSS feed.",
+    "access_type": "rss",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "finance_coingecko_markets",
+    "site_id": "coingecko",
+    "display_name": "CoinGecko API",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=5&page=1",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public crypto market data API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "finance_kraken_ticker",
+    "site_id": "kraken",
+    "display_name": "Kraken Public Ticker API",
+    "category": "finance",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.kraken.com/0/public/Ticker?pair=XBTUSD",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public crypto ticker API; replaces CoinCap endpoint that failed TLS/CDP checks in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "finance_bls_unemployment",
+    "site_id": "bls_api",
+    "display_name": "BLS Public API",
+    "category": "finance",
+    "region": "us",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/LNS14000000?latest=true",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public US Bureau of Labor Statistics API endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "search_wikidata_entities",
+    "site_id": "wikidata",
+    "display_name": "Wikidata Search API",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&search=python&language=en&format=json&limit=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Wikidata entity search API.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "search_commoncrawl_indexes",
+    "site_id": "commoncrawl",
+    "display_name": "Common Crawl Index API",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://index.commoncrawl.org/collinfo.json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Common Crawl collection index endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "search_openlibrary_books",
+    "site_id": "openlibrary",
+    "display_name": "Open Library Search API",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://openlibrary.org/search.json?q=python&limit=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Open Library book search API; replaces Data.gov endpoint that returned 404 in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "video_wikimedia_commons_search",
+    "site_id": "wikimedia_commons",
+    "display_name": "Wikimedia Commons Media Search API",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=video&gsrnamespace=6&prop=imageinfo&iiprop=url&format=json&gsrlimit=5",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Wikimedia Commons media search API; replaces Vimeo oEmbed URL that returned weak/404 output in live verification.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  },
+  {
+    "source_id": "social_discourse_meta_latest",
+    "site_id": "discourse_meta",
+    "display_name": "Discourse Meta API",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://meta.discourse.org/latest.json",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Public Discourse forum latest topics JSON endpoint.",
+    "access_type": "api",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "rate_limited"
+    ]
+  }
+]

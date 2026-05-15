@@ -15,12 +15,12 @@ The product target is global resource access. Chinese sites remain important bec
 
 The project already contains the right ingredients:
 
-- A v2 ring model in `server_v2.py`: HTTP, browser, CLI engines, and research pipeline.
+- A historical duplicate runtime path that has now been removed.
 - A v3 engine manager in `app/`: provider capabilities, routing, health monitoring, intent classification, discovery, quality gates, and storage.
 - A site registry that can become the core knowledge asset for global source routing.
 - A local MCP shape that fits OpenClaw, Claude Code, Codex, Cursor, and other agent runtimes.
 
-The main issue is convergence. There are two product surfaces, v2 and v3, and the documentation, tests, and implementation do not fully describe the same product. Some claims also exceed the current reliability envelope, especially around unrestricted access, browser availability, and anti-bot bypass.
+The main issue was convergence. The project now keeps one runtime surface: the v3 MCP router. Some claims still need to stay within the reliability envelope, especially around unrestricted access, browser availability, and anti-bot bypass.
 
 ## Market Position
 
@@ -180,7 +180,7 @@ The redesign is successful when:
 
 ## Open Decisions for Implementation Planning
 
-- Whether v3 should fully replace v2 immediately, or whether v2 should remain as a compatibility wrapper.
+- Which follow-on provider interfaces should be implemented first after the single-version cleanup.
 - Which external providers should be implemented first.
 - Whether the local browser path should use standalone Playwright/Patchright first or user Chrome CDP first.
 - What benchmark source set should define the first global coverage milestone.

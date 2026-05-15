@@ -1,0 +1,177 @@
+{
+  "now": "2026-05-14T00:00:00+00:00",
+  "created_at": "2026-05-14T00:00:00+00:00",
+  "task": {
+    "query": "machine learning literature review",
+    "language": "en",
+    "max_sources": 10
+  },
+  "queries_used": [
+    "machine learning literature review",
+    "machine learning arxiv nature stanford"
+  ],
+  "stats": {
+    "total_discovered": 4,
+    "total_collected": 4,
+    "skipped_quality": 1,
+    "skipped_duplicate": 1,
+    "skipped_blocked": 0,
+    "engines_used": {
+      "scrapling-http": 3,
+      "bb-browser": 1
+    }
+  },
+  "records": [
+    {
+      "url": "https://arxiv.org/abs/2605.12345",
+      "title": "Recent machine learning preprint",
+      "text": "Arxiv academic fixture.",
+      "summary": "Arxiv academic fixture.",
+      "text_length": 3600,
+      "published_at": "2026-05-13",
+      "language": "en",
+      "fetch_engine": "bb-browser",
+      "fetch_mode": "bb-browser:arxiv/search",
+      "credibility": 0.7,
+      "source_type": "site_adapter",
+      "tool_chain": [
+        "bb-browser",
+        "arxiv/search"
+      ]
+    },
+    {
+      "url": "https://www.nature.com/articles/ml-review?utm_medium=feed",
+      "title": "Nature review article",
+      "text": "Nature academic fixture.",
+      "summary": "Nature academic fixture.",
+      "text_length": 4000,
+      "published_at": "2025-12-01",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "http",
+      "credibility": 0.82,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://stanford.edu/research/ai-index",
+      "title": "University research index",
+      "text": "Stanford academic fixture.",
+      "summary": "Stanford academic fixture.",
+      "text_length": 2800,
+      "published_at": "2026-05-10",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "http",
+      "credibility": 0.65,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://www.nature.com/articles/ml-review",
+      "title": "Nature duplicate",
+      "text": "Duplicate academic fixture.",
+      "summary": "Duplicate academic fixture.",
+      "text_length": 2000,
+      "published_at": "2025-12-02",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "http",
+      "credibility": 0.9,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    }
+  ],
+  "expected": {
+    "accepted_canonical_order": [
+      "https://www.nature.com/articles/ml-review",
+      "https://arxiv.org/abs/2605.12345",
+      "https://stanford.edu/research/ai-index"
+    ],
+    "citation_canonical_order": [
+      "https://www.nature.com/articles/ml-review",
+      "https://arxiv.org/abs/2605.12345",
+      "https://stanford.edu/research/ai-index"
+    ],
+    "rejected_records": [
+      {
+        "url": "https://www.nature.com/articles/ml-review",
+        "reason": "duplicate_url",
+        "duplicate_of": "https://www.nature.com/articles/ml-review"
+      }
+    ],
+    "score_breakdowns": [
+      {
+        "credibility": 0.451,
+        "credibility_calibration": 0.0,
+        "content_length": 0.25,
+        "freshness": 0.07,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.4015,
+        "credibility_calibration": 0.0165,
+        "content_length": 0.225,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.4015,
+        "credibility_calibration": 0.044,
+        "content_length": 0.175,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      }
+    ],
+    "stats": {
+      "source_count": 3,
+      "rejected_count": 1,
+      "engines_used": {
+        "scrapling-http": 3,
+        "bb-browser": 1
+      },
+      "failure_stats": {
+        "skipped_quality": 1,
+        "skipped_duplicate": 1,
+        "skipped_blocked": 0
+      },
+      "rejection_reasons": {
+        "duplicate_url": 1
+      },
+      "language_distribution": {
+        "en": 3
+      },
+      "provider_distribution": {
+        "bb-browser": 1,
+        "scrapling-http": 2
+      },
+      "source_type_distribution": {
+        "direct": 1,
+        "search": 1,
+        "site_adapter": 1
+      },
+      "domain_distribution": {
+        "arxiv.org": 1,
+        "nature.com": 1,
+        "stanford.edu": 1
+      },
+      "score_summary": {
+        "count": 3,
+        "max": 0.871,
+        "min": 0.7765,
+        "avg": 0.8247,
+        "quality_buckets": {
+          "high": 2,
+          "medium": 1,
+          "low": 0
+        }
+      }
+    }
+  }
+}

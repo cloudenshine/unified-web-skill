@@ -37,6 +37,13 @@ class CLIBrowserEngine(BaseEngine):
         )
         return rc2 == 0
 
+    async def version_info(self) -> dict[str, Any]:
+        return await self._version_from_command(
+            [self._bin, "--version"],
+            provider=self.name,
+            timeout=5,
+        )
+
     async def fetch(self, url: str, *, timeout: int = 30, **opts: Any) -> FetchResult:
         t0 = time.monotonic()
 

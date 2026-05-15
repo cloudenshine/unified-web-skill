@@ -21,6 +21,7 @@ from .base import (
     SearchResult,
 )
 from .health import EngineHealthMonitor, HealthStatus
+from .provider_config import ProviderProfile, default_provider_profiles
 from ..discovery.site_registry import SiteRegistry
 
 logger = logging.getLogger(__name__)
@@ -80,6 +81,7 @@ class SmartRouter:
         url: str,
         available_engines: dict[str, Engine],
         preferred: list[str] | None = None,
+        allow_fallback_engines: bool = True,
     ) -> list[str]:
         """Return an ordered list of engine names to try for fetching *url*.
 
@@ -124,15 +126,16 @@ class SmartRouter:
                 continue
             result.append(name)
 
-        # Append any remaining healthy FETCH engines not already listed
-        for name, eng in available_engines.items():
-            if name in seen:
-                continue
-            if Capability.FETCH not in eng.capabilities:
-                continue
-            if not self._health.is_available(name):
-                continue
-            result.append(name)
+        if allow_fallback_engines:
+            # Append any remaining healthy FETCH engines not already listed.
+            for name, eng in available_engines.items():
+                if name in seen:
+                    continue
+                if Capability.FETCH not in eng.capabilities:
+                    continue
+                if not self._health.is_available(name):
+                    continue
+                result.append(name)
 
         return result
 
@@ -180,8 +183,16 @@ class EngineManager:
         result = await mgr.fetch_with_fallback("https://example.com")
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        provider_profiles: list[ProviderProfile] | None = None,
+    ) -> None:
         self._engines: dict[str, Engine] = {}
+        self._provider_profiles = (
+            provider_profiles
+            if provider_profiles is not None
+            else default_provider_profiles()
+        )
         self._health_monitor = EngineHealthMonitor()
         self._site_registry = SiteRegistry.get_instance()
         self._router = SmartRouter(self._site_registry, self._health_monitor)
@@ -230,6 +241,52 @@ class EngineManager:
             for name, eng in self._engines.items()
         }
 
+    def list_provider_profiles(self) -> list[dict[str, Any]]:
+        """Return provider metadata for diagnostics and configuration UIs."""
+        return [
+            {
+                "name": profile.name,
+                "category": profile.category,
+                "capabilities": profile.capability_values,
+                "enabled": profile.enabled,
+                "optional": profile.optional,
+                "registered": profile.name in self._engines,
+                "description": profile.description,
+            }
+            for profile in self._provider_profiles
+        ]
+
+    async def provider_status(self) -> list[dict[str, Any]]:
+        """Return provider metadata with local registration and version state."""
+        statuses: list[dict[str, Any]] = []
+        for profile in self._provider_profiles:
+            engine = self._engines.get(profile.name)
+            status = {
+                "name": profile.name,
+                "category": profile.category,
+                "capabilities": profile.capability_values,
+                "enabled": profile.enabled,
+                "optional": profile.optional,
+                "registered": engine is not None,
+                "description": profile.description,
+                "version": {
+                    "ok": False,
+                    "version": "",
+                    "error": "provider not registered",
+                },
+            }
+            if engine is not None:
+                try:
+                    status["version"] = await engine.version_info()
+                except Exception as exc:
+                    status["version"] = {
+                        "ok": False,
+                        "version": "",
+                        "error": str(exc),
+                    }
+            statuses.append(status)
+        return statuses
+
     # -- health -------------------------------------------------------------
 
     async def health_check_all(self) -> dict[str, bool]:
@@ -265,6 +322,7 @@ class EngineManager:
         url: str,
         *,
         preferred_engines: list[str] | None = None,
+        allow_fallback_engines: bool = True,
         timeout: int = 30,
         no_cache: bool = False,
         **opts: Any,
@@ -292,7 +350,10 @@ class EngineManager:
                 pass
 
         order = self._router.resolve_fetch_order(
-            url, self._engines, preferred=preferred_engines,
+            url,
+            self._engines,
+            preferred=preferred_engines,
+            allow_fallback_engines=allow_fallback_engines,
         )
 
         if not order:

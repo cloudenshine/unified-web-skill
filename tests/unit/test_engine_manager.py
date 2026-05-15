@@ -4,6 +4,7 @@ import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from app.engines.base import Capability, FetchResult, SearchResult, InteractResult
+from app.engines.provider_config import ProviderProfile
 from app.engines.manager import EngineManager, SmartRouter
 from app.discovery.site_registry import SiteRegistry
 from app.engines.health import EngineHealthMonitor
@@ -57,6 +58,53 @@ class TestEngineManagerRegistration:
         assert len(fetchers) == 2
         searchers = mgr.get_engines_with_capability(Capability.SEARCH)
         assert len(searchers) == 2
+
+    def test_list_provider_profiles(self):
+        mgr = EngineManager(
+            provider_profiles=[
+                ProviderProfile(
+                    "example",
+                    "hosted-search",
+                    {Capability.SEARCH},
+                    enabled=False,
+                    description="Optional hosted search provider.",
+                )
+            ]
+        )
+
+        profiles = mgr.list_provider_profiles()
+
+        assert profiles == [
+            {
+                "name": "example",
+                "category": "hosted-search",
+                "capabilities": ["search"],
+                "enabled": False,
+                "optional": True,
+                "registered": False,
+                "description": "Optional hosted search provider.",
+            }
+        ]
+
+    @pytest.mark.asyncio
+    async def test_provider_status_includes_version_info(self):
+        mgr = EngineManager(
+            provider_profiles=[
+                ProviderProfile("alpha", "local-http", {Capability.FETCH}),
+                ProviderProfile("missing", "hosted", {Capability.SEARCH}),
+            ]
+        )
+        mgr.register(StubEngine("alpha", {Capability.FETCH}))
+
+        status = await mgr.provider_status()
+
+        assert status[0]["name"] == "alpha"
+        assert status[0]["registered"] is True
+        assert status[0]["version"]["ok"] is False
+        assert status[0]["version"]["error"] == "version check not implemented"
+        assert status[1]["name"] == "missing"
+        assert status[1]["registered"] is False
+        assert status[1]["version"]["error"] == "provider not registered"
 
 
 # ── SmartRouter ──────────────────────────────────────────────────────
@@ -113,6 +161,22 @@ class TestSmartRouter:
             "https://example.com", engines, preferred=["lightpanda", "scrapling"]
         )
         assert order[0] == "lightpanda"
+
+    def test_preferred_engines_can_disable_implicit_fallbacks(self):
+        router, sr, hm = self._make_router()
+        engines = {
+            "scrapling": StubEngine("scrapling", {Capability.FETCH}),
+            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
+        }
+
+        order = router.resolve_fetch_order(
+            "https://example.com",
+            engines,
+            preferred=["scrapling"],
+            allow_fallback_engines=False,
+        )
+
+        assert order == ["scrapling"]
 
     def test_unhealthy_engines_excluded(self):
         router, sr, hm = self._make_router()
@@ -174,6 +238,23 @@ class TestFetchWithFallback:
         )
         assert result.ok is True
         assert result.engine == "good"
+
+    @pytest.mark.asyncio
+    async def test_can_disable_implicit_fallback_engines(self):
+        mgr = EngineManager()
+        mgr.register(FailingEngine("bad"))
+        mgr.register(StubEngine("good", {Capability.FETCH}))
+
+        result = await mgr.fetch_with_fallback(
+            "https://test-no-implicit-fallback.example.com",
+            preferred_engines=["bad"],
+            allow_fallback_engines=False,
+            no_cache=True,
+        )
+
+        assert result.ok is False
+        assert "All engines exhausted" in result.error
+        assert result.engine != "good"
 
     @pytest.mark.asyncio
     async def test_all_engines_fail(self):

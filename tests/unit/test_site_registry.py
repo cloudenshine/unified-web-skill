@@ -2,6 +2,7 @@
 
 import pytest
 from app.discovery.site_registry import SiteRegistry, SiteCapability
+from app.discovery.source_matrix import SourceMatrix
 
 
 @pytest.fixture(autouse=True)
@@ -16,12 +17,76 @@ class TestSiteRegistryBuiltin:
     def test_load_builtin_count(self):
         reg = SiteRegistry()
         count = reg.load_builtin()
-        assert count >= 60, f"Expected 60+ sites, got {count}"
+        assert count >= 100, f"Expected 100+ sites, got {count}"
 
     def test_site_count_property(self):
         reg = SiteRegistry()
         reg.load_builtin()
-        assert reg.site_count >= 60
+        assert reg.site_count >= 100
+
+    def test_low_friction_promoted_sources_are_registered(self):
+        reg = SiteRegistry()
+        reg.load_builtin()
+        matrix = SourceMatrix.load_builtin()
+
+        promoted_sources = [
+            source
+            for source in matrix.all_sources()
+            if source.promotion_status == "promoted"
+            and source.access_type in {"api", "rss", "static_html"}
+        ]
+
+        assert len(promoted_sources) >= 50
+        for source in promoted_sources:
+            cap = reg[source.site_id]
+            assert source.preferred_provider in cap.engines
+            assert cap.auth_required is False
+            assert cap.default_fetch_mode == "http"
+
+    def test_promoted_structured_adapters_include_matrix_preferred_provider(self):
+        reg = SiteRegistry()
+        reg.load_builtin()
+        matrix = SourceMatrix.load_builtin()
+
+        promoted_adapters = [
+            source
+            for source in matrix.all_sources()
+            if source.promotion_status == "promoted"
+            and source.access_type == "structured_adapter"
+        ]
+
+        assert promoted_adapters
+        for source in promoted_adapters:
+            cap = reg[source.site_id]
+            assert source.preferred_provider in cap.engines
+
+    def test_browser_verified_static_sources_are_registered_with_browser_first(self):
+        reg = SiteRegistry()
+        reg.load_builtin()
+
+        for site_id in {"stackoverflow", "reuters"}:
+            cap = reg[site_id]
+            assert cap.engines[0] == "bb-browser"
+            assert "scrapling" in cap.engines
+
+    def test_duckduckgo_browser_matrix_source_registered_with_browser(self):
+        reg = SiteRegistry()
+        reg.load_builtin()
+
+        cap = reg["duckduckgo"]
+
+        assert cap.engines[0] == "bb-browser"
+        assert "scrapling" in cap.engines
+
+    def test_arxiv_browser_structured_source_registered_with_browser_first(self):
+        reg = SiteRegistry()
+        reg.load_builtin()
+
+        cap = reg["arxiv"]
+
+        assert cap.engines[0] == "bb-browser"
+        assert "opencli" in cap.engines
+        assert "scrapling" in cap.engines
 
 
 class TestLookupByDomain:

@@ -237,6 +237,14 @@ class BaseEngine(abc.ABC):
         """Optimistic default — override with real connectivity checks."""
         return True
 
+    async def version_info(self) -> dict[str, Any]:
+        """Return local provider version metadata for diagnostics."""
+        return {
+            "ok": False,
+            "version": "",
+            "error": "version check not implemented",
+        }
+
     async def fetch(
         self,
         url: str,
@@ -310,6 +318,7 @@ class BaseEngine(abc.ABC):
 
         On Windows, automatically resolves npm-style `.cmd` wrappers when a bare
         binary name is supplied (e.g. ``bb-browser`` → ``bb-browser.cmd``).
+        Also handles `.ps1` scripts by invoking them via PowerShell.
         """
         import shutil
         import sys
@@ -320,11 +329,18 @@ class BaseEngine(abc.ABC):
         # On Windows, bare binary names from npm need .cmd extension
         if sys.platform == "win32" and not os.path.isabs(binary):
             # Try to find the .cmd wrapper
-            for ext in (".cmd", ".bat", ".exe", ""):
+            for ext in (".cmd", ".bat", ".exe", ".ps1", ""):
                 found = shutil.which(binary + ext)
                 if found:
                     resolved_cmd[0] = found
                     break
+
+        # On Windows, .ps1 scripts must be invoked via PowerShell
+        if sys.platform == "win32" and resolved_cmd[0].lower().endswith(".ps1"):
+            ps_script = resolved_cmd[0]
+            rest = resolved_cmd[1:]
+            # Build: powershell.exe -ExecutionPolicy Bypass -File <script> [args...]
+            resolved_cmd = ["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", ps_script] + rest
 
         proc: asyncio.subprocess.Process | None = None
         try:
@@ -345,11 +361,29 @@ class BaseEngine(abc.ABC):
                     proc.kill()
                 except ProcessLookupError:
                     pass
+                with contextlib.suppress(Exception):
+                    await asyncio.wait_for(proc.communicate(), timeout=2)
             return 75, "", "timeout"
         except FileNotFoundError:
             return 78, "", f"binary not found: {cmd[0]}"
         except Exception as exc:
             return 1, "", str(exc)
+
+    async def _version_from_command(
+        self,
+        cmd: list[str],
+        *,
+        provider: str,
+        timeout: int = 5,
+    ) -> dict[str, Any]:
+        """Run a provider version command and return normalized diagnostics."""
+        rc, stdout, stderr = await self._run_subprocess(cmd, timeout=timeout)
+        output = (stdout or stderr).strip()
+        first_line = output.splitlines()[0].strip() if output else ""
+        if rc == 0 and first_line:
+            return {"ok": True, "version": first_line, "error": ""}
+        error = stderr.strip() or stdout.strip() or f"{provider} version command exited {rc}"
+        return {"ok": False, "version": "", "error": error}
 
     def __repr__(self) -> str:
         caps = ", ".join(sorted(c.value for c in self.capabilities))
