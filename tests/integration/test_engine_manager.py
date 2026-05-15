@@ -61,7 +61,7 @@ async def test_fallback_chain_mock_then_real():
 
     # Should have fallen back to scrapling and succeeded
     assert result.ok is True
-    assert result.engine == "scrapling"
+    assert result.engine.startswith("scrapling")
 
 
 @pytest.mark.asyncio

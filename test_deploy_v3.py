@@ -14,7 +14,7 @@ RESULTS = []
 
 def record(name, status, detail="", duration_ms=0):
     RESULTS.append({"name": name, "status": status, "detail": detail[:300], "duration_ms": round(duration_ms, 1)})
-    icon = {"PASS": "✅", "FAIL": "❌", "WARN": "⚠️", "SKIP": "⏭️"}.get(status, "?")
+    icon = {"PASS": "[PASS]", "FAIL": "[FAIL]", "WARN": "[WARN]", "SKIP": "[SKIP]"}.get(status, "[?]")
     print(f"  {icon} {name}: {detail[:120]}")
 
 
@@ -445,7 +445,7 @@ async def main():
     failed = sum(1 for r in RESULTS if r["status"] == "FAIL")
     warned = sum(1 for r in RESULTS if r["status"] == "WARN")
     skipped = sum(1 for r in RESULTS if r["status"] == "SKIP")
-    print(f"  TOTAL: {total}  |  ✅ PASS: {passed}  |  ❌ FAIL: {failed}  |  ⚠️ WARN: {warned}  |  ⏭️ SKIP: {skipped}")
+    print(f"  TOTAL: {total}  |  PASS: {passed}  |  FAIL: {failed}  |  WARN: {warned}  |  SKIP: {skipped}")
     print(f"  Pass rate: {passed/total*100:.1f}%  ({passed}/{total})")
     print("=" * 70)
 

@@ -1,5 +1,7 @@
 # Architecture — Unified Web Skill v3.0
 
+> The approved product direction is a global Web Access MCP Router. The v3 EngineManager architecture is the single runtime implementation.
+
 本文档描述 unified-web-skill 的系统架构、核心设计模式和数据流。
 
 ---
@@ -187,7 +189,31 @@ return FetchResult(ok=False, error="All engines exhausted")
 
 ---
 
-## 4. SiteRegistry 设计 / SiteRegistry Design
+## 4. SiteRegistry 与 SourceMatrix 设计
+
+`SiteRegistry` 是运行时路由表，只包含已经可以影响 provider 选择的站点规则。
+Phase 3 新增的 `SourceMatrix` 是独立的覆盖率测量层，数据文件为
+`app/discovery/global_sources.json`。矩阵条目用于记录代表源、验证 URL、预期
+provider、区域、语言、难度和验证状态；只有经过验证的规则才应提升到
+`sites.json`，避免把未经确认的来源规则直接放进运行时路由。
+
+Phase 3.1 将 `SourceMatrix` 从“代表 URL 清单”升级为 provider 路由决策矩阵。
+每个 source 需要记录 `access_type`、`preferred_provider`、`fallback_providers`、
+`cost_tier`、`stability_tier`、`promotion_status` 和 `failure_modes`。这让系统
+先判断网页属于 API/RSS、静态 HTML、结构化 adapter、动态浏览器、交互会话还是
+边界场景，再选择最轻的可行 provider。
+
+当前路由原则是：API/RSS/静态页面优先走 `scrapling`；同等结构化效果下优先
+`opencli`；`bb-browser` 用于 adapter 覆盖更好、需要浏览器能力或需要交互的场景；
+CAPTCHA、短信验证、严格反爬和付费墙记录为边界，不自动晋升到默认运行时路由。
+
+`verify_source_matrix.py` 提供周期性回归入口。`--regression-profile` 固化了
+promoted HTTP/RSS/API、promoted structured adapter、promoted browser-first、
+boundary watch、special watch 和 rate-limited watch 等批次；promoted 批次可配合
+`--fail-on-unverified` 用于 CI/本地定期检查，ProductHunt、Amazon 等特殊源则只在
+watch profile 中积累 provider 证据，避免一次偶然通过直接污染默认路由。arXiv API
+和 Open Food Facts 这类明确限流或上游波动源应留在 rate-limited watch，除非新增
+source-specific cooldown、429 backoff 或稳定性证据。
 
 ### 4.1 数据模型
 

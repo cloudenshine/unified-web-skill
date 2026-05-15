@@ -84,7 +84,7 @@ def _get_engine_manager():
         _engine_manager.register(CLIBrowserEngine())
 
     _logger.info(
-        "EngineManager ready — %d engines: %s",
+        "EngineManager ready - %d engines: %s",
         len(_engine_manager._engines),
         list(_engine_manager._engines.keys()),
     )
@@ -103,6 +103,27 @@ def _ms_since(t0: float) -> float:
 def _parse_csv(raw: str) -> list[str]:
     """Split a comma-separated string, stripping whitespace and empties."""
     return [s.strip() for s in raw.split(",") if s.strip()]
+
+
+def _research_response_payload(
+    result: ResearchResult,
+    *,
+    query: str,
+    duration_ms: float,
+) -> dict:
+    """Build the backward-compatible research response plus Phase 4 bundle."""
+    from .pipeline.bundle import ResearchBundleBuilder
+
+    return {
+        "ok": True,
+        "query": query,
+        "records": [r.model_dump() for r in result.records],
+        "stats": result.stats.model_dump(),
+        "queries_used": result.queries_used,
+        "output_files": result.output_files,
+        "bundle": ResearchBundleBuilder().build(result),
+        "duration_ms": duration_ms,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -213,15 +234,11 @@ if mcp is not None:
             progress_cb = ctx.report_progress if ctx is not None else None
             result: ResearchResult = await pipeline.run(task, progress_cb=progress_cb)
 
-            return {
-                "ok": True,
-                "query": query,
-                "records": [r.model_dump() for r in result.records],
-                "stats": result.stats.model_dump(),
-                "queries_used": result.queries_used,
-                "output_files": result.output_files,
-                "duration_ms": _ms_since(t0),
-            }
+            return _research_response_payload(
+                result,
+                query=query,
+                duration_ms=_ms_since(t0),
+            )
         except Exception as exc:
             _logger.exception("research_and_collect failed: %s", exc)
             return {"ok": False, "error": str(exc), "duration_ms": _ms_since(t0)}
@@ -301,6 +318,40 @@ if mcp is not None:
 # Tool 3 — web_cli  (backward compatible)
 # ═══════════════════════════════════════════════════════════════════════════
 
+# Command alias mapping: harmonizes user-facing command names with what the
+# underlying CLI actually implements (e.g. "hot" → "top" for hackernews).
+_CLI_COMMAND_ALIASES: dict[str, dict[str, str]] = {
+    "hackernews": {
+        "hot": "top",      # "hot" is not a hackernews command; "top" is
+        "best": "best",
+        "new": "new",
+        "ask": "ask",
+        "show": "show",
+        "jobs": "jobs",
+        "search": "search",
+        "user": "user",
+    },
+    "bilibili": {
+        "hot": "hot",
+        "search": "search",
+        "ranking": "ranking",
+        "comments": "comments",
+        "dynamic": "dynamic",
+        "feed": "feed",
+        "history": "history",
+        "me": "me",
+        "user-videos": "user-videos",
+        "subtitle": "subtitle",
+        "following": "following",
+        "favorite": "favorite",
+        "download": "download",
+    },
+}
+
+# Timeout overrides for web_cli (CLI tools need more time for Chrome CDP
+# handshake / site API calls). 45s is a safe default for a single command.
+_CLI_TIMEOUT = 45
+
 if mcp is not None:
 
     @mcp.tool()
@@ -327,18 +378,30 @@ if mcp is not None:
 
         parsed_args = _parse_csv(args)
 
+        # Resolve command alias (hackernews "hot" → "top", etc.)
+        resolved_command = (
+            _CLI_COMMAND_ALIASES.get(site, {}).get(command, command)
+            if command
+            else command
+        )
+
         try:
             em = _get_engine_manager()
 
             # Try bb-browser first (richer adapter coverage)
-            bb = em.get_engine("bb_browser")
+            # Correct command format: bb-browser site {site}/{command} [args] --json
+            bb = em.get_engine("bb-browser")
             if bb is not None:
                 try:
-                    route = f"{site}/{command}"
-                    cmd = [config.BB_BROWSER_BIN, route] + parsed_args
+                    route = f"{site}/{resolved_command}"
+                    cmd = (
+                        [config.BB_BROWSER_BIN, "site", route]
+                        + parsed_args
+                        + ["--json"]
+                    )
                     from .engines.base import BaseEngine
                     rc, stdout, stderr = await BaseEngine._run_subprocess(
-                        bb, cmd, timeout=config.BB_BROWSER_TIMEOUT,
+                        bb, cmd, timeout=_CLI_TIMEOUT,
                     )
                     if rc == 0 and stdout.strip():
                         try:
@@ -350,20 +413,28 @@ if mcp is not None:
                             "site": site,
                             "command": command,
                             "data": data,
-                            "engine": "bb_browser",
+                            "engine": "bb-browser",
                             "duration_ms": _ms_since(t0),
                         }
                 except Exception as exc:
-                    _logger.debug("bb-browser failed for %s/%s: %s", site, command, exc)
+                    _logger.debug(
+                        "bb-browser failed for %s/%s: %s", site, command, exc,
+                    )
 
             # Fallback to opencli
             opencli = em.get_engine("opencli")
             if opencli is not None:
                 try:
-                    cmd = [config.OPENCLI_BIN, site, command] + parsed_args
+                    # Always request JSON output so we can parse it reliably;
+                    # default opencli format is "table" which breaks json.loads.
+                    cmd = (
+                        [config.OPENCLI_BIN, site, resolved_command]
+                        + parsed_args
+                        + ["--format", "json"]
+                    )
                     from .engines.base import BaseEngine
                     rc, stdout, stderr = await BaseEngine._run_subprocess(
-                        opencli, cmd, timeout=config.OPENCLI_TIMEOUT,
+                        opencli, cmd, timeout=_CLI_TIMEOUT,
                     )
                     if rc == 0 and stdout.strip():
                         try:
@@ -389,7 +460,9 @@ if mcp is not None:
                             "duration_ms": _ms_since(t0),
                         }
                 except Exception as exc:
-                    _logger.debug("opencli failed for %s/%s: %s", site, command, exc)
+                    _logger.debug(
+                        "opencli failed for %s/%s: %s", site, command, exc,
+                    )
 
             return {
                 "ok": False,
@@ -749,6 +822,7 @@ if mcp is not None:
             return {
                 "ok": True,
                 "engines": engines_list,
+                "providers": await em.provider_status(),
                 "total": len(engines_list),
                 "duration_ms": _ms_since(t0),
             }
@@ -775,11 +849,12 @@ def main():
     """
     _ensure_mcp()
 
-    if "--stdio" in sys.argv or not sys.stdout.isatty():
+    force_http = os.environ.get("FORCE_HTTP")
+    if force_http or "--http" in sys.argv or sys.stdout.isatty():
+        _start_http()
+    else:
         _logger.info("Starting MCP server in stdio mode")
         mcp.run(transport="stdio")
-    else:
-        _start_http()
 
 
 def _start_http():

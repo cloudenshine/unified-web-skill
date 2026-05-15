@@ -43,7 +43,7 @@ def _is_blocked(status: int, body: str) -> bool:
     if len(lower) < 3000:
         return any(m in lower for m in _BLOCK_MARKERS)
     # For full-length pages, only flag on unambiguous hard block markers.
-    hard_markers = ["captcha", "access denied", "ip has been blocked", "challenge-running"]
+    hard_markers = ["ip has been blocked", "challenge-running"]
     return any(m in lower for m in hard_markers)
 
 
@@ -108,6 +108,14 @@ class ScraplingEngine(BaseEngine):
             return result.ok
         except Exception:
             return False
+
+    async def version_info(self) -> dict[str, Any]:
+        try:
+            from importlib.metadata import version
+
+            return {"ok": True, "version": version("scrapling"), "error": ""}
+        except Exception as exc:
+            return {"ok": False, "version": "", "error": str(exc)}
 
     async def fetch(self, url: str, *, timeout: int = 30, **opts: Any) -> FetchResult:
         mode: str = opts.get("mode", "auto")

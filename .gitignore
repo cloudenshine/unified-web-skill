@@ -25,6 +25,7 @@ logs/
 
 # Test artifacts
 .pytest_cache/
+.pytest-tmp/
 .coverage
 htmlcov/
 test_results*.json

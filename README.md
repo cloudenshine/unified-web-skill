@@ -1,44 +1,39 @@
 # unified-web-skill
 
-**AI Agent 无限制网络访问平台** — 环形模块化架构，任意网站均可到达，结构化输出。
+**Local-first Web Access MCP Router for AI agents** — global resource discovery, retrieval, browser interaction, and research bundling through pluggable providers.
 
-An MCP server that gives AI agents unrestricted web access through a layered ring architecture — from simple HTTP to stealth browser automation with Cloudflare bypass.
-
----
-
-## Architecture: Ring Model
-
-```
-Ring 3  Research Pipeline  (query expand -> concurrent fetch -> deduplicate -> save)
-  Ring 2  CLI Engines      (bb-browser / opencli, absolute paths, 100+ sites)
-    Ring 1  Browser        (patchright stealth > playwright, cookies, screenshot)
-      Ring 0  HTTP         (httpx + ddgs, always available, zero binary deps)
-```
-
-Each ring probes its own dependencies at startup and degrades gracefully if missing.
-Ring 0 is always available — the server never fully fails.
-
-| Ring | Dependencies | Handles |
-|------|-------------|---------|
-| **R0 HTTP** | httpx, ddgs | Any public URL, DuckDuckGo/Bing search, link extraction |
-| **R1 Browser** | patchright / playwright | JS SPAs, Cloudflare sites, cookie sessions, screenshots |
-| **R2 CLI** | bb-browser, opencli | Structured social/content platform data (100+ sites) |
-| **R3 Pipeline** | R0 + R1 | Multi-source research, query expansion, quality filtering, storage |
+一个面向 AI Agent 的本地优先 MCP 路由层：统一搜索、抓取、浏览器交互、站点适配器和研究流水线，并通过可选 provider 做能力扩展。
 
 ---
 
-## MCP Tools (v2)
+## Architecture
 
-| Tool | Ring | Description |
-|------|------|-------------|
-| `fetch` | R0+R1 | Fetch any URL — auto HTTP or browser |
-| `search` | R0 | Web search via DuckDuckGo/Bing, no API key |
-| `browse` | R1 | Real Chromium with stealth and cookie support |
-| `interact` | R1 | Browser automation: click, fill, scroll, screenshot |
-| `site` | R2 | Structured commands: bilibili/hot, zhihu/trending, etc. |
-| `crawl` | R0 | BFS crawl from seed URL, follow links |
-| `research` | R3 | Full pipeline: expand -> search -> fetch -> filter -> save |
-| `status` | -- | Ring availability and binary path report |
+The project now has one runtime architecture: the v3 engine-manager MCP router in `app/`.
+
+```
+AI Agent / MCP Client
+  -> app.mcp_server
+    -> EngineManager
+      -> default providers: bb-browser, opencli, scrapling
+      -> opt-in providers: lightpanda, pinchtab, clibrowser
+    -> research pipeline: intent -> discovery -> fetch -> extract -> quality -> storage
+```
+
+Each provider declares its capabilities, reports health/version state, and participates in health-aware fallback. The default install works with the local baseline; browser/session and hosted providers are optional extensions.
+
+---
+
+## MCP Tools
+
+| Tool | Description |
+|------|-------------|
+| `research_and_collect` | Full pipeline: classify -> discover -> fetch -> filter -> save |
+| `web_fetch` | Fetch one URL through provider routing and fallback |
+| `web_cli` | Structured site commands through bb-browser/opencli |
+| `web_interact` | Browser automation: click, fill, scroll, screenshot |
+| `web_search` | Multi-provider search and deduplication |
+| `web_crawl` | BFS crawl from a seed URL |
+| `engine_status` | Provider health and capability report |
 
 ---
 
@@ -62,26 +57,51 @@ npm install -g bb-browser opencli
 
 ```bash
 cd /path/to/unified-web-skill
-python check_v2.py
+python check.py
 ```
 
 Expected:
 ```
-Ring 0 (HTTP):     [OK] online
-Ring 1 (Browser):  [OK] online
-Ring 2 (CLI):      [OK] online
-Ring 3 (Pipeline): [OK] online
+Architecture: v3 engine-manager MCP router
+Registered engines:
+  scrapling: fetch, search
+...
+Critical dependency checks passed.
+```
+
+### Source matrix regression
+
+周期性回归验证使用固定 profile，避免每次手工拼接长参数。promoted 批次使用
+`--fail-on-unverified`，一旦出现 weak/failed 即返回非零退出码；boundary/special
+/rate-limited watch 只产出证据，不自动提升 ProductHunt、Amazon、arXiv API、Open Food Facts 等
+特殊源等级。
+
+```bash
+# promoted HTTP/RSS/API + structured adapter + browser-first regression
+make source-matrix-regression
+
+# boundary/special/rate-limited evidence watch，不影响默认通过线
+make source-matrix-watch
+```
+
+也可以单独运行：
+
+```bash
+python verify_source_matrix.py --regression-profile promoted-http --fail-on-unverified
+python verify_source_matrix.py --regression-profile special-watch
+python verify_source_matrix.py --regression-profile rate-limited-watch
 ```
 
 ### Start server
 
 ```bash
 # stdio mode (for OpenClaw / Claude Code MCP)
-python server_v2.py --stdio
+python -m app.mcp_server --stdio
 
 # HTTP mode
-python server_v2.py
-# -> http://127.0.0.1:8001
+python -m app.mcp_server
+# -> http://127.0.0.1:8000
+
 ```
 
 ---
@@ -112,8 +132,8 @@ which opencli         # macOS / Linux
 > **Why absolute paths?**
 > OpenClaw and most GUI launchers spawn the MCP server as a subprocess with a minimal PATH
 > that often differs from your shell's PATH. Bare names like `"bb-browser"` work in the
-> terminal but silently fail when launched from a GUI. `core/probe.py` does attempt
-> auto-discovery, but explicit paths are the reliable fallback.
+> terminal but silently fail when launched from a GUI. `python check.py` reports the
+> providers that the v3 router can actually initialize; explicit paths are the reliable fallback.
 
 ---
 
@@ -125,7 +145,7 @@ which opencli         # macOS / Linux
     "servers": {
       "unified-web-skill": {
         "command": "<absolute path to python or python3>",
-        "args": ["<absolute path to server_v2.py>", "--stdio"],
+        "args": ["-m", "app.mcp_server", "--stdio"],
         "cwd": "<absolute path to the unified-web-skill directory>",
         "env": {
           "OUTPUT_DIR": "<absolute path to unified-web-skill/outputs>"
@@ -158,7 +178,7 @@ add their paths explicitly:
     "servers": {
       "unified-web-skill": {
         "command": "C:\\Python312\\python.exe",
-        "args": ["C:\\Projects\\unified-web-skill\\server_v2.py", "--stdio"],
+        "args": ["-m", "app.mcp_server", "--stdio"],
         "cwd": "C:\\Projects\\unified-web-skill",
         "env": {
           "BB_BROWSER_BIN": "C:\\Users\\YourName\\AppData\\Roaming\\npm\\bb-browser.cmd",
@@ -182,7 +202,7 @@ add their paths explicitly:
     "servers": {
       "unified-web-skill": {
         "command": "/usr/local/bin/python3",
-        "args": ["/home/yourname/projects/unified-web-skill/server_v2.py", "--stdio"],
+        "args": ["-m", "app.mcp_server", "--stdio"],
         "cwd": "/home/yourname/projects/unified-web-skill",
         "env": {
           "OUTPUT_DIR": "/home/yourname/projects/unified-web-skill/outputs"
@@ -195,7 +215,7 @@ add their paths explicitly:
 
 On macOS/Linux, `shutil.which()` usually finds bb-browser/opencli automatically if they
 are in `/usr/local/bin` or `~/.npm-global/bin`. Only add `BB_BROWSER_BIN` / `OPENCLI_BIN`
-if `python check_v2.py` reports Ring 2 as offline.
+if `python check.py` reports CLI provider as offline.
 
 </details>
 
@@ -208,7 +228,7 @@ if `python check_v2.py` reports Ring 2 as offline.
   "mcpServers": {
     "unified-web-skill": {
       "command": "python3",
-      "args": ["server_v2.py", "--stdio"],
+      "args": ["-m", "app.mcp_server", "--stdio"],
       "cwd": "/path/to/unified-web-skill"
     }
   }
@@ -223,199 +243,71 @@ Use the absolute Python path if you get "command not found" errors.
 ### Verify after configuration
 
 ```bash
-python check_v2.py
+python check.py
 ```
 
-All four rings should show `[OK] online`. If Ring 2 shows offline, set `BB_BROWSER_BIN`
+If CLI providers show offline, set `BB_BROWSER_BIN`
 and `OPENCLI_BIN` to the absolute paths found with `where` / `which`.
+
+Optional browser providers are disabled by default for a clean local baseline.
+Enable them only after their backing service or binary is installed:
+
+```bash
+LP_ENABLED=true
+CLIBROWSER_ENABLED=true
+PINCHTAB_BASE_URL=http://127.0.0.1:PORT
+```
 
 ---
 
 ## Tool Reference
 
-### `fetch` — Universal URL fetch
+See [docs/api.md](docs/api.md) for the full v3 MCP API reference.
 
-```python
-fetch(
-    url: str,
-    mode: str = "auto",        # auto | http | browser
-    timeout: int = 20,
-    screenshot: bool = False,
-    extra_headers: str = "",   # JSON string {"X-Header": "value"}
-)
-# Returns: {ok, url, title, text, html, engine, duration_ms, error}
-```
+The runtime tools are:
 
-`mode=auto` uses HTTP for most sites, switches to browser for known JS-heavy domains (bilibili, zhihu, twitter, notion, etc.).
+- `research_and_collect`
+- `web_fetch`
+- `web_cli`
+- `web_interact`
+- `web_search`
+- `web_crawl`
+- `engine_status`
 
 ---
 
-### `search` — Web search (no API key)
+## 推荐工具搭配
 
-```python
-search(
-    query: str,
-    max_results: int = 10,  # max 30
-    language: str = "zh",   # zh | en
-)
-# Returns: {ok, results: [{url, title, snippet, rank, source}], total, duration_ms}
-```
+同等结果质量下，优先选择更轻、更稳定、依赖更少的 provider。API/RSS/静态页是
+全球覆盖主干；`bb-browser` 是结构化 adapter、动态浏览器和交互会话的强能力补位层。
 
-Supports DuckDuckGo operators: `site:`, `filetype:`, `intitle:`, `"exact phrase"`.
-
----
-
-### `browse` — Stealth browser fetch
-
-```python
-browse(
-    url: str,
-    timeout: int = 30,
-    screenshot: bool = False,
-    wait_for: str = "networkidle",  # networkidle | domcontentloaded | load
-    js_eval: str = "",              # JS expression, result prepended to text
-    cookies: str = "",              # JSON array string OR file path to JSON
-    stealth: bool = True,           # patchright Cloudflare bypass (default on)
-)
-# Returns: {ok, url, title, text, html, screenshot_b64, engine, duration_ms}
-```
-
-Cookie format for login-required pages:
-```json
-[{"name": "session_id", "value": "abc123", "domain": ".example.com", "path": "/"}]
-```
-
----
-
-### `interact` — Browser automation
-
-```python
-interact(
-    url: str,
-    actions: str,           # JSON array of action objects
-    timeout: int = 60,
-    screenshot: bool = True,
-    cookies: str = "",
-    stealth: bool = True,
-)
-# Returns: {ok, url, title, text, screenshot_b64, engine, duration_ms}
-```
-
-Supported actions:
-```json
-[
-  {"action": "click",    "selector": "#login-btn"},
-  {"action": "fill",     "selector": "input[name=email]",    "value": "user@example.com"},
-  {"action": "fill",     "selector": "input[name=password]", "value": "secret"},
-  {"action": "press",    "selector": "input[name=password]", "value": "Enter"},
-  {"action": "wait_for", "selector": ".dashboard"},
-  {"action": "scroll",   "value": "800"},
-  {"action": "wait",     "wait_ms": 1500},
-  {"action": "navigate", "value": "https://example.com/data"},
-  {"action": "evaluate", "value": "document.querySelector('.price').textContent"},
-  {"action": "type",     "selector": "textarea", "value": "hello world"}
-]
-```
-
----
-
-### `site` — Structured platform data
-
-```python
-site(
-    name: str,      # bilibili | zhihu | hackernews | reddit | youtube | xiaohongshu | ...
-    command: str,   # hot | trending | top | search | user-videos | ranking | ...
-    args: str = ""  # comma-separated arguments
-)
-# Returns: {ok, site, command, data, engine, duration_ms}
-```
-
-Examples:
-```
-site("bilibili",   "hot")
-site("zhihu",      "trending")
-site("hackernews", "top")
-site("bilibili",   "search", "AI agent 2025")
-```
-
-Engine priority: bb-browser first (richer adapters), opencli fallback.
-
----
-
-### `crawl` — BFS web crawl
-
-```python
-crawl(
-    url: str,
-    max_pages: int = 10,      # max 50
-    max_depth: int = 2,
-    same_domain: bool = True,
-    timeout: int = 15,
-    save: bool = False,
-    format: str = "json",     # json | md | ndjson
-)
-# Returns: {ok, pages: [{url, title, text, depth}], total_pages, duration_s, output_files}
-```
-
----
-
-### `research` — Full research pipeline
-
-```python
-research(
-    query: str,
-    language: str = "zh",
-    max_sources: int = 15,
-    max_pages: int = 10,
-    max_queries: int = 4,      # sub-queries to generate
-    max_concurrency: int = 5,
-    timeout: int = 15,
-    min_quality: float = 0.1,
-    include_domains: str = "", # comma-separated allowlist
-    exclude_domains: str = "", # comma-separated blocklist
-    format: str = "json,md",   # output formats
-)
-# Returns: {ok, query, records, total, queries_used, duration_s, output_files, engines_used}
-```
-
----
-
-### `status` — Ring health report
-
-```python
-status()
-# Returns: ring online/offline status, binary paths, capability details
-```
-
----
-
-## Recommended Tool Pairing
-
-| Data need | Best tool |
+| 数据需求 | 首选路径 |
 |-----------|-----------|
-| GitHub repos / code / issues | **GitHub MCP** (authoritative) |
-| Library docs / API reference | **Context7 MCP** (up-to-date) |
+| GitHub repos / code / issues | **GitHub MCP**（权威结构化数据） |
+| Library docs / API reference | **Context7 MCP**（最新官方文档） |
 | Wikipedia / deep encyclopedic | **DeepWiki MCP** |
-| Any public webpage | `fetch` or `browse` |
-| Real-time web search | `search` |
-| Bilibili / Zhihu / XHS / HN | `site` |
-| Cloudflare-protected sites | `browse` (stealth=True) |
-| Login-required pages | `browse` or `interact` with `cookies` |
-| Multi-source research | `research` |
-| Multi-page site scraping | `crawl` |
-| Browser forms / interaction | `interact` |
+| 官方 API / RSS / JSON endpoint | `fetch` via `scrapling` |
+| 静态或半静态公开网页 | `fetch` via `scrapling` |
+| 已有结构化站点 adapter | 优先 `opencli`，必要时 `bb-browser site` |
+| 实时搜索 | `search` |
+| Bilibili / Reddit / YouTube / HN 等 adapter 站点 | `site`，并单独验证 adapter 健康 |
+| JS 渲染公开页面 | 浏览器 provider，仅在 HTTP 不足时启用 |
+| 需要登录/cookie 的页面 | `browse` 或 `interact`，显式传入 session 假设 |
+| 多源研究 | `research` |
+| 多页面站点抓取 | `crawl` |
+| 表单、点击、滚动、截图 | `interact` |
 
-Use specialized MCPs (GitHub, Context7, DeepWiki) for their domains — they provide authoritative, structured data without scraping overhead.
+GitHub、Context7、DeepWiki 等专用 MCP 在各自领域优先于 scraping，因为它们通常能提供更权威、更稳定的结构化数据。
 
 ---
 
-## What Gets Bypassed
+## Access Boundaries
 
 | Blocker | Status |
 |---------|--------|
-| Cloudflare JS challenge | Bypassed (patchright) |
-| Bot-detection fingerprinting | Bypassed (patchright stealth) |
-| Login-gated content | Supported (cookie injection) |
+| Cloudflare JS challenge | Best-effort via browser providers; success depends on site policy and provider capability |
+| Bot-detection fingerprinting | Best-effort via stealth/browser providers; not guaranteed |
+| Login-gated content | Supported when valid cookies, user session, or credentials are provided |
 | SMS / CAPTCHA verification | Requires human |
 | Paid subscription paywalls | Requires valid credentials |
 
@@ -425,25 +317,18 @@ Use specialized MCPs (GitHub, Context7, DeepWiki) for their domains — they pro
 
 ```
 unified-web-skill/
-|-- server_v2.py          Entry point: ring-based MCP server (8 tools)
-|-- check_v2.py           Diagnostic: verify all rings before starting
+|-- check.py              Diagnostic: verify v3 providers and live smoke checks
+|-- verify_source_matrix.py  Source matrix live verification and regression profiles
 |-- requirements.txt
 |
-|-- core/                 Ring architecture (v2)
-|   |-- probe.py          Capability detection + binary path auto-discovery
-|   |-- storage.py        Output: JSON / Markdown / NDJSON
-|   `-- rings/
-|       |-- r0_http.py    Ring 0: httpx + ddgs search + text extraction
-|       |-- r1_browser.py Ring 1: patchright/playwright + cookie injection
-|       |-- r2_cli.py     Ring 2: bb-browser/opencli (absolute paths)
-|       `-- r3_pipeline.py Ring 3: query expansion + concurrent research
+|-- app/                  Single v3 MCP router implementation
+|   |-- mcp_server.py     Runtime entry: 7 MCP tools, 6-engine architecture
+|   |-- engines/          Scrapling, bb-browser, opencli, lightpanda, pinchtab, clibrowser
+|   |-- pipeline/         Research pipeline
+|   `-- discovery/        Intent classifier + source registry
 |
-|-- app/                  Legacy v1 (backward compat)
-|   |-- mcp_server.py     v1 entry: 7 tools, 6-engine architecture
-|   |-- engines/          Scrapling, bb-browser, opencli, lightpanda adapters
-|   |-- pipeline/         v1 research pipeline
-|   `-- discovery/        Intent classifier + 67-site registry
-|
+|-- docs/                 API, architecture, engine docs, implementation plans
+|-- tests/                Unit, integration, and e2e tests
 `-- outputs/              Research outputs (gitignored)
 ```
 
@@ -451,24 +336,12 @@ unified-web-skill/
 
 ## Changelog
 
-### v2.0.0 (2026-04-22)
+### v3.0.0 (2026-05-13)
 
-- **New**: Ring-based modular architecture (R0-R3), Ring 0 always guaranteed
-- **New**: `server_v2.py` — 8 MCP tools, clean entry point
-- **New**: patchright integration — Cloudflare / bot-detection bypass (`stealth=True`)
-- **New**: Cookie injection support — login-required pages via `cookies` parameter
-- **New**: `probe.py` — automatic binary path resolution (no PATH dependency)
-- **New**: `ddgs` package (renamed from `duckduckgo-search`)
-- **New**: `trafilatura` + `beautifulsoup4` for richer article extraction
-- **Fix**: OpenClaw PATH issue — bb-browser/opencli now resolved to absolute paths
-- **Fix**: Lightpanda default-enabled with Docker hostname causing startup errors
-- **Keep**: Full `app/` v1 backward compatibility
-
-### v1.x (prior)
-
-- 6-engine: Scrapling, bb-browser, OpenCLI, Lightpanda, PinchTab, CLIBrowser
-- 7 MCP tools via FastMCP
-- 67-site registry, 9-type intent classifier, circuit-breaker health monitor
+- **Single runtime**: v3 `app.mcp_server` is the only supported MCP server.
+- **Removed**: historical ring runtime and duplicate entry points.
+- **Updated**: diagnostics now run through the v3 EngineManager.
+- **Clarified**: access boundaries are provider-dependent and best-effort.
 
 ---
 

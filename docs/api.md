@@ -1,5 +1,7 @@
 # API Reference — Unified Web Skill v3.0
 
+> Status: v3 is the single supported MCP API surface.
+
 Complete reference for all 7 MCP tools. All tools return JSON dicts and **never raise exceptions** to the client.
 
 ---
@@ -86,6 +88,104 @@ Complete reference for all 7 MCP tools. All tools return JSON dicts and **never 
   "duration_ms": 45234.5
 }
 ```
+
+### Research Bundle Schema
+
+`research_and_collect` 同时返回 `bundle` 字段，用于面向 Agent 的结构化研究结果。旧字段
+`records`、`stats`、`queries_used`、`output_files` 继续保留，便于兼容既有调用方。
+
+```json
+{
+  "bundle": {
+    "query": "AI 芯片最新进展",
+    "created_at": "2026-05-15T00:00:00+00:00",
+    "queries_used": ["AI chip progress", "AI accelerator research"],
+    "accepted_records": [
+      {
+        "url": "https://example.edu/report",
+        "canonical_url": "https://example.edu/report",
+        "title": "AI Accelerator Report",
+        "summary": "Concise source summary...",
+        "published_at": "2026-05-01",
+        "language": "en",
+        "credibility": 0.82,
+        "score": 0.88,
+        "score_breakdown": {
+          "credibility": 0.495,
+          "credibility_calibration": 0.044,
+          "content_length": 0.25,
+          "freshness": 0.1,
+          "provider_trace": 0.1
+        }
+      }
+    ],
+    "rejected_records": [
+      {
+        "url": "https://example.edu/report?utm_source=feed",
+        "reason": "duplicate_url",
+        "duplicate_of": "https://example.edu/report"
+      }
+    ],
+    "provider_traces": [
+      {
+        "url": "https://example.edu/report",
+        "fetch_engine": "scrapling-http",
+        "fetch_mode": "api",
+        "duration_ms": 812.4,
+        "tool_chain": ["scrapling-http"]
+      }
+    ],
+    "citations": [
+      {
+        "title": "AI Accelerator Report",
+        "url": "https://example.edu/report",
+        "canonical_url": "https://example.edu/report",
+        "published_at": "2026-05-01",
+        "provider": "scrapling-http",
+        "score": 0.88,
+        "summary": "Concise source summary..."
+      }
+    ],
+    "stats": {
+      "source_count": 1,
+      "rejected_count": 1,
+      "engines_used": {"scrapling-http": 1},
+      "failure_stats": {
+        "skipped_quality": 0,
+        "skipped_duplicate": 1,
+        "skipped_blocked": 0
+      },
+      "rejection_reasons": {"duplicate_url": 1},
+      "language_distribution": {"en": 1},
+      "provider_distribution": {"scrapling-http": 1},
+      "source_type_distribution": {"direct": 1},
+      "domain_distribution": {"example.edu": 1},
+      "score_summary": {
+        "count": 1,
+        "max": 0.88,
+        "min": 0.88,
+        "avg": 0.88,
+        "quality_buckets": {"high": 1, "medium": 0, "low": 0}
+      }
+    }
+  }
+}
+```
+
+字段说明：
+
+| 字段 | 说明 |
+|------|------|
+| `accepted_records` | 去重后进入研究结果的来源，按 `score` 从高到低排序。 |
+| `rejected_records` | 被 bundle 层拒绝的来源，目前主要记录 canonical URL 重复。 |
+| `provider_traces` | 每条 accepted record 的抓取引擎、抓取模式、耗时和工具链。 |
+| `citations` | 可直接用于回答生成的引用列表，与 accepted records 同序。 |
+| `score_summary` | accepted records 的分数数量、最大值、最小值、平均值和质量分档。 |
+| `rejection_reasons` | rejected records 的原因计数，调用方无需自行扫描明细。 |
+| `language_distribution` | accepted records 的语言分布，空语言归入 `unknown`。 |
+| `provider_distribution` | accepted records 的实际抓取 provider 分布，空 provider 归入 `unknown`。 |
+| `source_type_distribution` | accepted records 的来源类型分布，空 source type 归入 `unknown`。 |
+| `domain_distribution` | accepted records 的 canonical domain 分布，`www.` 会归一到根 host。 |
 
 ### 失败返回
 
@@ -503,20 +603,26 @@ bb-browser 支持的搜索适配器：
     {
       "name": "scrapling",
       "available": true,
-      "capabilities": ["fetch"]
-    },
-    {
-      "name": "lightpanda",
-      "available": false,
-      "capabilities": ["fetch", "interact"]
-    },
-    {
-      "name": "clibrowser",
-      "available": true,
       "capabilities": ["fetch", "search"]
     }
   ],
-  "total": 5,
+  "providers": [
+    {
+      "name": "bb-browser",
+      "category": "local-cli",
+      "enabled": true,
+      "registered": true,
+      "version": {"ok": true, "version": "0.11.6", "error": ""}
+    },
+    {
+      "name": "lightpanda",
+      "category": "local-browser",
+      "enabled": false,
+      "registered": false,
+      "version": {"ok": false, "version": "", "error": "provider not registered"}
+    }
+  ],
+  "total": 3,
   "duration_ms": 5678.9
 }
 ```
@@ -575,6 +681,6 @@ GET http://localhost:8000/health
   "status": "ok",
   "service": "unified-web-skill",
   "version": "3.0.0",
-  "engines": ["bb-browser", "opencli", "scrapling", "lightpanda", "clibrowser"]
+  "engines": ["bb-browser", "opencli", "scrapling"]
 }
 ```

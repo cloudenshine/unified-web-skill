@@ -1,0 +1,177 @@
+{
+  "now": "2026-05-14T00:00:00+00:00",
+  "created_at": "2026-05-14T00:00:00+00:00",
+  "task": {
+    "query": "global climate policy evidence",
+    "language": "en",
+    "max_sources": 10
+  },
+  "queries_used": [
+    "global climate policy evidence",
+    "climate policy nasa arxiv report"
+  ],
+  "stats": {
+    "total_discovered": 4,
+    "total_collected": 4,
+    "skipped_quality": 2,
+    "skipped_duplicate": 1,
+    "skipped_blocked": 1,
+    "engines_used": {
+      "scrapling-http": 3,
+      "bb-browser": 1
+    }
+  },
+  "records": [
+    {
+      "url": "https://example-blog.test/climate-policy",
+      "title": "Older climate policy commentary",
+      "text": "Older commentary fixture.",
+      "summary": "Older commentary fixture.",
+      "text_length": 4000,
+      "published_at": "2021-05-14",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "http",
+      "credibility": 0.72,
+      "source_type": "search",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://www.nasa.gov/climate-policy?utm_source=newsletter",
+      "title": "NASA climate policy evidence",
+      "text": "NASA fixture.",
+      "summary": "NASA fixture.",
+      "text_length": 4000,
+      "published_at": "2026-05-10",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "api",
+      "credibility": 0.6,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.00001",
+      "title": "Climate policy model preprint",
+      "text": "Arxiv fixture.",
+      "summary": "Arxiv fixture.",
+      "text_length": 3200,
+      "published_at": "2026-05-12",
+      "language": "en",
+      "fetch_engine": "bb-browser",
+      "fetch_mode": "bb-browser:arxiv/search",
+      "credibility": 0.68,
+      "source_type": "site_adapter",
+      "tool_chain": [
+        "bb-browser",
+        "arxiv/search"
+      ]
+    },
+    {
+      "url": "https://www.nasa.gov/climate-policy",
+      "title": "NASA duplicate",
+      "text": "Duplicate fixture.",
+      "summary": "Duplicate fixture.",
+      "text_length": 3000,
+      "published_at": "2026-05-11",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "api",
+      "credibility": 0.9,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    }
+  ],
+  "expected": {
+    "accepted_canonical_order": [
+      "https://www.nasa.gov/climate-policy",
+      "https://arxiv.org/abs/2605.00001",
+      "https://example-blog.test/climate-policy"
+    ],
+    "citation_canonical_order": [
+      "https://www.nasa.gov/climate-policy",
+      "https://arxiv.org/abs/2605.00001",
+      "https://example-blog.test/climate-policy"
+    ],
+    "rejected_records": [
+      {
+        "url": "https://www.nasa.gov/climate-policy",
+        "reason": "duplicate_url",
+        "duplicate_of": "https://www.nasa.gov/climate-policy"
+      }
+    ],
+    "score_breakdowns": [
+      {
+        "credibility": 0.385,
+        "credibility_calibration": 0.055,
+        "content_length": 0.25,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.3905,
+        "credibility_calibration": 0.0165,
+        "content_length": 0.2,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.396,
+        "credibility_calibration": 0.0,
+        "content_length": 0.25,
+        "freshness": 0.01,
+        "provider_trace": 0.1
+      }
+    ],
+    "stats": {
+      "source_count": 3,
+      "rejected_count": 1,
+      "engines_used": {
+        "scrapling-http": 3,
+        "bb-browser": 1
+      },
+      "failure_stats": {
+        "skipped_quality": 2,
+        "skipped_duplicate": 1,
+        "skipped_blocked": 1
+      },
+      "rejection_reasons": {
+        "duplicate_url": 1
+      },
+      "language_distribution": {
+        "en": 3
+      },
+      "provider_distribution": {
+        "bb-browser": 1,
+        "scrapling-http": 2
+      },
+      "source_type_distribution": {
+        "direct": 1,
+        "search": 1,
+        "site_adapter": 1
+      },
+      "domain_distribution": {
+        "arxiv.org": 1,
+        "example-blog.test": 1,
+        "nasa.gov": 1
+      },
+      "score_summary": {
+        "count": 3,
+        "max": 0.835,
+        "min": 0.756,
+        "avg": 0.7938,
+        "quality_buckets": {
+          "high": 1,
+          "medium": 2,
+          "low": 0
+        }
+      }
+    }
+  }
+}

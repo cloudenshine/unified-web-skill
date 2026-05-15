@@ -1,0 +1,177 @@
+{
+  "now": "2026-05-14T00:00:00+00:00",
+  "created_at": "2026-05-14T00:00:00+00:00",
+  "task": {
+    "query": "react package ecosystem evidence",
+    "language": "en",
+    "max_sources": 10
+  },
+  "queries_used": [
+    "react package ecosystem evidence",
+    "react npm github docs"
+  ],
+  "stats": {
+    "total_discovered": 4,
+    "total_collected": 4,
+    "skipped_quality": 0,
+    "skipped_duplicate": 1,
+    "skipped_blocked": 1,
+    "engines_used": {
+      "scrapling-http": 3,
+      "opencli": 1
+    }
+  },
+  "records": [
+    {
+      "url": "https://registry.npmjs.org/react",
+      "title": "npm React metadata",
+      "text": "NPM package fixture.",
+      "summary": "NPM package fixture.",
+      "text_length": 4000,
+      "published_at": "2026-05-01",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "api",
+      "credibility": 0.72,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://github.com/facebook/react?utm_source=search",
+      "title": "React repository",
+      "text": "GitHub package fixture.",
+      "summary": "GitHub package fixture.",
+      "text_length": 3600,
+      "published_at": "2026-04-20",
+      "language": "en",
+      "fetch_engine": "opencli",
+      "fetch_mode": "opencli:github/repo",
+      "credibility": 0.78,
+      "source_type": "site_adapter",
+      "tool_chain": [
+        "opencli",
+        "github/repo"
+      ]
+    },
+    {
+      "url": "https://react.dev/reference/react",
+      "title": "React docs reference",
+      "text": "React docs fixture.",
+      "summary": "React docs fixture.",
+      "text_length": 3000,
+      "published_at": "2024-10-01",
+      "language": "en",
+      "fetch_engine": "scrapling-http",
+      "fetch_mode": "http",
+      "credibility": 0.7,
+      "source_type": "direct",
+      "tool_chain": [
+        "scrapling-http"
+      ]
+    },
+    {
+      "url": "https://github.com/facebook/react",
+      "title": "React repository duplicate",
+      "text": "Duplicate package fixture.",
+      "summary": "Duplicate package fixture.",
+      "text_length": 2000,
+      "published_at": "2026-04-21",
+      "language": "en",
+      "fetch_engine": "opencli",
+      "fetch_mode": "opencli:github/repo",
+      "credibility": 0.85,
+      "source_type": "site_adapter",
+      "tool_chain": [
+        "opencli",
+        "github/repo"
+      ]
+    }
+  ],
+  "expected": {
+    "accepted_canonical_order": [
+      "https://github.com/facebook/react",
+      "https://registry.npmjs.org/react",
+      "https://react.dev/reference/react"
+    ],
+    "citation_canonical_order": [
+      "https://github.com/facebook/react",
+      "https://registry.npmjs.org/react",
+      "https://react.dev/reference/react"
+    ],
+    "rejected_records": [
+      {
+        "url": "https://github.com/facebook/react",
+        "reason": "duplicate_url",
+        "duplicate_of": "https://github.com/facebook/react"
+      }
+    ],
+    "score_breakdowns": [
+      {
+        "credibility": 0.4455,
+        "credibility_calibration": 0.0165,
+        "content_length": 0.225,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.407,
+        "credibility_calibration": 0.011,
+        "content_length": 0.25,
+        "freshness": 0.1,
+        "provider_trace": 0.1
+      },
+      {
+        "credibility": 0.385,
+        "credibility_calibration": 0.0,
+        "content_length": 0.1875,
+        "freshness": 0.04,
+        "provider_trace": 0.1
+      }
+    ],
+    "stats": {
+      "source_count": 3,
+      "rejected_count": 1,
+      "engines_used": {
+        "scrapling-http": 3,
+        "opencli": 1
+      },
+      "failure_stats": {
+        "skipped_quality": 0,
+        "skipped_duplicate": 1,
+        "skipped_blocked": 1
+      },
+      "rejection_reasons": {
+        "duplicate_url": 1
+      },
+      "language_distribution": {
+        "en": 3
+      },
+      "provider_distribution": {
+        "opencli": 1,
+        "scrapling-http": 2
+      },
+      "source_type_distribution": {
+        "direct": 2,
+        "site_adapter": 1
+      },
+      "domain_distribution": {
+        "github.com": 1,
+        "react.dev": 1,
+        "registry.npmjs.org": 1
+      },
+      "score_summary": {
+        "count": 3,
+        "max": 0.8705,
+        "min": 0.7125,
+        "avg": 0.8133,
+        "quality_buckets": {
+          "high": 2,
+          "medium": 1,
+          "low": 0
+        }
+      }
+    }
+  }
+}

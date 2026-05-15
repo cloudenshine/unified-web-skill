@@ -215,8 +215,9 @@
       "cnblogs.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "cnblogs/search"
@@ -377,8 +378,9 @@
       "dict.youdao.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "translate": "youdao/translate"
@@ -722,6 +724,8 @@
       "mastodon.online"
     ],
     "engines": [
+      "bb-browser",
+      "opencli",
       "scrapling"
     ],
     "commands": {},
@@ -736,8 +740,9 @@
       "github.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "github/search",
@@ -755,8 +760,9 @@
       "stackoverflow.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "stackoverflow/search"
@@ -806,8 +812,9 @@
       "dev.to"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "devto/search"
@@ -824,6 +831,7 @@
       "www.npmjs.com"
     ],
     "engines": [
+      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -858,6 +866,7 @@
       "arxiv.org"
     ],
     "engines": [
+      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -906,6 +915,8 @@
       "m.youtube.com"
     ],
     "engines": [
+      "bb-browser",
+      "opencli",
       "scrapling"
     ],
     "commands": {
@@ -960,8 +971,9 @@
       "reuters.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "reuters/search"
@@ -1143,8 +1155,9 @@
       "duckduckgo.com"
     ],
     "engines": [
-      "opencli",
-      "scrapling"
+      "bb-browser",
+      "scrapling",
+      "opencli"
     ],
     "commands": {
       "search": "duckduckgo/search"
@@ -1187,5 +1200,1211 @@
     "content_type": "search",
     "country": "global",
     "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "python_docs",
+    "display_name": "Python Documentation",
+    "domains": [
+      "docs.python.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_python_asyncio; access_type=static_html."
+  },
+  {
+    "site_id": "pubmed",
+    "display_name": "PubMed",
+    "domains": [
+      "pubmed.ncbi.nlm.nih.gov"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_pubmed_search; access_type=static_html."
+  },
+  {
+    "site_id": "sec",
+    "display_name": "SEC EDGAR",
+    "domains": [
+      "sec.gov"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_sec_company_search; access_type=static_html."
+  },
+  {
+    "site_id": "react_docs",
+    "display_name": "React Documentation",
+    "domains": [
+      "react.dev"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_react_learn; access_type=static_html."
+  },
+  {
+    "site_id": "typescript_docs",
+    "display_name": "TypeScript Handbook",
+    "domains": [
+      "typescriptlang.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_typescript_handbook; access_type=static_html."
+  },
+  {
+    "site_id": "kubernetes_docs",
+    "display_name": "Kubernetes Documentation",
+    "domains": [
+      "kubernetes.io"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_kubernetes_concepts; access_type=static_html."
+  },
+  {
+    "site_id": "django_docs",
+    "display_name": "Django Documentation",
+    "domains": [
+      "docs.djangoproject.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_django_intro; access_type=static_html."
+  },
+  {
+    "site_id": "crates_io",
+    "display_name": "crates.io",
+    "domains": [
+      "crates.io"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_crates_tokio; access_type=api."
+  },
+  {
+    "site_id": "crossref",
+    "display_name": "Crossref",
+    "domains": [
+      "api.crossref.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_crossref_works; access_type=api."
+  },
+  {
+    "site_id": "doaj",
+    "display_name": "DOAJ",
+    "domains": [
+      "doaj.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_doaj_search; access_type=static_html."
+  },
+  {
+    "site_id": "npr",
+    "display_name": "NPR World",
+    "domains": [
+      "feeds.npr.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_npr_world; access_type=rss."
+  },
+  {
+    "site_id": "guardian",
+    "display_name": "The Guardian World News",
+    "domains": [
+      "theguardian.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_guardian_world_rss; access_type=rss."
+  },
+  {
+    "site_id": "fred",
+    "display_name": "FRED",
+    "domains": [
+      "fred.stlouisfed.org"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_fred_gdp; access_type=static_html."
+  },
+  {
+    "site_id": "worldbank",
+    "display_name": "World Bank Data",
+    "domains": [
+      "api.worldbank.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_worldbank_gdp; access_type=api."
+  },
+  {
+    "site_id": "ecb",
+    "display_name": "European Central Bank",
+    "domains": [
+      "ecb.europa.eu"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "eu",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_ecb_rates; access_type=static_html."
+  },
+  {
+    "site_id": "nodejs_docs",
+    "display_name": "Node.js Documentation",
+    "domains": [
+      "nodejs.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_nodejs_api; access_type=static_html."
+  },
+  {
+    "site_id": "rust_book",
+    "display_name": "The Rust Programming Language",
+    "domains": [
+      "doc.rust-lang.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_rust_book; access_type=static_html."
+  },
+  {
+    "site_id": "rubygems",
+    "display_name": "RubyGems",
+    "domains": [
+      "rubygems.org"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_rubygems_rails; access_type=static_html."
+  },
+  {
+    "site_id": "packagist",
+    "display_name": "Packagist",
+    "domains": [
+      "repo.packagist.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_packagist_laravel; access_type=api."
+  },
+  {
+    "site_id": "openalex",
+    "display_name": "OpenAlex",
+    "domains": [
+      "api.openalex.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_openalex_works; access_type=api."
+  },
+  {
+    "site_id": "europepmc",
+    "display_name": "Europe PMC",
+    "domains": [
+      "ebi.ac.uk"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "eu",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_europepmc_search; access_type=api."
+  },
+  {
+    "site_id": "un_news",
+    "display_name": "UN News RSS",
+    "domains": [
+      "news.un.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_un_global_rss; access_type=rss."
+  },
+  {
+    "site_id": "cbc",
+    "display_name": "CBC World RSS",
+    "domains": [
+      "cbc.ca"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "ca",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_cbc_world_rss; access_type=rss."
+  },
+  {
+    "site_id": "bankofcanada",
+    "display_name": "Bank of Canada Valet",
+    "domains": [
+      "bankofcanada.ca"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "ca",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_bankofcanada_fx; access_type=api."
+  },
+  {
+    "site_id": "wikipedia_api",
+    "display_name": "Wikipedia Search API",
+    "domains": [
+      "en.wikipedia.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=search_wikipedia_api; access_type=api."
+  },
+  {
+    "site_id": "peertube",
+    "display_name": "PeerTube",
+    "domains": [
+      "instances.joinpeertube.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=video_peertube_instances; access_type=api."
+  },
+  {
+    "site_id": "lemmy",
+    "display_name": "Lemmy Public API",
+    "domains": [
+      "lemmy.world"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=social_lemmy_posts; access_type=api."
+  },
+  {
+    "site_id": "go_docs",
+    "display_name": "Go Documentation",
+    "domains": [
+      "go.dev"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_go_tutorial; access_type=static_html."
+  },
+  {
+    "site_id": "php_docs",
+    "display_name": "PHP Manual",
+    "domains": [
+      "php.net"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_php_manual; access_type=static_html."
+  },
+  {
+    "site_id": "postgresql_docs",
+    "display_name": "PostgreSQL Documentation",
+    "domains": [
+      "postgresql.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_postgresql_manual; access_type=static_html."
+  },
+  {
+    "site_id": "keras_docs",
+    "display_name": "Keras Getting Started",
+    "domains": [
+      "keras.io"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_keras_getting_started; access_type=static_html."
+  },
+  {
+    "site_id": "pytorch_docs",
+    "display_name": "PyTorch Get Started",
+    "domains": [
+      "pytorch.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_pytorch_get_started; access_type=static_html."
+  },
+  {
+    "site_id": "pandas_docs",
+    "display_name": "pandas User Guide",
+    "domains": [
+      "pandas.pydata.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=docs_pandas_user_guide; access_type=static_html."
+  },
+  {
+    "site_id": "maven_central",
+    "display_name": "Maven Central Search API",
+    "domains": [
+      "search.maven.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_maven_central_solr; access_type=api."
+  },
+  {
+    "site_id": "nuget",
+    "display_name": "NuGet Registration API",
+    "domains": [
+      "api.nuget.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_nuget_newtonsoft; access_type=api."
+  },
+  {
+    "site_id": "dockerhub",
+    "display_name": "Docker Hub API",
+    "domains": [
+      "hub.docker.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_dockerhub_nginx; access_type=api."
+  },
+  {
+    "site_id": "anaconda",
+    "display_name": "Anaconda Package API",
+    "domains": [
+      "api.anaconda.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=code_conda_forge_numpy; access_type=api."
+  },
+  {
+    "site_id": "datacite",
+    "display_name": "DataCite REST API",
+    "domains": [
+      "api.datacite.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_datacite_works; access_type=api."
+  },
+  {
+    "site_id": "clinicaltrials",
+    "display_name": "ClinicalTrials.gov API",
+    "domains": [
+      "clinicaltrials.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_clinicaltrials_search; access_type=api."
+  },
+  {
+    "site_id": "biorxiv",
+    "display_name": "bioRxiv API",
+    "domains": [
+      "api.biorxiv.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=academic_biorxiv_recent; access_type=api."
+  },
+  {
+    "site_id": "aljazeera",
+    "display_name": "Al Jazeera RSS",
+    "domains": [
+      "aljazeera.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_aljazeera_rss; access_type=rss."
+  },
+  {
+    "site_id": "dw",
+    "display_name": "Deutsche Welle RSS",
+    "domains": [
+      "rss.dw.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "eu",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_dw_world_rss; access_type=rss."
+  },
+  {
+    "site_id": "france24",
+    "display_name": "France 24 RSS",
+    "domains": [
+      "france24.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "eu",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_france24_world_rss; access_type=rss."
+  },
+  {
+    "site_id": "abc_news",
+    "display_name": "ABC News International RSS",
+    "domains": [
+      "abcnews.go.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=news_abc_world_rss; access_type=rss."
+  },
+  {
+    "site_id": "us_treasury",
+    "display_name": "US Treasury FiscalData API",
+    "domains": [
+      "api.fiscaldata.treasury.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_treasury_fiscaldata; access_type=api."
+  },
+  {
+    "site_id": "frankfurter",
+    "display_name": "Frankfurter Exchange Rates API",
+    "domains": [
+      "api.frankfurter.app"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_frankfurter_rates; access_type=api."
+  },
+  {
+    "site_id": "open_er_api",
+    "display_name": "Open Exchange Rates Public API",
+    "domains": [
+      "open.er-api.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=finance_open_exchange_rates_status; access_type=api."
+  },
+  {
+    "site_id": "itunes",
+    "display_name": "iTunes Search API",
+    "domains": [
+      "itunes.apple.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "shopping",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=commerce_itunes_search; access_type=api."
+  },
+  {
+    "site_id": "internet_archive",
+    "display_name": "Internet Archive Advanced Search API",
+    "domains": [
+      "archive.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=search_internet_archive_advanced; access_type=api."
+  },
+  {
+    "site_id": "dailymotion",
+    "display_name": "Dailymotion API",
+    "domains": [
+      "api.dailymotion.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=video_dailymotion_search; access_type=api."
+  },
+  {
+    "site_id": "stackexchange",
+    "display_name": "Stack Exchange API",
+    "domains": [
+      "api.stackexchange.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.4; source_id=social_stackexchange_questions; access_type=api."
+  },
+  {
+    "site_id": "vite_docs",
+    "display_name": "Vite Documentation",
+    "domains": [
+      "vite.dev"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_vite_guide; access_type=static_html."
+  },
+  {
+    "site_id": "fastapi_docs",
+    "display_name": "FastAPI Documentation",
+    "domains": [
+      "fastapi.tiangolo.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_fastapi_first_steps; access_type=static_html."
+  },
+  {
+    "site_id": "flask_docs",
+    "display_name": "Flask Documentation",
+    "domains": [
+      "flask.palletsprojects.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_flask_quickstart; access_type=static_html."
+  },
+  {
+    "site_id": "sqlalchemy_docs",
+    "display_name": "SQLAlchemy Documentation",
+    "domains": [
+      "docs.sqlalchemy.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_sqlalchemy_orm; access_type=static_html."
+  },
+  {
+    "site_id": "ansible_docs",
+    "display_name": "Ansible Documentation",
+    "domains": [
+      "docs.ansible.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_ansible_getting_started; access_type=static_html."
+  },
+  {
+    "site_id": "terraform_docs",
+    "display_name": "Terraform Documentation",
+    "domains": [
+      "developer.hashicorp.com"
+    ],
+    "engines": [
+      "scrapling",
+      "opencli"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=docs_terraform_intro; access_type=static_html."
+  },
+  {
+    "site_id": "hexpm",
+    "display_name": "Hex.pm API",
+    "domains": [
+      "hex.pm"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=code_hex_phoenix; access_type=api."
+  },
+  {
+    "site_id": "hackage",
+    "display_name": "Hackage",
+    "domains": [
+      "hackage.haskell.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=code_hackage_aeson; access_type=static_html."
+  },
+  {
+    "site_id": "pkg_go_dev",
+    "display_name": "pkg.go.dev",
+    "domains": [
+      "pkg.go.dev"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=code_pkg_go_http; access_type=static_html."
+  },
+  {
+    "site_id": "metacpan",
+    "display_name": "MetaCPAN API",
+    "domains": [
+      "fastapi.metacpan.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=code_metacpan_mojolicious; access_type=api."
+  },
+  {
+    "site_id": "nasa_ntrs",
+    "display_name": "NASA NTRS API",
+    "domains": [
+      "ntrs.nasa.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=academic_nasa_ntrs_search; access_type=api."
+  },
+  {
+    "site_id": "plos",
+    "display_name": "PLOS Search API",
+    "domains": [
+      "api.plos.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "paper",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=academic_plos_search; access_type=api."
+  },
+  {
+    "site_id": "nasa_news",
+    "display_name": "NASA News RSS",
+    "domains": [
+      "nasa.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=news_nasa_rss; access_type=rss."
+  },
+  {
+    "site_id": "who_news",
+    "display_name": "WHO News RSS",
+    "domains": [
+      "who.int"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=news_who_rss; access_type=rss."
+  },
+  {
+    "site_id": "sciencedaily",
+    "display_name": "ScienceDaily RSS",
+    "domains": [
+      "sciencedaily.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=news_sciencedaily_rss; access_type=rss."
+  },
+  {
+    "site_id": "esa_news",
+    "display_name": "ESA RSS",
+    "domains": [
+      "esa.int"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "news",
+    "country": "eu",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=news_esa_rss; access_type=rss."
+  },
+  {
+    "site_id": "coingecko",
+    "display_name": "CoinGecko API",
+    "domains": [
+      "api.coingecko.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=finance_coingecko_markets; access_type=api."
+  },
+  {
+    "site_id": "kraken",
+    "display_name": "Kraken Public Ticker API",
+    "domains": [
+      "api.kraken.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=finance_kraken_ticker; access_type=api."
+  },
+  {
+    "site_id": "bls_api",
+    "display_name": "BLS Public API",
+    "domains": [
+      "api.bls.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "finance",
+    "country": "us",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=finance_bls_unemployment; access_type=api."
+  },
+  {
+    "site_id": "wikidata",
+    "display_name": "Wikidata Search API",
+    "domains": [
+      "wikidata.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=search_wikidata_entities; access_type=api."
+  },
+  {
+    "site_id": "commoncrawl",
+    "display_name": "Common Crawl Index API",
+    "domains": [
+      "index.commoncrawl.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=search_commoncrawl_indexes; access_type=api."
+  },
+  {
+    "site_id": "openlibrary",
+    "display_name": "Open Library Search API",
+    "domains": [
+      "openlibrary.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "search",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=search_openlibrary_books; access_type=api."
+  },
+  {
+    "site_id": "wikimedia_commons",
+    "display_name": "Wikimedia Commons Media Search API",
+    "domains": [
+      "commons.wikimedia.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "video",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=video_wikimedia_commons_search; access_type=api."
+  },
+  {
+    "site_id": "discourse_meta",
+    "display_name": "Discourse Meta API",
+    "domains": [
+      "meta.discourse.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "commands": {},
+    "auth_required": false,
+    "content_type": "social",
+    "country": "global",
+    "default_fetch_mode": "http",
+    "notes": "Promoted from SourceMatrix Phase 3.7; source_id=social_discourse_meta_latest; access_type=api."
   }
 ]

@@ -21,7 +21,7 @@ SCRAPLING_TIMEOUT_STEALTH = int(os.environ.get("SCRAPLING_TIMEOUT_STEALTH", "60"
 
 # === Lightpanda ===
 LP_CDP_URL = os.environ.get("LP_CDP_URL", "ws://127.0.0.1:9222")
-LP_ENABLED = os.environ.get("LP_ENABLED", "true").lower() == "true"
+LP_ENABLED = os.environ.get("LP_ENABLED", "false").lower() == "true"
 
 # === PinchTab ===
 PINCHTAB_BASE_URL = os.environ.get("PINCHTAB_BASE_URL", "")
@@ -37,7 +37,7 @@ BB_BROWSER_ENABLED = os.environ.get("BB_BROWSER_ENABLED", "true").lower() == "tr
 # === CLIBrowser ===
 CLIBROWSER_BIN = os.environ.get("CLIBROWSER_BIN", "clibrowser")
 CLIBROWSER_TIMEOUT = int(os.environ.get("CLIBROWSER_TIMEOUT", "30"))
-CLIBROWSER_ENABLED = os.environ.get("CLIBROWSER_ENABLED", "true").lower() == "true"
+CLIBROWSER_ENABLED = os.environ.get("CLIBROWSER_ENABLED", "false").lower() == "true"
 
 # === Research Defaults ===
 DEFAULT_LANGUAGE = os.environ.get("DEFAULT_LANGUAGE", "zh")

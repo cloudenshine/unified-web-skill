@@ -28,7 +28,7 @@ async def test_scrapling_fetch_httpbin(scrapling):
 
     assert result.ok is True
     assert result.url == "https://httpbin.org/html"
-    assert result.engine == "scrapling"
+    assert result.engine.startswith("scrapling")
     # httpbin /html returns Herman Melville text
     assert len(result.text) > 50 or len(result.html) > 50
 
