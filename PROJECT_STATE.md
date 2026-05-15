@@ -17,7 +17,8 @@ rate-limited watch profile after repeated external 429/503 responses during
 final strict promoted HTTP checks; both verified in the latest watch run but
 remain outside the release-blocking promoted HTTP batch. Matrix-only
 high-cost/dynamic entries remain isolated, and the only currently blocked
-source is ProductHunt.
+source is ProductHunt. CI timeout handling was fixed after GitHub Actions
+reported `pytest: error: unrecognized arguments: --timeout=30`.
 
 ## Stable Baseline
 
@@ -113,6 +114,10 @@ source is ProductHunt.
   `docs/superpowers/reports/2026-05-15-final-closeout-report.md` with current
   deliverables, verification evidence, file hygiene notes, and residual live
   source risk.
+- CI timeout fix: added `pytest-timeout>=2.3.1` so the workflow's
+  `pytest -v tests/unit/ --tb=short --timeout=30` command is supported, and
+  changed `pytest.ini` to use a cross-platform repo-local `.pytest-tmp`
+  basetemp instead of the previous Windows-specific `C:/tmp/...` path.
 - GitHub closeout preparation: latest stable provider versions confirmed for
   the active local providers (`bb-browser` 0.11.6, `opencli` 1.7.18,
   `scrapling` 0.4.8). A stale orphan `bb-browser` daemon process on port 19824
@@ -220,6 +225,9 @@ source is ProductHunt.
 - Final diagnostics: `python check.py`
   - Latest observed: exit `0`, `3/3` engines available, 142 sites loaded;
     fetch smoke passed via `scrapling-http`, search smoke returned two results.
+- CI unit-test command:
+  `pytest -v tests/unit/ --tb=short --timeout=30`
+  - Latest observed after installing `pytest-timeout`: `403 passed`.
 - Phase 3.8 source verification tooling tests:
   `pytest -q tests\unit\test_source_verifier.py tests\unit\test_engine_manager.py tests\unit\test_verify_source_matrix_cli.py`
   - Latest observed: `38 passed`

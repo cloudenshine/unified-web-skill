@@ -74,6 +74,9 @@ research bundle 产品化、周期性回归入口、Windows subprocess timeout c
   - Command: `python verify_source_matrix.py --regression-profile rate-limited-watch --timeout 60 --min-text-length 200 --output outputs\source_matrix_regression_final_rate_limited_watch_clean2.json`
   - Result: `2 total, 2 verified, 0 weak, 0 failed`.
   - arXiv API and Open Food Facts both verified in the latest watch run.
+- CI unit-test command:
+  - Command: `pytest -v tests/unit/ --tb=short --timeout=30`
+  - Result after adding `pytest-timeout`: `403 passed`.
 
 ## Live Verification Policy
 
@@ -123,6 +126,9 @@ References used for the residual-risk interpretation:
 - No new throwaway root scripts were added.
 - Untracked external `web-access-source/` clone was removed because it was not
   referenced by the project and should not be published as part of this repo.
+- `.pytest-tmp/` is ignored and used as a cross-platform pytest basetemp so
+  local Windows runs and Ubuntu CI do not depend on a machine-specific temp
+  path.
 
 ## Current Repository State
 
