@@ -94,7 +94,7 @@
     "expected_provider": "bb-browser",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "Question listing with bot-detection risk; bb-browser verified after strict scrapling returned 403.",
+    "notes": "Question listing with bot-detection risk; latest browser path now frequently lands on a Cloudflare challenge page in this environment.",
     "access_type": "static_html",
     "preferred_provider": "bb-browser",
     "fallback_providers": [
@@ -103,7 +103,7 @@
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
-    "promotion_status": "promoted",
+    "promotion_status": "matrix_only",
     "failure_modes": [
       "timeout",
       "empty_content",
@@ -239,9 +239,9 @@
     "difficulty": "hard",
     "verification_url": "https://www.reddit.com/r/programming/",
     "expected_provider": "bb-browser",
-    "requires_auth": false,
+    "requires_auth": true,
     "status": "seeded",
-    "notes": "Social/forum page with bot-detection risk.",
+    "notes": "Social/forum page with bot-detection risk; latest bb-browser adapters now require a logged-in Reddit session in this environment.",
     "access_type": "structured_adapter",
     "preferred_provider": "bb-browser",
     "fallback_providers": [
@@ -250,9 +250,10 @@
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
-    "promotion_status": "promoted",
+    "promotion_status": "matrix_only",
     "failure_modes": [
       "adapter_changed",
+      "auth_required",
       "blocked",
       "dynamic_required"
     ]
@@ -719,12 +720,12 @@
       "en"
     ],
     "difficulty": "easy",
-    "verification_url": "https://www.npmjs.com/package/react",
+    "verification_url": "https://registry.npmjs.org/react/latest",
     "expected_provider": "scrapling",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "JavaScript package registry page.",
-    "access_type": "static_html",
+    "notes": "Official npm registry API endpoint; more stable than the JavaScript challenge page for regression verification.",
+    "access_type": "api",
     "preferred_provider": "scrapling",
     "fallback_providers": [
       "opencli"

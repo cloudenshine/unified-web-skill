@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import asyncio
-import logging
 import os
 import time
 from typing import Any
@@ -179,7 +178,7 @@ class ScraplingEngine(BaseEngine):
         loop = asyncio.get_running_loop()
         resp = await loop.run_in_executor(
             None,
-            lambda: Fetcher().get(url, timeout=self._timeout_http, stealthy_headers=True),
+            lambda: Fetcher.get(url, timeout=self._timeout_http, stealthy_headers=True),
         )
         dur = (time.monotonic() - t0) * 1000
         html = resp.html_content or ""
@@ -199,7 +198,10 @@ class ScraplingEngine(BaseEngine):
         from scrapling import DynamicFetcher
 
         try:
-            resp = await DynamicFetcher().async_fetch(url, timeout=self._timeout_dynamic * 1000)
+            resp = await DynamicFetcher.async_fetch(
+                url,
+                timeout=self._timeout_dynamic * 1000,
+            )
         except Exception as exc:
             dur = (time.monotonic() - t0) * 1000
             return FetchResult(
@@ -224,7 +226,10 @@ class ScraplingEngine(BaseEngine):
         from scrapling import StealthyFetcher
 
         try:
-            resp = await StealthyFetcher().async_fetch(url, timeout=self._timeout_stealth * 1000)
+            resp = await StealthyFetcher.async_fetch(
+                url,
+                timeout=self._timeout_stealth * 1000,
+            )
         except Exception as exc:
             dur = (time.monotonic() - t0) * 1000
             return FetchResult(

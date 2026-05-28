@@ -42,8 +42,10 @@ Each provider declares its capabilities, reports health/version state, and parti
 ### Prerequisites
 
 ```bash
-# Python 3.11+
-pip install -r requirements.txt
+# Python 3.12 recommended (3.11+ supported)
+python -m venv .venv
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
 # Install browser binaries (one-time)
 playwright install chromium
@@ -51,6 +53,10 @@ patchright install chromium
 
 # Optional: CLI engines for structured social site data
 npm install -g bb-browser opencli
+
+# Verification
+python -m ruff check app tests
+python -m pytest -q
 ```
 
 ### Diagnostic check
@@ -78,19 +84,17 @@ Critical dependency checks passed.
 
 ```bash
 # promoted HTTP/RSS/API + structured adapter + browser-first regression
-make source-matrix-regression
+python verify_source_matrix.py --regression-profile promoted-http --fail-on-unverified
+python verify_source_matrix.py --regression-profile promoted-structured --fail-on-unverified
+python verify_source_matrix.py --regression-profile promoted-browser --fail-on-unverified
 
 # boundary/special/rate-limited evidence watch，不影响默认通过线
-make source-matrix-watch
-```
-
-也可以单独运行：
-
-```bash
-python verify_source_matrix.py --regression-profile promoted-http --fail-on-unverified
 python verify_source_matrix.py --regression-profile special-watch
 python verify_source_matrix.py --regression-profile rate-limited-watch
 ```
+
+在提供 `make` 的 POSIX 环境里，也可以继续使用 `make source-matrix-regression`
+和 `make source-matrix-watch` 作为快捷入口。
 
 ### Start server
 

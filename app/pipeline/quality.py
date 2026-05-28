@@ -5,7 +5,6 @@ Content quality validation and deduplication.
 import logging
 import re
 from datetime import datetime, timezone, timedelta
-from typing import Optional
 
 _logger = logging.getLogger(__name__)
 

@@ -9,7 +9,7 @@ import hashlib
 import re
 import logging
 from typing import Optional
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin
 
 from ..utils.language import detect_language as _detect_language
 

@@ -3,7 +3,6 @@
 import asyncio
 import hashlib
 import pytest
-from unittest.mock import patch, AsyncMock
 
 from app.engines.base import (
     Capability,
@@ -272,7 +271,7 @@ class TestTimed:
     @pytest.mark.asyncio
     async def test_timed_returns_elapsed(self):
         async with _timed() as elapsed:
-            await asyncio.sleep(0.05)
+            await asyncio.sleep(0.1)
         ms = elapsed()
-        assert ms >= 40  # at least ~50ms minus jitter
+        assert ms >= 80  # keep generous margin so slow schedulers do not flap
         assert ms < 1000

@@ -10,6 +10,8 @@ build/
 .eggs/
 
 # Environment
+.venv/
+venv/
 .env
 .env.*
 !.env.example

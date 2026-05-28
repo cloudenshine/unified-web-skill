@@ -1,7 +1,6 @@
 """Tests for app.config — configuration from environment variables."""
 
 import os
-import pytest
 from unittest.mock import patch
 
 

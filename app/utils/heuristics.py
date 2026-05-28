@@ -1,5 +1,4 @@
 """URL routing heuristics and block detection."""
-import re
 import logging
 from urllib.parse import urlparse
 

@@ -2,7 +2,6 @@
 
 import hashlib
 import pytest
-from unittest.mock import patch
 from types import SimpleNamespace
 
 from app.pipeline.extractor import ContentExtractor
@@ -105,19 +104,19 @@ class TestExtractLinks:
 
     def test_skips_javascript_links(self, extractor):
         links = extractor.extract_links(SAMPLE_HTML, base_url="https://example.com")
-        assert not any("javascript:" in l for l in links)
+        assert not any("javascript:" in url for url in links)
 
     def test_skips_anchors(self, extractor):
         links = extractor.extract_links(SAMPLE_HTML, base_url="https://example.com")
-        assert not any(l == "#anchor" for l in links)
+        assert not any(url == "#anchor" for url in links)
 
     def test_skips_mailto(self, extractor):
         links = extractor.extract_links(SAMPLE_HTML, base_url="https://example.com")
-        assert not any("mailto:" in l for l in links)
+        assert not any("mailto:" in url for url in links)
 
     def test_resolves_relative_urls(self, extractor):
         links = extractor.extract_links(SAMPLE_HTML, base_url="https://example.com")
-        assert any("https://example.com/page1" in l for l in links)
+        assert any("https://example.com/page1" in url for url in links)
 
     def test_empty_html(self, extractor):
         assert extractor.extract_links("") == []

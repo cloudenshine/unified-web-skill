@@ -13,7 +13,6 @@ import logging
 from typing import Any, Optional
 
 from .base import (
-    BaseEngine,
     Capability,
     Engine,
     FetchResult,

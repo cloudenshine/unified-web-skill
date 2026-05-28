@@ -9,7 +9,6 @@ import logging
 import os
 import re
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any
 
 _logger = logging.getLogger(__name__)
@@ -93,8 +92,8 @@ class ResultStorage:
         # Stats
         stats = result.stats
         parts.append("\n## Statistics\n")
-        parts.append(f"| Metric | Value |")
-        parts.append(f"|--------|-------|")
+        parts.append("| Metric | Value |")
+        parts.append("|--------|-------|")
         parts.append(f"| Discovered | {stats.total_discovered} |")
         parts.append(f"| Collected | {stats.total_collected} |")
         parts.append(f"| Skipped (quality) | {stats.skipped_quality} |")

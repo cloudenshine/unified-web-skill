@@ -5,7 +5,6 @@ import json
 import os
 import time
 from typing import Any
-from urllib.parse import urlparse
 
 from .base import BaseEngine, Capability, FetchResult, SearchResult
 

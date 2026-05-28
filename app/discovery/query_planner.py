@@ -9,7 +9,6 @@ No external dependencies — pure string manipulation.
 from __future__ import annotations
 
 import logging
-import re
 from typing import TYPE_CHECKING
 
 from .intent_classifier import IntentClassifier, QueryIntent

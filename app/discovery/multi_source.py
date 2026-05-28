@@ -8,14 +8,11 @@ deduplicates, and ranks by relevance and credibility.
 from __future__ import annotations
 
 import asyncio
-import hashlib
 import logging
-from dataclasses import dataclass, field
-from typing import Any, Optional
-from urllib.parse import urlparse
+from typing import Any
 
 from ..engines.base import SearchResult
-from .intent_classifier import IntentClassifier, QueryIntent
+from .intent_classifier import IntentClassifier
 from .query_planner import QueryPlanner
 from .site_registry import SiteRegistry
 

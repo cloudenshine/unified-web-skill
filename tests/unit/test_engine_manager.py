@@ -1,9 +1,8 @@
 """Tests for app.engines.manager — EngineManager and SmartRouter."""
 
 import pytest
-from unittest.mock import AsyncMock, MagicMock, patch
 
-from app.engines.base import Capability, FetchResult, SearchResult, InteractResult
+from app.engines.base import Capability, SearchResult
 from app.engines.provider_config import ProviderProfile
 from app.engines.manager import EngineManager, SmartRouter
 from app.discovery.site_registry import SiteRegistry

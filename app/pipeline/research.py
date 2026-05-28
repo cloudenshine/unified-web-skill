@@ -21,7 +21,6 @@ from urllib.parse import urlparse
 
 from ..models import ResearchTask, ResearchRecord, ResearchResult, ResearchStats
 from ..engines.manager import EngineManager
-from ..engines.base import FetchResult, Capability
 from ..discovery.multi_source import MultiSourceDiscovery
 from ..discovery.intent_classifier import IntentClassifier
 from ..discovery.query_planner import QueryPlanner

@@ -1,6 +1,5 @@
 """Tests for app.constants — constant values and integrity."""
 
-import pytest
 from app.constants import (
     BLOCK_MARKERS,
     BLOCKED_STATUS_CODES,

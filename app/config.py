@@ -1,6 +1,5 @@
 """Centralized configuration from environment variables."""
 import os
-import json
 import logging
 
 _logger = logging.getLogger(__name__)

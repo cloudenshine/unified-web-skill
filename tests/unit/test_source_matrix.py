@@ -192,6 +192,42 @@ def test_arxiv_structured_source_uses_verified_browser_path():
     assert arxiv.promotion_status == "promoted"
 
 
+def test_reddit_structured_source_is_matrix_only_when_login_is_required():
+    matrix = SourceMatrix.load_builtin()
+    sources = {source.source_id: source for source in matrix.all_sources()}
+
+    reddit = sources["social_reddit_programming"]
+
+    assert reddit.access_type == "structured_adapter"
+    assert reddit.preferred_provider == "bb-browser"
+    assert reddit.requires_auth is True
+    assert reddit.promotion_status == "matrix_only"
+    assert "auth_required" in reddit.failure_modes
+
+
+def test_stackoverflow_browser_source_is_matrix_only_when_cloudflare_blocks():
+    matrix = SourceMatrix.load_builtin()
+    sources = {source.source_id: source for source in matrix.all_sources()}
+
+    stackoverflow = sources["code_stackoverflow_python_asyncio"]
+
+    assert stackoverflow.preferred_provider == "bb-browser"
+    assert stackoverflow.promotion_status == "matrix_only"
+    assert "blocked" in stackoverflow.failure_modes
+
+
+def test_npm_source_uses_registry_api_for_stable_promoted_http_checks():
+    matrix = SourceMatrix.load_builtin()
+    sources = {source.source_id: source for source in matrix.all_sources()}
+
+    npm = sources["code_npm_react"]
+
+    assert npm.preferred_provider == "scrapling"
+    assert npm.access_type == "api"
+    assert npm.verification_url == "https://registry.npmjs.org/react/latest"
+    assert npm.promotion_status == "promoted"
+
+
 def test_rate_limited_or_volatile_api_sources_are_not_in_strict_promoted_http_batch():
     matrix = SourceMatrix.load_builtin()
     sources = {source.source_id: source for source in matrix.all_sources()}

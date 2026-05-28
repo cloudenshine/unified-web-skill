@@ -3,8 +3,6 @@
 import json
 import os
 import pytest
-from types import SimpleNamespace
-from unittest.mock import patch
 
 from app.pipeline.storage import ResultStorage
 from app.models import ResearchTask, ResearchRecord, ResearchResult, ResearchStats
@@ -66,7 +64,7 @@ class TestSaveNdjson:
         assert os.path.exists(ndjson_files[0])
 
         with open(ndjson_files[0], "r", encoding="utf-8") as f:
-            lines = [l.strip() for l in f if l.strip()]
+            lines = [line.strip() for line in f if line.strip()]
         assert len(lines) == 2  # 2 records
         for line in lines:
             json.loads(line)  # each line is valid JSON

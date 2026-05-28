@@ -1,10 +1,15 @@
 """bb_browser.py — bb-browser engine: the most capable engine (126+ site adapters)."""
 from __future__ import annotations
 
+import asyncio
+import ipaddress
 import json
+import math
 import os
+import re
 import time
 from typing import Any
+from urllib.parse import parse_qs, urlparse
 
 from .base import BaseEngine, Capability, FetchResult, InteractResult, SearchResult
 
@@ -50,10 +55,24 @@ _DOMAIN_ADAPTER: dict[str, str] = {
     "v2ex.com": "v2ex",
 }
 
+_PLATFORM_COMMANDS: dict[str, set[str]] = {
+    "arxiv": {"search"},
+    "bilibili": {"search"},
+    "douban": {"search"},
+    "github": {"issues"},
+    "hackernews": {"top"},
+    "reddit": {"hot", "search"},
+    "stackoverflow": {"search"},
+    "twitter": {"search"},
+    "v2ex": {"hot"},
+    "weibo": {"search"},
+    "xiaohongshu": {"search"},
+    "youtube": {"search"},
+    "zhihu": {"search"},
+}
+
 
 def _url_to_platform(url: str) -> str | None:
-    from urllib.parse import urlparse
-
     try:
         host = (urlparse(url).hostname or "").removeprefix("www.").lower()
     except Exception:
@@ -66,20 +85,100 @@ def _url_to_platform(url: str) -> str | None:
     return None
 
 
+def _build_structured_adapter_command(binary: str, url: str) -> list[str] | None:
+    """Translate known structured URLs into current bb-browser site adapters."""
+    try:
+        parsed = urlparse(url)
+    except Exception:
+        return None
+
+    host = (parsed.hostname or "").removeprefix("www.").lower()
+    query = parse_qs(parsed.query)
+
+    if host == "youtube.com" and parsed.path == "/results":
+        search_query = query.get("search_query", [""])[0].strip()
+        if search_query:
+            return [binary, "site", "youtube/search", search_query, "--json"]
+
+    if host == "search.bilibili.com" and parsed.path.startswith("/all"):
+        keyword = query.get("keyword", [""])[0].strip()
+        if keyword:
+            return [binary, "site", "bilibili/search", keyword, "--json"]
+
+    if host == "reddit.com":
+        match = re.fullmatch(r"/r/([^/]+)/?", parsed.path)
+        if match:
+            return [binary, "site", "reddit/hot", match.group(1), "--json"]
+
+    if host == "arxiv.org":
+        match = re.fullmatch(r"/list/([^/]+)/recent/?", parsed.path)
+        if match:
+            return [binary, "site", "arxiv/search", match.group(1), "--json"]
+
+    return None
+
+
+def _validate_public_http_url(url: str) -> None:
+    try:
+        parsed = urlparse(url)
+    except Exception as exc:
+        raise ValueError(f"unsupported bb-browser target: {url}") from exc
+
+    scheme = (parsed.scheme or "").lower()
+    host = (parsed.hostname or "").strip().lower()
+    if scheme not in {"http", "https"} or not host:
+        raise ValueError(f"unsupported bb-browser target: {url}")
+    if host == "localhost" or host.endswith(".local"):
+        raise ValueError(f"refusing local bb-browser target: {url}")
+
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        return
+
+    if (
+        ip.is_private
+        or ip.is_loopback
+        or ip.is_link_local
+        or ip.is_multicast
+        or ip.is_reserved
+        or ip.is_unspecified
+    ):
+        raise ValueError(f"refusing local bb-browser target: {url}")
+
+
 def _build_fetch_command(binary: str, url: str, opts: dict[str, Any]) -> list[str]:
     """Build the bb-browser command for URL fetches.
 
     Latest bb-browser requires a concrete site adapter such as
     ``youtube/search``. Plain platform names like ``youtube`` are not valid
-    adapter commands, so ordinary URL fetches use the generic fetch path.
+    adapter commands, so ordinary URL fetches now use ``open`` + ``eval``.
     """
+    _validate_public_http_url(url)
     platform = _url_to_platform(url)
     command = opts.get("command", "")
     if platform and command:
+        allowed_commands = _PLATFORM_COMMANDS.get(platform, set())
+        if command not in allowed_commands:
+            raise ValueError(f"unsupported bb-browser command for {platform}: {command}")
+        raw_args = opts.get("args", [])
+        if not isinstance(raw_args, (list, tuple)) or not all(isinstance(arg, str) for arg in raw_args):
+            raise ValueError("bb-browser args must be a list of strings")
         adapter = f"{platform}/{command}"
-        extra_args: list[str] = opts.get("args", [])
+        extra_args = list(raw_args)
         return [binary, "site", adapter] + extra_args + ["--json"]
-    return [binary, "fetch", url]
+    structured = _build_structured_adapter_command(binary, url)
+    if structured:
+        return structured
+    return [binary, "open", url, "--json"]
+
+
+def _extract_text_from_html(html: str) -> str:
+    """Best-effort text extraction for generic bb-browser page fetches."""
+    text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.S | re.I)
+    text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.S | re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 class BBBrowserEngine(BaseEngine):
@@ -120,9 +219,60 @@ class BBBrowserEngine(BaseEngine):
             timeout=5,
         )
 
+    @staticmethod
+    def _load_json_result(stdout: str) -> Any:
+        payload = json.loads(stdout)
+        if isinstance(payload, dict):
+            if payload.get("error"):
+                raise ValueError(payload["error"].get("message", "bb-browser returned an error"))
+            if "result" in payload:
+                return payload["result"]
+        return payload
+
+    async def _eval_tab(self, tab_id: str, expression: str, *, timeout: int) -> Any:
+        rc, stdout, stderr = await self._run_subprocess(
+            [self._bin, "eval", expression, "--tab", tab_id, "--json"],
+            timeout=timeout,
+        )
+        if rc != 0:
+            raise RuntimeError(stderr[:300] or f"bb-browser eval failed with exit code {rc}")
+        result = self._load_json_result(stdout)
+        return result.get("result") if isinstance(result, dict) else result
+
+    async def _wait_for_tab_text(self, tab_id: str, *, timeout: int) -> str:
+        deadline = time.monotonic() + max(min(timeout, 10), 1)
+        while True:
+            remaining = max(1, math.ceil(deadline - time.monotonic()))
+            text_value = await self._eval_tab(
+                tab_id,
+                "document.body?.innerText || document.documentElement.innerText || ''",
+                timeout=remaining,
+            )
+            text = str(text_value or "").strip()
+            if text:
+                return text
+            if time.monotonic() >= deadline:
+                return ""
+            await asyncio.sleep(1)
+
+    async def _close_tab(self, tab_id: str, *, timeout: int) -> None:
+        await self._run_subprocess(
+            [self._bin, "close", "--tab", tab_id, "--json"],
+            timeout=timeout,
+        )
+
     async def fetch(self, url: str, *, timeout: int = 30, **opts: Any) -> FetchResult:
         t0 = time.monotonic()
-        cmd = _build_fetch_command(self._bin, url, opts)
+        try:
+            cmd = _build_fetch_command(self._bin, url, opts)
+        except ValueError as exc:
+            return FetchResult(
+                ok=False,
+                url=url,
+                engine=self.name,
+                duration_ms=(time.monotonic() - t0) * 1000,
+                error=str(exc),
+            )
 
         rc, stdout, stderr = await self._run_subprocess(cmd, timeout=timeout)
         dur = (time.monotonic() - t0) * 1000
@@ -135,28 +285,81 @@ class BBBrowserEngine(BaseEngine):
                 error=stderr[:300] or f"exit code {rc}",
             )
 
-        # For generic fetch, text is already in stdout (HTML)
-        text = stdout
-        metadata: dict[str, Any] = {}
+        # Adapter-backed site commands still return their final payload directly.
+        if len(cmd) > 1 and cmd[1] == "site":
+            text = stdout
+            metadata: dict[str, Any] = {}
 
-        # Parse JSON if available
+            try:
+                data = json.loads(text)
+                metadata = data if isinstance(data, dict) else {"items": data}
+                text = json.dumps(data, ensure_ascii=False, indent=2)
+            except (json.JSONDecodeError, ValueError):
+                pass
+
+            return FetchResult(
+                ok=True,
+                url=url,
+                engine=self.name,
+                text=text,
+                duration_ms=dur,
+                metadata=metadata,
+            )
+
+        metadata: dict[str, Any] = {}
+        html = ""
+        text = ""
+        tab_id = ""
+
         try:
-            data = json.loads(text)
-            metadata = data if isinstance(data, dict) else {"items": data}
-            text = json.dumps(data, ensure_ascii=False, indent=2)
-        except (json.JSONDecodeError, ValueError):
-            pass
+            open_result = self._load_json_result(stdout)
+            if not isinstance(open_result, dict):
+                raise ValueError("bb-browser open did not return a result object")
+            tab_id = str(open_result.get("tabId", "")).strip()
+            if not tab_id:
+                raise ValueError("bb-browser open did not return a tabId")
+
+            text_value = await self._wait_for_tab_text(tab_id, timeout=timeout)
+            html_value = await self._eval_tab(
+                tab_id,
+                "document.documentElement.outerHTML",
+                timeout=timeout,
+            )
+            text = str(text_value or "").strip()
+            html = str(html_value or "")
+            if not text and html:
+                text = _extract_text_from_html(html)
+            metadata = {"tabId": tab_id}
+        except (json.JSONDecodeError, ValueError, RuntimeError) as exc:
+            self._logger.warning("bb-browser generic fetch failed: %s", exc)
+            return FetchResult(
+                ok=False,
+                url=url,
+                engine=self.name,
+                status=rc,
+                duration_ms=dur,
+                error=str(exc),
+            )
+        finally:
+            if tab_id:
+                try:
+                    await self._close_tab(tab_id, timeout=timeout)
+                except Exception as exc:
+                    self._logger.debug("bb-browser close tab %s failed: %s", tab_id, exc)
 
         return FetchResult(
-            ok=True, url=url, engine=self.name,
-            text=text, duration_ms=dur, metadata=metadata,
+            ok=True,
+            url=url,
+            engine=self.name,
+            text=text,
+            html=html,
+            duration_ms=dur,
+            metadata=metadata,
         )
 
     async def search(
         self, query: str, *, max_results: int = 10, language: str = "zh", **opts: Any
     ) -> list[SearchResult]:
-        t0 = time.monotonic()
-
         # Determine which search adapter to use
         search_engine = opts.get("engine", "")
         site = opts.get("site", "")

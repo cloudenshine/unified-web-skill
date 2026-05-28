@@ -1,9 +1,8 @@
 """Tests for app.utils — rate_limiter, retry, heuristics, scoring."""
 
-import asyncio
 import time
 import pytest
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock
 
 from app.utils.rate_limiter import DomainRateLimiter
 from app.utils.retry import RetryPolicy, retry_with_backoff

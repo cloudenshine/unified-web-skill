@@ -1,0 +1,81 @@
+{
+  "id": "ws-03-review-audit",
+  "goal": "Converge code, security, test-evidence review gates and produce final audit/adjudication artifacts.",
+  "inputs": [
+    "ws-02-verify-regressions complete",
+    "fresh evidence present"
+  ],
+  "outputs": [
+    "reviews\\code-review.md",
+    "reviews\\security-review.md",
+    "reviews\\test-evidence-review.md",
+    "reviews\\gpt54-final-review.md",
+    "reviews\\adjudication.md"
+  ],
+  "ownerRole": "main-agent-plus-review-agents",
+  "ownerModel": "gpt-5.4",
+  "swarmMode": "internal",
+  "writeSet": [
+    "reviews\\*.md",
+    "scheduler.json"
+  ],
+  "handoffArtifacts": [
+    "review findings",
+    "audit verdict",
+    "must-fix / residual risk lists"
+  ],
+  "entryCriteria": [
+    "release-blocking verification complete"
+  ],
+  "exitCriteria": [
+    "review-code, review-security, review-test-evidence complete",
+    "gpt54-final-review.md exists",
+    "adjudication.md exists",
+    "must-fix empty"
+  ],
+  "acceptance": [
+    "all review gates explicitly recorded",
+    "final audit says completion justified"
+  ],
+  "verify": [
+    "review agent outputs read and written to markdown artifacts"
+  ],
+  "retryBudget": 2,
+  "status": "complete",
+  "specRef": "strategy.md#completion-standard",
+  "microcycleState": "handoff",
+  "reviewSequence": [
+    "review-code",
+    "review-test-evidence",
+    "review-security",
+    "phase-audit",
+    "phase-finalize"
+  ],
+  "freshEvidence": [
+    {
+      "command": "read_agent run-code-review / run-test-evidence / run-security-review",
+      "summary": "All three review streams completed; code-review must-fix and security should-fix items were resolved before finalization"
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe -m pytest -q",
+      "summary": "415 passed, 34 skipped"
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe verify_source_matrix.py --regression-profile promoted-http --fail-on-unverified",
+      "summary": "83 total, 83 verified, 0 weak, 0 failed"
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe verify_source_matrix.py --regression-profile promoted-structured --fail-on-unverified",
+      "summary": "3 total, 3 verified, 0 weak, 0 failed"
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe verify_source_matrix.py --regression-profile promoted-browser --fail-on-unverified",
+      "summary": "4 total, 4 verified, 0 weak, 0 failed"
+    }
+  ],
+  "rootCauseRecord": [
+    "The initial test-evidence review correctly blocked completion because the evidence predated the latest worktree changes",
+    "The code review surfaced a timeout-budget bug in bb-browser wait polling and the security review surfaced missing fetch boundary validation",
+    "A stale bb-browser daemon listener on port 19824 had to be replaced so final promoted browser evidence was collected from a healthy daemon"
+  ]
+}

@@ -33,3 +33,10 @@ def test_long_challenge_running_page_is_blocked():
     body = ("Normal page shell. " * 250) + "challenge-running"
 
     assert _is_blocked(200, body) is True
+
+
+def test_latest_scrapling_dynamic_fetchers_import_cleanly():
+    from scrapling import DynamicFetcher, StealthyFetcher
+
+    assert DynamicFetcher.__name__ == "DynamicFetcher"
+    assert StealthyFetcher.__name__ == "StealthyFetcher"

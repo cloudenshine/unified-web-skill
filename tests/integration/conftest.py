@@ -1,4 +1,5 @@
-import pytest, os
+import pytest
+import os
 from app.engines.manager import EngineManager
 from app.engines.opencli import OpenCLIEngine
 from app.engines.scrapling_engine import ScraplingEngine

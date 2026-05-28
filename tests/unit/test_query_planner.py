@@ -2,7 +2,7 @@
 
 import pytest
 from app.discovery.query_planner import QueryPlanner
-from app.discovery.intent_classifier import IntentClassifier, QueryIntent
+from app.discovery.intent_classifier import QueryIntent
 
 
 @pytest.fixture
