@@ -43,4 +43,4 @@
 
 - [ ] More site adapters (142+)
 - [ ] Browser fingerprint rotation
-- [ ] Agent Reach credential sync protocol
+

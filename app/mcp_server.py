@@ -13,7 +13,7 @@ Tools:
     7. engine_status          — Check engine health & availability
     8. credential_status     — Report credential status per platform
     9. credential_inject     — Inject cookies from Cookie-Editor JSON
-   10. credential_extract    — Extract cookies from browser or Agent Reach
+   10. credential_extract    — Extract cookies from browser
    11. credential_refresh    — Clear platform credentials for re-extraction
    12. web_profile_list       — List available CloakBrowser profiles
    13. web_profile_use        — Switch active CloakBrowser profile
@@ -1207,6 +1207,8 @@ def _start_http():
 
 if __name__ == "__main__":
     main()
+
+
 
 
 

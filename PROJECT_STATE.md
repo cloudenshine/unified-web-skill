@@ -63,4 +63,4 @@ $ python -m pytest tests/unit/ -q --tb=short
 ### Phase 4 — Capability Expansion
 - More site adapters (142+)
 - Browser fingerprint rotation
-- Agent Reach credential sync protocol
+

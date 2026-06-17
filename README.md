@@ -61,7 +61,7 @@ AI Agent / MCP Client
 | 9 | `engine_status` | 引擎健康和能力报告 |
 | 10 | `credential_status` | 各平台凭证状态报告 |
 | 11 | `credential_inject` | 从 Cookie-Editor JSON 注入 Cookie |
-| 12 | `credential_extract` | 从浏览器或 Agent Reach 提取 Cookie |
+| 12 | `credential_extract` | 从浏览器提取 Cookie |
 | 13 | `credential_refresh` | 清除平台凭证以供重新提取 |
 
 ---
@@ -137,8 +137,8 @@ python -m pytest tests/unit/ -q
 ### 4. Cookie 凭证管理
 
 ```
-Agent Reach / 浏览器 Cookie
-  └─ CredentialExtractor（browser_cookie3 / Agent Reach 双通道）
+浏览器 Cookie
+  └─ CredentialExtractor（browser_cookie3 浏览器提取）
        └─ CredentialStore（YAML 配置 + 可选 AES 加密 + 600 权限）
             └─ Engine Injection
                  ├─ OpenCLI → HTTP_COOKIE 环境变量
@@ -197,7 +197,6 @@ unified-web-skill/
 ### Phase 4 — 能力扩展
 - [ ] 更多站点适配器（持续增长 142+）
 - [ ] 浏览器指纹轮换增强
-- [ ] Agent Reach 凭证同步协议
 
 ---
 
@@ -217,3 +216,7 @@ unified-web-skill/
 ## License
 
 MIT
+
+
+
+
