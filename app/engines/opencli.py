@@ -6,6 +6,7 @@ import os
 import time
 from typing import Any
 
+from ..credential.inject import env_for_url
 from .base import BaseEngine, Capability, FetchResult, SearchResult
 
 # opencli exit‐code semantics
@@ -27,6 +28,16 @@ def _domain_to_site(url: str) -> str | None:
     if cap and "opencli" in cap.engines:
         return cap.site_id
     return None
+
+
+
+
+def _opencli_merge_env(url: str) -> None:
+    """Inject platform credentials into os.environ for opencli subprocesses."""
+    env = env_for_url(url)
+    for k, v in env.items():
+        if v and not os.environ.get(k):
+            os.environ[k] = v
 
 
 class OpenCLIEngine(BaseEngine):
@@ -62,6 +73,7 @@ class OpenCLIEngine(BaseEngine):
         )
 
     async def fetch(self, url: str, *, timeout: int = 0, **opts: Any) -> FetchResult:
+        _opencli_merge_env(url)
         # Cap at self._timeout — callers must not extend it beyond the configured limit
         timeout = min(timeout or self._timeout, self._timeout)
         t0 = time.monotonic()
@@ -109,6 +121,7 @@ class OpenCLIEngine(BaseEngine):
         self, query: str, *, max_results: int = 10, language: str = "zh", **opts: Any
     ) -> list[SearchResult]:
         """OpenCLI has no generic search; delegate to site-specific commands when possible."""
+        _opencli_merge_env("https://" + (opts.get("site", "") or "unknown") + ".com")
         site = opts.get("site", "")
         command = opts.get("command", "search")
         if not site:

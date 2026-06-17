@@ -1,16 +1,22 @@
 """
 Unified Web Skill v3.0 — MCP Server
-Integrates 6 web engines (OpenCLI, Scrapling, Lightpanda, PinchTab, bb-browser, CLIBrowser)
-under a unified MCP interface for AI agent data access.
+    "Integrates 3 web engines (OpenCLI, Scrapling, CloakBrowser)
+under a unified MCP interface for AI agent data access, plus credential management.
 
 Tools:
     1. research_and_collect  — Full research pipeline
     2. web_fetch             — Single URL fetch with auto engine routing
-    3. web_cli               — Direct OpenCLI / bb-browser site command
+    3. web_cli               — Direct OpenCLI site command
     4. web_interact           — Browser interaction (click, fill, screenshot)
     5. web_search             — Multi-engine search
     6. web_crawl              — Multi-page crawl from seed URL
     7. engine_status          — Check engine health & availability
+    8. credential_status     — Report credential status per platform
+    9. credential_inject     — Inject cookies from Cookie-Editor JSON
+   10. credential_extract    — Extract cookies from browser or Agent Reach
+   11. credential_refresh    — Clear platform credentials for re-extraction
+   12. web_profile_list       — List available CloakBrowser profiles
+   13. web_profile_use        — Switch active CloakBrowser profile
 """
 from __future__ import annotations
 
@@ -21,10 +27,12 @@ import os
 import re
 import sys
 import time
+import uuid
 from typing import Any
 from urllib.parse import urljoin, urlparse
 
 from . import __version__, config
+from .credential import CredentialStore, mask_value, extract_to_store, import_from_agent_reach, CookieExtractionError
 from .models import ResearchTask, ResearchResult
 
 # MCP import with graceful fallback
@@ -55,15 +63,18 @@ def _get_engine_manager():
     if _engine_manager is not None:
         return _engine_manager
 
+    from .engines.cloak_browser import CloakBrowserEngine
     from .engines.manager import EngineManager
     from .engines.scrapling_engine import ScraplingEngine
 
     _engine_manager = EngineManager()
 
     # Register engines in priority order — guarded by config flags
-    if config.BB_BROWSER_ENABLED:
-        from .engines.bb_browser import BBBrowserEngine
-        _engine_manager.register(BBBrowserEngine())
+
+
+    if config.CLOAK_BROWSER_ENABLED:
+        _engine_manager.register(CloakBrowserEngine())
+
 
     if config.OPENCLI_ENABLED:
         from .engines.opencli import OpenCLIEngine
@@ -71,17 +82,8 @@ def _get_engine_manager():
 
     _engine_manager.register(ScraplingEngine())
 
-    if config.LP_ENABLED:
-        from .engines.lightpanda import LightpandaEngine
-        _engine_manager.register(LightpandaEngine())
 
-    if config.PINCHTAB_BASE_URL:
-        from .engines.pinchtab import PinchTabEngine
-        _engine_manager.register(PinchTabEngine())
 
-    if config.CLIBROWSER_ENABLED:
-        from .engines.clibrowser import CLIBrowserEngine
-        _engine_manager.register(CLIBrowserEngine())
 
     _logger.info(
         "EngineManager ready - %d engines: %s",
@@ -105,6 +107,46 @@ def _parse_csv(raw: str) -> list[str]:
     return [s.strip() for s in raw.split(",") if s.strip()]
 
 
+def _is_local_browser_url(url: str) -> bool:
+    if not url:
+        return False
+    try:
+        host = (urlparse(url).hostname or "").lower()
+    except Exception:
+        return False
+    return host in {"127.0.0.1", "localhost", "::1"}
+
+
+def _default_profile_for_local_interact(url: str, profile: str, intent: str) -> str:
+    if profile or not _is_local_browser_url(url):
+        return profile
+    if intent in {"js_render", "screenshot", "login_required", "form_submit", "download"}:
+        return "stable-local-windows"
+    return profile
+
+
+
+def _new_trace_id() -> str:
+    return str(uuid.uuid4())
+
+
+def _audit_payload(
+    *,
+    trace_id: str,
+    provider: str = "",
+    profile: str = "",
+    fallback_count: int = 0,
+    browser_escalations: int = 0,
+) -> dict[str, Any]:
+    return {
+        "trace_id": trace_id,
+        "provider": provider,
+        "profile": profile,
+        "fallback_count": fallback_count,
+        "browser_escalations": browser_escalations,
+    }
+
+
 def _research_response_payload(
     result: ResearchResult,
     *,
@@ -122,6 +164,13 @@ def _research_response_payload(
         "queries_used": result.queries_used,
         "output_files": result.output_files,
         "bundle": ResearchBundleBuilder().build(result),
+        "trace_id": result.task.task_id,
+        "audit": {
+            "trace_id": result.task.task_id,
+            "profile": result.task.browser_profile,
+            "fallback_count": result.stats.fallback_count,
+            "browser_escalations": result.stats.browser_escalations,
+        },
         "duration_ms": duration_ms,
     }
 
@@ -170,6 +219,9 @@ if mcp is not None:
         preferred_engines: str = "",
         search_engines: str = "",
         enable_stealth: bool = False,
+        need_browser_verification: bool = False,
+        browser_profile: str = "",
+        browser_intent: str = "js_render",
         max_concurrency: int = 5,
         timeout_seconds: int = 15,
         ctx: Context = None,
@@ -192,6 +244,9 @@ if mcp is not None:
             preferred_engines: Comma-separated engine names to prefer.
             search_engines: Comma-separated search engine names to use.
             enable_stealth: Use stealth/anti-detection fetching.
+            need_browser_verification: Escalate failed or weak pages through CloakBrowser.
+            browser_profile: Approved browser profile name for browser escalation.
+            browser_intent: Browser interaction intent for escalation.
             max_concurrency: Maximum concurrent fetch operations.
             timeout_seconds: Per-URL fetch timeout in seconds.
 
@@ -218,6 +273,9 @@ if mcp is not None:
                 preferred_engines=_parse_csv(preferred_engines),
                 search_engines=_parse_csv(search_engines),
                 enable_stealth=enable_stealth,
+                need_browser_verification=need_browser_verification,
+                browser_profile=browser_profile,
+                browser_intent=browser_intent,
                 max_concurrency=max_concurrency,
                 timeout_seconds=timeout_seconds,
             )
@@ -273,6 +331,7 @@ if mcp is not None:
             dict with keys: ok, url, text, html, title, engine, mode, duration_ms
         """
         t0 = time.perf_counter()
+        trace_id = _new_trace_id()
         _logger.info("web_fetch: url=%s engine=%s mode=%s", url, engine or "auto", mode)
 
         try:
@@ -296,6 +355,11 @@ if mcp is not None:
                 "title": result.title,
                 "engine": result.engine,
                 "mode": mode,
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    provider=result.engine,
+                ),
                 "duration_ms": result.duration_ms or _ms_since(t0),
                 "error": result.error if not result.ok else "",
             }
@@ -309,6 +373,8 @@ if mcp is not None:
                 "title": "",
                 "engine": "",
                 "mode": mode,
+                "trace_id": trace_id,
+                "audit": _audit_payload(trace_id=trace_id),
                 "duration_ms": _ms_since(t0),
                 "error": str(exc),
             }
@@ -318,7 +384,7 @@ if mcp is not None:
 # Tool 3 — web_cli  (backward compatible)
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Command alias mapping: harmonizes user-facing command names with what the
+# Command alias mapping: harmonizes user-facing command names with what opencli
 # underlying CLI actually implements (e.g. "hot" → "top" for hackernews).
 _CLI_COMMAND_ALIASES: dict[str, dict[str, str]] = {
     "hackernews": {
@@ -360,7 +426,7 @@ if mcp is not None:
         command: str,
         args: str = "",
     ) -> dict:
-        """Execute a site-specific CLI command via bb-browser or OpenCLI.
+        """Execute a site-specific CLI command via OpenCLI.
 
         Supported sites include bilibili, zhihu, hackernews, reddit, twitter,
         xiaohongshu, youtube, github, arxiv, weibo, douban, and more.
@@ -388,40 +454,7 @@ if mcp is not None:
         try:
             em = _get_engine_manager()
 
-            # Try bb-browser first (richer adapter coverage)
-            # Correct command format: bb-browser site {site}/{command} [args] --json
-            bb = em.get_engine("bb-browser")
-            if bb is not None:
-                try:
-                    route = f"{site}/{resolved_command}"
-                    cmd = (
-                        [config.BB_BROWSER_BIN, "site", route]
-                        + parsed_args
-                        + ["--json"]
-                    )
-                    from .engines.base import BaseEngine
-                    rc, stdout, stderr = await BaseEngine._run_subprocess(
-                        bb, cmd, timeout=_CLI_TIMEOUT,
-                    )
-                    if rc == 0 and stdout.strip():
-                        try:
-                            data = json.loads(stdout)
-                        except json.JSONDecodeError:
-                            data = stdout.strip()
-                        return {
-                            "ok": True,
-                            "site": site,
-                            "command": command,
-                            "data": data,
-                            "engine": "bb-browser",
-                            "duration_ms": _ms_since(t0),
-                        }
-                except Exception as exc:
-                    _logger.debug(
-                        "bb-browser failed for %s/%s: %s", site, command, exc,
-                    )
-
-            # Fallback to opencli
+            # Use opencli
             opencli = em.get_engine("opencli")
             if opencli is not None:
                 try:
@@ -470,7 +503,7 @@ if mcp is not None:
                 "command": command,
                 "data": None,
                 "engine": "",
-                "error": "No CLI engine (bb-browser / opencli) available",
+                    "error": "No CLI engine (opencli) available",
                 "duration_ms": _ms_since(t0),
             }
 
@@ -499,6 +532,9 @@ if mcp is not None:
         task: str = "",
         actions: str = "",
         instance_id: str = "",
+        profile: str = "",
+        intent: str = "",
+        require_login: bool = False,
         return_snapshot: bool = True,
         return_text: bool = True,
         timeout: int = 60,
@@ -511,6 +547,9 @@ if mcp is not None:
             task: High-level description of the interaction goal.
             actions: JSON-encoded list of action objects, e.g. '[{"action":"click","selector":"#btn"}]'.
             instance_id: Reuse an existing browser session by ID.
+            profile: Approved CloakBrowser profile for persistent identity.
+            intent: Required interaction intent such as js_render / login_required / screenshot.
+            require_login: Whether this interaction depends on a logged-in session.
             return_snapshot: Include a base64 screenshot in the response.
             return_text: Include extracted page text in the response.
             timeout: Interaction timeout in seconds.
@@ -520,7 +559,49 @@ if mcp is not None:
             dict with keys: ok, url, text, snapshot, instance_id, engine, duration_ms
         """
         t0 = time.perf_counter()
+        trace_id = _new_trace_id()
         _logger.info("web_interact: url=%s engine=%s", url, engine or "auto")
+        default_engine = engine
+        if not default_engine and _get_engine_manager().get_engine("cloakbrowser") is not None:
+            default_engine = "cloakbrowser"
+
+        if default_engine == "cloakbrowser" and not intent:
+            return {
+                "ok": False,
+                "url": url,
+                "text": "",
+                "snapshot": "",
+                "instance_id": "",
+                "engine": default_engine,
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    provider=default_engine,
+                    profile=profile or instance_id,
+                ),
+                "error": "intent is required for cloakbrowser interactions",
+                "duration_ms": _ms_since(t0),
+            }
+
+        effective_profile = _default_profile_for_local_interact(url, profile or instance_id, intent)
+
+        if effective_profile == "us-household-resi" and not config.RESIDENTIAL_PROXY_READY:
+            return {
+                "ok": False,
+                "url": url,
+                "text": "",
+                "snapshot": "",
+                "instance_id": "",
+                "engine": default_engine or "",
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    provider=default_engine or "",
+                    profile=profile or instance_id,
+                ),
+                "error": "us-household-resi requires a verified residential proxy",
+                "duration_ms": _ms_since(t0),
+            }
 
         # Parse actions from JSON string
         parsed_actions: list[dict[str, Any]] = []
@@ -537,6 +618,11 @@ if mcp is not None:
                     "snapshot": "",
                     "instance_id": "",
                     "engine": "",
+                    "trace_id": trace_id,
+                    "audit": _audit_payload(
+                        trace_id=trace_id,
+                        profile=profile or instance_id,
+                    ),
                     "error": f"Invalid actions JSON: {exc}",
                     "duration_ms": _ms_since(t0),
                 }
@@ -546,8 +632,11 @@ if mcp is not None:
             result = await em.interact(
                 url,
                 parsed_actions,
-                engine=engine or None,
+                engine=default_engine or None,
                 timeout=timeout,
+                profile=effective_profile,
+                intent=intent,
+                require_login=require_login,
             )
 
             return {
@@ -557,6 +646,12 @@ if mcp is not None:
                 "snapshot": result.snapshot if return_snapshot else "",
                 "instance_id": result.instance_id,
                 "engine": result.engine,
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    provider=result.engine,
+                    profile=effective_profile or result.instance_id or instance_id,
+                ),
                 "duration_ms": result.duration_ms or _ms_since(t0),
                 "error": result.error if not result.ok else "",
             }
@@ -569,6 +664,11 @@ if mcp is not None:
                 "snapshot": "",
                 "instance_id": "",
                 "engine": "",
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    profile=effective_profile or instance_id,
+                ),
                 "error": str(exc),
                 "duration_ms": _ms_since(t0),
             }
@@ -601,11 +701,15 @@ if mcp is not None:
             dict with keys: ok, results (list of {url, title, snippet, source, rank, credibility}), engines_used
         """
         t0 = time.perf_counter()
+        trace_id = _new_trace_id()
         _logger.info("web_search: query=%r engines=%s", query, engines or "all")
 
         try:
             em = _get_engine_manager()
             engine_list = _parse_csv(engines) or None
+                        # search fallback: scrapling
+            if engine_list is None:
+                engine_list = ["scrapling"]
 
             results = await em.search_multi(
                 query,
@@ -631,6 +735,11 @@ if mcp is not None:
                 ],
                 "engines_used": engines_used,
                 "total": len(results),
+                "trace_id": trace_id,
+                "audit": _audit_payload(
+                    trace_id=trace_id,
+                    provider=",".join(engines_used),
+                ),
                 "duration_ms": _ms_since(t0),
             }
         except Exception as exc:
@@ -640,12 +749,54 @@ if mcp is not None:
                 "results": [],
                 "engines_used": [],
                 "total": 0,
+                "trace_id": trace_id,
+                "audit": _audit_payload(trace_id=trace_id),
                 "error": str(exc),
                 "duration_ms": _ms_since(t0),
             }
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# Tool 5b — web_profile_list / web_profile_use  (NEW)
+# ═══════════════════════════════════════════════════════════════════════════
+
+if mcp is not None:
+
+    @mcp.tool()
+    async def web_profile_list(
+        region: str = "",
+        tag: str = "",
+    ) -> dict:
+        """List approved browser profiles for agent tasks."""
+        t0 = time.perf_counter()
+        trace_id = _new_trace_id()
+        return {
+            "ok": False,
+            "profiles": [],
+            "trace_id": trace_id,
+            "audit": _audit_payload(trace_id=trace_id, provider="cloakbrowser"),
+            "error": "cloak-manager service has been removed. Profile management is handled internally by CloakBrowserEngine via CLOAK_BROWSER_BASE_URL.",
+            "duration_ms": _ms_since(t0),
+        }
+
+    @mcp.tool()
+    async def web_profile_use(
+        profile: str,
+        reason: str,
+    ) -> dict:
+        """Bind an approved profile to the current task intent."""
+        t0 = time.perf_counter()
+        trace_id = _new_trace_id()
+        return {
+            "ok": False,
+            "profile": profile,
+            "trace_id": trace_id,
+            "audit": _audit_payload(trace_id=trace_id, provider="cloakbrowser", profile=profile),
+            "error": "cloak-manager service has been removed. Profile management is handled by CloakBrowserEngine configuration.",
+            "duration_ms": _ms_since(t0),
+        }
+
+
 # Tool 6 — web_crawl  (NEW)
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -838,6 +989,152 @@ if mcp is not None:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# Tools 8-11 — Credential management  (NEW)
+# ═══════════════════════════════════════════════════════════════════════════
+
+if mcp is not None:
+
+    @mcp.tool()
+    async def credential_status() -> dict:
+        """Report status of all credential platforms.
+
+        Returns:
+            dict with keys: ok, platforms (list of {name, keys, masked, count}),
+            total_platforms, encryption (bool), file, dir
+        """
+        try:
+            store = CredentialStore.get_instance()
+            return store.doctor()
+        except Exception as exc:
+            _logger.exception("credential_status failed: %s", exc)
+            return {"ok": False, "platforms": [], "total_platforms": 0, "error": str(exc)}
+
+
+    @mcp.tool()
+    async def credential_inject(
+        platform: str,
+        cookie_json: str,
+        save: bool = True,
+    ) -> dict:
+        """Inject credentials for a platform from a Cookie-Editor style JSON string.
+
+        The JSON can be either a flat ``{"name": "value", ...}`` dict or
+        a list of ``{"name": "...", "value": "..."}`` objects (Cookie-Editor export format).
+
+        Args:
+            platform: Platform name (twitter, xiaohongshu, bilibili, xueqiu).
+            cookie_json: JSON string with cookies (flat dict or Cookie-Editor list).
+            save: Whether to persist to disk immediately (default True).
+
+        Returns:
+            dict with keys: ok, platform, keys_injected, error
+        """
+        try:
+            import json
+            data = json.loads(cookie_json)
+
+            store = CredentialStore.get_instance()
+
+            if isinstance(data, list):
+                # Cookie-Editor format: [{"name": "...", "value": "..."}, ...]
+                kv: dict[str, str] = {}
+                for entry in data:
+                    name = entry.get("name", "")
+                    value = entry.get("value", "")
+                    if name and value is not None:
+                        kv[name] = value
+                if not kv:
+                    return {"ok": False, "platform": platform, "keys_injected": 0,
+                            "error": "No valid cookie entries found in Cookie-Editor JSON"}
+                store.set_platform(platform, kv)
+            elif isinstance(data, dict):
+                # Flat {key: value} format
+                store.set_platform(platform, {str(k): str(v) for k, v in data.items()})
+            else:
+                return {"ok": False, "platform": platform, "keys_injected": 0,
+                        "error": "JSON must be a dict or a list of Cookie-Editor objects"}
+
+            if save:
+                store.save()
+
+            keys = list(store.get_all(platform).keys())
+            return {"ok": True, "platform": platform, "keys_injected": len(keys), "keys": keys}
+        except json.JSONDecodeError as exc:
+            return {"ok": False, "platform": platform, "keys_injected": 0,
+                    "error": f"Invalid JSON: {exc}"}
+        except Exception as exc:
+            _logger.exception("credential_inject failed: %s", exc)
+            return {"ok": False, "platform": platform, "keys_injected": 0, "error": str(exc)}
+
+
+    @mcp.tool()
+    async def credential_extract(
+        platform: str = "",
+        from_agent_reach: bool = False,
+    ) -> dict:
+        """Extract cookies from browser(s) and store them as credentials.
+
+        Args:
+            platform: Specific platform to extract (empty = all known platforms).
+            from_agent_reach: If True, import from ~/.agent-reach/config.yaml instead
+                              of from browser cookies.
+
+        Returns:
+            dict with keys: ok, platforms (list of platform names extracted), count
+        """
+        try:
+            if from_agent_reach:
+                imported = import_from_agent_reach()
+                platforms = list(imported.keys())
+                return {"ok": True, "platforms": platforms, "count": len(platforms),
+                        "source": "agent-reach"}
+            else:
+                count = extract_to_store(platform if platform else None)
+                store = CredentialStore.get_instance()
+                all_platforms = store.list_platforms()
+                return {"ok": True, "platforms": all_platforms, "count": count,
+                        "source": "browser-cookies"}
+        except CookieExtractionError as exc:
+            return {"ok": False, "platforms": [], "count": 0,
+                    "error": str(exc), "hint": "Log into the site in your browser first"}
+        except Exception as exc:
+            _logger.exception("credential_extract failed: %s", exc)
+            return {"ok": False, "platforms": [], "count": 0, "error": str(exc)}
+
+
+    @mcp.tool()
+    async def credential_refresh(
+        platform: str,
+    ) -> dict:
+        """Mark a platform's credentials as needing refresh (extract again from browser).
+
+        This removes the stored credentials for the given platform so the next
+        extraction will fetch fresh values from the browser.
+
+        Args:
+            platform: Platform name to refresh (twitter, xiaohongshu, etc.).
+
+        Returns:
+            dict with keys: ok, platform, action
+        """
+        try:
+            store = CredentialStore.get_instance()
+            had_keys = list(store.get_all(platform).keys())
+            for key in had_keys:
+                store.remove(platform, key)
+            store.save()
+            return {
+                "ok": True,
+                "platform": platform,
+                "action": "cleared, ready for fresh extraction",
+                "removed_keys": had_keys,
+            }
+        except Exception as exc:
+            _logger.exception("credential_refresh failed: %s", exc)
+            return {"ok": False, "platform": platform, "error": str(exc)}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # /health endpoint & entry points
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -910,3 +1207,10 @@ def _start_http():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+

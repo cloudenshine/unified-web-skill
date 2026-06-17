@@ -50,6 +50,11 @@ class ExtractionError(WebSkillError):
     pass
 
 
+class CookieExtractionError(WebSkillError):
+    """Browser-level cookie extraction failed."""
+    pass
+
+
 class StorageError(WebSkillError):
     """Error during result storage."""
     pass

@@ -80,9 +80,9 @@ class TestSearchResult:
 
 class TestInteractResult:
     def test_creation(self):
-        r = InteractResult(ok=True, url="https://a.com", engine="pinchtab", text="done")
+        r = InteractResult(ok=True, url="https://a.com", engine="cloakbrowser", text="done")
         assert r.ok is True
-        assert r.engine == "pinchtab"
+        assert r.engine == "cloakbrowser"
 
     def test_defaults(self):
         r = InteractResult(ok=False, url="u")

@@ -8,6 +8,11 @@ _logger = logging.getLogger(__name__)
 MCP_HOST = os.environ.get("MCP_HOST", "0.0.0.0")
 MCP_PORT = int(os.environ.get("MCP_PORT", "8000"))
 
+# === CloakBrowser ===
+CLOAK_BROWSER_BASE_URL = os.environ.get("CLOAK_BROWSER_BASE_URL", "http://127.0.0.1:9222")
+CLOAK_BROWSER_ENABLED = os.environ.get("CLOAK_BROWSER_ENABLED", "true").lower() == "true"
+RESIDENTIAL_PROXY_READY = os.environ.get("RESIDENTIAL_PROXY_READY", "false").lower() == "true"
+
 # === OpenCLI ===
 OPENCLI_BIN = os.environ.get("OPENCLI_BIN", "opencli")
 OPENCLI_TIMEOUT = int(os.environ.get("OPENCLI_TIMEOUT_SECONDS", "30"))
@@ -17,26 +22,6 @@ OPENCLI_ENABLED = os.environ.get("RESEARCH_OPENCLI_ENABLED", "true").lower() == 
 SCRAPLING_TIMEOUT_HTTP = int(os.environ.get("SCRAPLING_TIMEOUT_HTTP", "10"))
 SCRAPLING_TIMEOUT_DYNAMIC = int(os.environ.get("SCRAPLING_TIMEOUT_DYNAMIC", "30"))
 SCRAPLING_TIMEOUT_STEALTH = int(os.environ.get("SCRAPLING_TIMEOUT_STEALTH", "60"))
-
-# === Lightpanda ===
-LP_CDP_URL = os.environ.get("LP_CDP_URL", "ws://127.0.0.1:9222")
-LP_ENABLED = os.environ.get("LP_ENABLED", "false").lower() == "true"
-
-# === PinchTab ===
-PINCHTAB_BASE_URL = os.environ.get("PINCHTAB_BASE_URL", "")
-PINCHTAB_MCP_ENDPOINT = os.environ.get("PINCHTAB_MCP_ENDPOINT", "/mcp")
-PINCHTAB_TOKEN = os.environ.get("PINCHTAB_TOKEN", "")
-PINCHTAB_TIMEOUT = int(os.environ.get("PINCHTAB_TIMEOUT", "60"))
-
-# === bb-browser ===
-BB_BROWSER_BIN = os.environ.get("BB_BROWSER_BIN", "bb-browser")
-BB_BROWSER_TIMEOUT = int(os.environ.get("BB_BROWSER_TIMEOUT", "30"))
-BB_BROWSER_ENABLED = os.environ.get("BB_BROWSER_ENABLED", "true").lower() == "true"
-
-# === CLIBrowser ===
-CLIBROWSER_BIN = os.environ.get("CLIBROWSER_BIN", "clibrowser")
-CLIBROWSER_TIMEOUT = int(os.environ.get("CLIBROWSER_TIMEOUT", "30"))
-CLIBROWSER_ENABLED = os.environ.get("CLIBROWSER_ENABLED", "false").lower() == "true"
 
 # === Research Defaults ===
 DEFAULT_LANGUAGE = os.environ.get("DEFAULT_LANGUAGE", "zh")
@@ -65,10 +50,11 @@ FETCH_CACHE_TTL = int(os.environ.get("FETCH_CACHE_TTL", "3600"))
 FETCH_CACHE_MAX_MB = int(os.environ.get("FETCH_CACHE_MAX_MB", "100"))
 
 # === Engine Priority (default order) ===
-ENGINE_PRIORITY = os.environ.get("ENGINE_PRIORITY", "bb-browser,opencli,scrapling,lightpanda,clibrowser").split(",")
+ENGINE_PRIORITY = os.environ.get("ENGINE_PRIORITY", "scrapling,opencli,cloakbrowser").split(",")
 
 # === Output ===
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "outputs")
 
 # === Site Registry ===
 SITE_REGISTRY_PATH = os.environ.get("SITE_REGISTRY_PATH", "")
+

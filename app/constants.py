@@ -99,7 +99,6 @@ KNOWN_TECH: set[str] = {
 FETCH_MODE_HTTP = "http"
 FETCH_MODE_DYNAMIC = "dynamic"
 FETCH_MODE_STEALTH = "stealth"
-FETCH_MODE_PINCHTAB = "pinchtab"
 
 # ---------------------------------------------------------------------------
 # Default timeouts (seconds)
@@ -107,7 +106,7 @@ FETCH_MODE_PINCHTAB = "pinchtab"
 DEFAULT_TIMEOUT_HTTP = 10
 DEFAULT_TIMEOUT_DYNAMIC = 30
 DEFAULT_TIMEOUT_STEALTH = 60
-DEFAULT_TIMEOUT_PINCHTAB = 60
+
 
 # ---------------------------------------------------------------------------
 # Output formats

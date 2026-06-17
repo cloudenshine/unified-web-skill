@@ -20,7 +20,7 @@ def test_default_provider_profiles_include_local_baseline():
     profiles = default_provider_profiles()
     names = [profile.name for profile in profiles]
 
-    assert names[:3] == ["bb-browser", "opencli", "scrapling"]
+    assert names[:3] == ["cloakbrowser", "opencli", "scrapling"]
     assert "scrapling" in enabled_provider_names(profiles)
 
 
@@ -31,3 +31,4 @@ def test_enabled_provider_names_respects_flags():
     ]
 
     assert enabled_provider_names(profiles) == ["enabled"]
+

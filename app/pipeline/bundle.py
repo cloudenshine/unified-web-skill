@@ -63,6 +63,10 @@ class ResearchBundleBuilder:
                     "fetch_mode": record.fetch_mode,
                     "duration_ms": record.fetch_duration_ms,
                     "tool_chain": list(record.tool_chain),
+                    "trace_id": record.extra.get("trace_id", ""),
+                    "profile_used": record.extra.get("profile_used", ""),
+                    "fallback_used": bool(record.extra.get("fallback_used", False)),
+                    "browser_escalated": bool(record.extra.get("browser_escalated", False)),
                 }
             )
 

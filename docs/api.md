@@ -2,7 +2,7 @@
 
 > Status: v3 is the single supported MCP API surface.
 
-Complete reference for all 7 MCP tools. All tools return JSON dicts and **never raise exceptions** to the client.
+Complete reference for all 13 MCP tools. All tools return JSON dicts and **never raise exceptions** to the client.
 
 ---
 
@@ -73,7 +73,7 @@ Complete reference for all 7 MCP tools. All tools return JSON dicts and **never 
     "skipped_duplicate": 3,
     "skipped_blocked": 7,
     "engines_used": {"scrapling": 10, "opencli": 5},
-    "search_engines_used": ["bb-browser:google/search"],
+    "search_engines_used": ["opencli:google/search"],
     "fallback_count": 2,
     "avg_fetch_ms": 1500.0,
     "total_duration_s": 45.2
@@ -275,7 +275,7 @@ Complete reference for all 7 MCP tools. All tools return JSON dicts and **never 
 
 ## 3. web_cli
 
-直接调用站点适配器 (bb-browser 优先, OpenCLI 降级) 执行站点命令。
+直接调用站点适配器 (OpenCLI) 执行站点命令。
 
 ### 参数 / Parameters
 
@@ -296,7 +296,7 @@ Complete reference for all 7 MCP tools. All tools return JSON dicts and **never 
     {"title": "热门视频1", "url": "...", "view_count": 1000000},
     {"title": "热门视频2", "url": "...", "view_count": 500000}
   ],
-  "engine": "bb_browser",
+  "engine": "opencli",
   "duration_ms": 2345.6
 }
 ```
@@ -339,7 +339,7 @@ Complete reference for all 7 MCP tools. All tools return JSON dicts and **never 
 
 ## 4. web_interact
 
-浏览器交互操作：导航、点击、填表、滚动、截图。使用最佳可用交互引擎 (PinchTab → bb-browser → Lightpanda)。
+浏览器交互操作：导航、点击、填表、滚动、截图。使用 CloakBrowser (最佳可用交互引擎)。
 
 ### 参数 / Parameters
 
@@ -375,14 +375,14 @@ actions 是一个 JSON 数组，每个元素包含 `type` 和相应参数：
 
 | type | 参数 | 引擎支持 | 说明 |
 |------|------|---------|------|
-| `click` | `selector` | bb-browser, Lightpanda, PinchTab | 点击元素 |
-| `fill` / `type` | `selector`, `value` | bb-browser, Lightpanda, PinchTab | 填写输入框 |
-| `scroll` | `direction` | bb-browser, PinchTab | 滚动页面 |
+| `click` | `selector` | CloakBrowser | 点击元素 |
+| `fill` / `type` | `selector`, `value` | CloakBrowser | 填写输入框 |
+| `scroll` | `direction` | CloakBrowser | 滚动页面 |
 | `wait` | `seconds` | all | 等待指定秒数 |
-| `screenshot` | — | bb-browser, PinchTab | 截图 |
-| `navigate` | `url` | PinchTab | 导航到 URL |
-| `evaluate` | `expression` | Lightpanda | 执行 JS 表达式 |
-| `submit` | `selector` | PinchTab | 提交表单 |
+| `screenshot` | — | CloakBrowser | 截图 |
+| `navigate` | `url` | CloakBrowser | 导航到 URL |
+| `evaluate` | `expression` | CloakBrowser | 执行 JS 表达式 |
+| `submit` | `selector` | CloakBrowser | 提交表单 |
 
 ### 返回值 / Return Value
 
@@ -393,7 +393,7 @@ actions 是一个 JSON 数组，每个元素包含 `type` 和相应参数：
   "text": "Page content after interaction...",
   "snapshot": "data:image/png;base64,iVBOR...",
   "instance_id": "session-abc123",
-  "engine": "pinchtab",
+  "engine": "cloakbrowser",
   "duration_ms": 5432.1,
   "error": ""
 }
@@ -441,7 +441,7 @@ actions 是一个 JSON 数组，每个元素包含 `type` 和相应参数：
       "url": "https://arxiv.org/abs/2401.12345",
       "title": "Transformer Architecture Survey",
       "snippet": "This comprehensive survey covers...",
-      "source": "bb-browser:google/search",
+      "source": "opencli:google/search",
       "rank": 1,
       "credibility": 0.85
     },
@@ -449,36 +449,16 @@ actions 是一个 JSON 数组，每个元素包含 `type` 和相应参数：
       "url": "https://github.com/example/transformer",
       "title": "Transformer Implementation",
       "snippet": "A PyTorch implementation of...",
-      "source": "bb-browser:google/search",
+      "source": "opencli:google/search",
       "rank": 2,
       "credibility": 0.6
     }
   ],
-  "engines_used": ["bb-browser:google/search", "opencli:zhihu"],
+  "engines_used": ["opencli:google/search", "opencli:zhihu"],
   "total": 10,
   "duration_ms": 3456.7
 }
 ```
-
-### 搜索引擎路由
-
-bb-browser 支持的搜索适配器：
-
-| 适配器 | 语言偏好 | 说明 |
-|--------|---------|------|
-| `google/search` | en (默认英文) | Google 搜索 |
-| `baidu/search` | zh (默认中文) | 百度搜索 |
-| `bing/search` | — | 必应搜索 |
-| `duckduckgo/search` | — | DuckDuckGo |
-| `sogou/weixin` | zh | 搜狗微信搜索 |
-| `twitter/search` | — | 推特搜索 |
-| `reddit/search` | — | Reddit 搜索 |
-| `bilibili/search` | zh | B站搜索 |
-| `youtube/search` | — | YouTube 搜索 |
-| `zhihu/search` | zh | 知乎搜索 |
-| `github/issues` | — | GitHub Issues |
-| `arxiv/search` | — | arXiv 论文搜索 |
-| `stackoverflow/search` | en | Stack Overflow |
 
 ### 示例调用
 
@@ -489,7 +469,7 @@ bb-browser 支持的搜索适配器：
     "query": "Rust async runtime comparison",
     "max_results": 20,
     "language": "en",
-    "engines": "bb-browser,clibrowser"
+    "engines": "opencli"
   }
 }
 ```
@@ -591,9 +571,9 @@ bb-browser 支持的搜索适配器：
   "ok": true,
   "engines": [
     {
-      "name": "bb-browser",
+      "name": "cloakbrowser",
       "available": true,
-      "capabilities": ["crawl", "fetch", "interact", "search", "structured"]
+      "capabilities": ["fetch", "interact"]
     },
     {
       "name": "opencli",
@@ -608,18 +588,11 @@ bb-browser 支持的搜索适配器：
   ],
   "providers": [
     {
-      "name": "bb-browser",
-      "category": "local-cli",
+      "name": "cloakbrowser",
+      "category": "local-browser",
       "enabled": true,
       "registered": true,
-      "version": {"ok": true, "version": "0.11.6", "error": ""}
-    },
-    {
-      "name": "lightpanda",
-      "category": "local-browser",
-      "enabled": false,
-      "registered": false,
-      "version": {"ok": false, "version": "", "error": "provider not registered"}
+      "version": {"ok": true, "version": "", "error": ""}
     }
   ],
   "total": 3,
@@ -647,7 +620,7 @@ bb-browser 支持的搜索适配器：
 | `"No engines available for FETCH"` | 所有 FETCH 引擎不可用 |
 | `"No engines available for INTERACT"` | 所有 INTERACT 引擎不可用 |
 | `"All engines exhausted. Last error: ..."` | 所有引擎均失败 |
-| `"No CLI engine (bb-browser / opencli) available"` | web_cli 无可用引擎 |
+| `"No CLI engine (opencli) available"` | web_cli 无可用引擎 |
 | `"Invalid actions JSON: ..."` | web_interact 的 actions 参数 JSON 解析失败 |
 
 ### 引擎特定错误
@@ -659,12 +632,6 @@ bb-browser 支持的搜索适配器：
 | OpenCLI | `"not_found: ..."` | 站点适配器不存在 (exit code 78) |
 | Scrapling | `"blocked"` | 请求被反爬系统拦截 |
 | Scrapling | `"all tiers failed"` | HTTP → Dynamic → Stealth 全部失败 |
-| Lightpanda | `"websockets not installed"` | 缺少 websockets 依赖 |
-| Lightpanda | `"CDP error: ..."` | Chrome DevTools Protocol 错误 |
-| PinchTab | `"PINCHTAB_BASE_URL not configured"` | 未配置 PinchTab 服务地址 |
-| PinchTab | `"httpx not installed"` | 缺少 httpx 依赖 |
-| bb-browser | `"exit code N"` | bb-browser 进程异常退出 |
-| CLIBrowser | `"binary not found: clibrowser"` | clibrowser 未安装 |
 
 ---
 
@@ -681,6 +648,7 @@ GET http://localhost:8000/health
   "status": "ok",
   "service": "unified-web-skill",
   "version": "3.0.0",
-  "engines": ["bb-browser", "opencli", "scrapling"]
+  "engines": ["opencli", "scrapling", "cloakbrowser"]
 }
 ```
+

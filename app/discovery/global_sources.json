@@ -91,12 +91,12 @@
     ],
     "difficulty": "medium",
     "verification_url": "https://stackoverflow.com/questions/tagged/python-asyncio",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
     "notes": "Question listing with bot-detection risk; latest browser path now frequently lands on a Cloudflare challenge page in this environment.",
     "access_type": "static_html",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "scrapling",
       "opencli"
@@ -121,12 +121,12 @@
     ],
     "difficulty": "easy",
     "verification_url": "https://arxiv.org/list/cs.AI/recent",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "Recent academic paper listing; bb-browser verified after opencli local adapter load failure in Phase 3.8 final sweep.",
+    "notes": "Recent academic paper listing; opencli verified after opencli local adapter load failure in Phase 3.8 final sweep.",
     "access_type": "structured_adapter",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "opencli",
       "scrapling"
@@ -179,12 +179,12 @@
     ],
     "difficulty": "medium",
     "verification_url": "https://www.reuters.com/world/",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "Current news page; bb-browser verified after strict scrapling returned 401.",
+    "notes": "Current news page; opencli verified after strict scrapling returned 401.",
     "access_type": "static_html",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "scrapling",
       "opencli"
@@ -238,12 +238,12 @@
     ],
     "difficulty": "hard",
     "verification_url": "https://www.reddit.com/r/programming/",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": true,
     "status": "seeded",
-    "notes": "Social/forum page with bot-detection risk; latest bb-browser adapters now require a logged-in Reddit session in this environment.",
+    "notes": "Social/forum page with bot-detection risk; latest opencli adapters now require a logged-in Reddit session in this environment.",
     "access_type": "structured_adapter",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "opencli",
       "scrapling"
@@ -331,8 +331,7 @@
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
@@ -354,14 +353,14 @@
     ],
     "difficulty": "hard",
     "verification_url": "https://www.amazon.com/s?k=laptop",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "Commerce search page with strong bot detection; strict bb-browser verified once in Phase 3.8 but remains high-cost boundary.",
+    "notes": "Commerce search page with strong bot detection; strict opencli verified once in Phase 3.8 but remains high-cost boundary.",
     "access_type": "boundary",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
-      "pinchtab"
+      "opencli"
     ],
     "cost_tier": "high",
     "stability_tier": "fragile",
@@ -387,12 +386,11 @@
     "expected_provider": "scrapling",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "Product discovery page; blocked after scrapling, bb-browser, and opencli follow-up in Phase 3.8.",
+    "notes": "Product discovery page; blocked after scrapling, opencli, and opencli follow-up in Phase 3.8.",
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "fragile",
@@ -414,15 +412,14 @@
     ],
     "difficulty": "medium",
     "verification_url": "https://duckduckgo.com/?q=python+asyncio",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
-    "notes": "General search provider benchmark; bb-browser verified after strict scrapling returned weak content.",
+    "notes": "General search provider benchmark; opencli verified after strict scrapling returned weak content.",
     "access_type": "dynamic_browser",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
-      "scrapling",
-      "lightpanda"
+      "scrapling"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
@@ -451,8 +448,7 @@
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
@@ -474,12 +470,12 @@
     ],
     "difficulty": "hard",
     "verification_url": "https://www.youtube.com/results?search_query=python+asyncio",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
     "notes": "Dynamic video search page.",
     "access_type": "structured_adapter",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "opencli",
       "scrapling"
@@ -504,12 +500,12 @@
     ],
     "difficulty": "hard",
     "verification_url": "https://search.bilibili.com/all?keyword=python",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
     "notes": "Chinese video search page.",
     "access_type": "structured_adapter",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
       "opencli",
       "scrapling"
@@ -561,14 +557,14 @@
     ],
     "difficulty": "hard",
     "verification_url": "https://www.zhihu.com/topic/19552832",
-    "expected_provider": "bb-browser",
+    "expected_provider": "opencli",
     "requires_auth": false,
     "status": "seeded",
     "notes": "Chinese Q&A/social page with dynamic rendering risk.",
     "access_type": "interactive_session",
-    "preferred_provider": "bb-browser",
+    "preferred_provider": "opencli",
     "fallback_providers": [
-      "pinchtab"
+      "opencli"
     ],
     "cost_tier": "high",
     "stability_tier": "fragile",
@@ -971,8 +967,7 @@
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
@@ -1001,8 +996,7 @@
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",
@@ -1031,8 +1025,7 @@
     "access_type": "dynamic_browser",
     "preferred_provider": "scrapling",
     "fallback_providers": [
-      "lightpanda",
-      "bb-browser"
+      "opencli"
     ],
     "cost_tier": "medium",
     "stability_tier": "variable",

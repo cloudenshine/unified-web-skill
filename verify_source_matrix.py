@@ -34,7 +34,7 @@ REGRESSION_PROFILES = {
         "output": "outputs/source_matrix_regression_promoted_structured.json",
     },
     "promoted-browser": {
-        "preferred_providers": "bb-browser",
+        "preferred_providers": "opencli",
         "promotion_statuses": "promoted",
         "strict_preferred_provider": True,
         "limit": 20,

@@ -173,7 +173,7 @@ class TestIsJsHeavy:
 
 class TestSuggestFetchMode:
     def test_interactive_task(self):
-        assert suggest_fetch_mode("https://a.com", task_text="click login") == "pinchtab"
+        assert suggest_fetch_mode("https://a.com", task_text="click login") == "cloakbrowser"
 
     def test_chinese_site(self):
         assert suggest_fetch_mode("https://zhihu.com", is_chinese=True) == "dynamic"
@@ -238,3 +238,4 @@ class TestScoreCredibility:
     def test_empty_url(self):
         score = score_credibility("")
         assert isinstance(score, float)
+

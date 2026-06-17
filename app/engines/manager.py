@@ -33,26 +33,20 @@ logger = logging.getLogger(__name__)
 # Default engine priority for plain fetch (no site-registry hit)
 _DEFAULT_FETCH_PRIORITY: list[str] = [
     "scrapling",       # HTTP impersonation tier (fastest)
-    "lightpanda",      # CDP-based lightweight browser
     "scrapling_pw",    # Scrapling Playwright tier
     "scrapling_stealth",  # Scrapling StealthyFetcher
-    # "clibrowser",    # disabled: binary not available
 ]
 
 # Priority for Chinese-heavy sites (when not in site registry)
 _CHINESE_FETCH_PRIORITY: list[str] = [
-    "lightpanda",
     "scrapling_pw",
     "scrapling_stealth",
     "scrapling",
-    # "clibrowser",    # disabled: binary not available
 ]
 
 # Engines that support interactive actions
 _INTERACTIVE_ENGINES: list[str] = [
-    "pinchtab",
-    "bb_browser",
-    "lightpanda",
+    "cloakbrowser",
     "scrapling_pw",
 ]
 
@@ -177,7 +171,7 @@ class EngineManager:
 
         mgr = EngineManager()
         mgr.register(ScraplingEngine())
-        mgr.register(LightpandaEngine())
+        mgr.register(ScraplingEngine())
         await mgr.health_check_all()
         result = await mgr.fetch_with_fallback("https://example.com")
     """
@@ -524,3 +518,5 @@ class EngineManager:
                 engine=chosen,
                 error=f"{chosen} raised {type(exc).__name__}: {exc}",
             )
+
+

@@ -36,7 +36,7 @@ class TestResearchTask:
             max_queries=15,
             max_concurrency=10,
             timeout_seconds=60,
-            preferred_engines=["scrapling", "lightpanda"],
+            preferred_engines=["scrapling", "cloakbrowser"],
             search_engines=["google"],
             enable_stealth=True,
             min_text_length=200,
@@ -111,7 +111,7 @@ class TestResearchStats:
             skipped_quality=10,
             skipped_duplicate=5,
             skipped_blocked=5,
-            engines_used={"scrapling": 50, "lightpanda": 30},
+            engines_used={"scrapling": 50, "cloakbrowser": 30},
             fallback_count=3,
             avg_fetch_ms=150.0,
         )

@@ -145,8 +145,8 @@ def test_scrapling_blocked_sources_use_browser_provider_path():
         "news_reuters_world",
     }:
         source = sources[source_id]
-        assert source.expected_provider == "bb-browser"
-        assert source.preferred_provider == "bb-browser"
+        assert source.expected_provider == "opencli"
+        assert source.preferred_provider == "opencli"
         assert source.cost_tier == "medium"
         assert "scrapling" in source.fallback_providers
 
@@ -156,8 +156,8 @@ def test_matrix_only_dynamic_refresh_classification():
     sources = {source.source_id: source for source in matrix.all_sources()}
 
     duckduckgo = sources["search_duckduckgo_python"]
-    assert duckduckgo.expected_provider == "bb-browser"
-    assert duckduckgo.preferred_provider == "bb-browser"
+    assert duckduckgo.expected_provider == "opencli"
+    assert duckduckgo.preferred_provider == "opencli"
     assert "scrapling" in duckduckgo.fallback_providers
     assert duckduckgo.promotion_status == "matrix_only"
 
@@ -174,7 +174,7 @@ def test_verified_boundary_sources_remain_isolated_from_promotion():
     amazon = sources["commerce_amazon_search"]
 
     assert amazon.access_type == "boundary"
-    assert amazon.preferred_provider == "bb-browser"
+    assert amazon.preferred_provider == "opencli"
     assert amazon.cost_tier == "high"
     assert amazon.promotion_status == "matrix_only"
 
@@ -186,8 +186,8 @@ def test_arxiv_structured_source_uses_verified_browser_path():
     arxiv = sources["academic_arxiv_cs_ai"]
 
     assert arxiv.access_type == "structured_adapter"
-    assert arxiv.expected_provider == "bb-browser"
-    assert arxiv.preferred_provider == "bb-browser"
+    assert arxiv.expected_provider == "opencli"
+    assert arxiv.preferred_provider == "opencli"
     assert "opencli" in arxiv.fallback_providers
     assert arxiv.promotion_status == "promoted"
 
@@ -199,7 +199,7 @@ def test_reddit_structured_source_is_matrix_only_when_login_is_required():
     reddit = sources["social_reddit_programming"]
 
     assert reddit.access_type == "structured_adapter"
-    assert reddit.preferred_provider == "bb-browser"
+    assert reddit.preferred_provider == "opencli"
     assert reddit.requires_auth is True
     assert reddit.promotion_status == "matrix_only"
     assert "auth_required" in reddit.failure_modes
@@ -211,7 +211,7 @@ def test_stackoverflow_browser_source_is_matrix_only_when_cloudflare_blocks():
 
     stackoverflow = sources["code_stackoverflow_python_asyncio"]
 
-    assert stackoverflow.preferred_provider == "bb-browser"
+    assert stackoverflow.preferred_provider == "opencli"
     assert stackoverflow.promotion_status == "matrix_only"
     assert "blocked" in stackoverflow.failure_modes
 

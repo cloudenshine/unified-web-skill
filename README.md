@@ -1,351 +1,216 @@
-# unified-web-skill
+# Unified Web Skill v3
 
-**Local-first Web Access MCP Router for AI agents** — global resource discovery, retrieval, browser interaction, and research bundling through pluggable providers.
-
-一个面向 AI Agent 的本地优先 MCP 路由层：统一搜索、抓取、浏览器交互、站点适配器和研究流水线，并通过可选 provider 做能力扩展。
+**AI Agent 的本地优先 Web 接入层** — 3 引擎统一 MCP 接口，覆盖搜索、抓取、浏览器交互、结构化站点适配、研究流水线和 Cookie 凭证管理。
 
 ---
 
-## Architecture
+## 项目定位
 
-The project now has one runtime architecture: the v3 engine-manager MCP router in `app/`.
+这不是一个普通的网页抓取工具，而是 **AI Agent 专设的 Web 接入基础设施**：
+
+| 能力 | 说明 |
+|------|------|
+| **完整研究管线** | `research_and_collect` 一站式：意图分类 → 查询扩展 → 多源发现 → 并发抓取 → 质量评分 → 结构化输出 |
+| **智能引擎路由** | SmartRouter + SiteRegistry 根据域名、健康状态、断路器状态动态选择最佳引擎链 |
+| **全球化源矩阵** | 142 个来源经过 8 轮迭代验证，有 `sites.json` 做元数据管理，有 `verify_source_matrix.py` 做回归 |
+| **3 引擎统一接口** | Scrapling（HTTP/JS/Stealth 三层）、OpenCLI（100+ 结构化站点）、CloakBrowser（隐身 Chromium） |
+| **Cookie 凭证管理** | 浏览器 Cookie 提取 → 加密存储 → 引擎注入，支持跨平台 |
+| **Agent 原生设计** | 13 个 MCP 工具，工具名即语义，Agent 无需操心底层引擎 |
+
+---
+
+## 架构
 
 ```
 AI Agent / MCP Client
-  -> app.mcp_server
-    -> EngineManager
-      -> default providers: bb-browser, opencli, scrapling
-      -> opt-in providers: lightpanda, pinchtab, clibrowser
-    -> research pipeline: intent -> discovery -> fetch -> extract -> quality -> storage
+  └─ app.mcp_server (13 MCP tools)
+       ├─ EngineManager → 3 engines
+       │   ├─ Scrapling     — HTTP/JS/Stealth 三层抓取
+       │   ├─ OpenCLI       — 100+ 结构化站点适配器
+       │   └─ CloakBrowser  — 隐身 Chromium（57 C++ 反检测补丁）
+       ├─ ResearchPipeline  — 意图→发现→抓取→提取→质量→存储
+       ├─ CredentialStore   — 加密存储 + 浏览器提取 + 引擎注入
+       └─ SiteRegistry      — 142 站点元数据 + 回归验证
 ```
 
-Each provider declares its capabilities, reports health/version state, and participates in health-aware fallback. The default install works with the local baseline; browser/session and hosted providers are optional extensions.
+### 引擎选择逻辑
+
+```
+          ┌─ 结构化站点 (bilibili/zhihu/weibo/…)
+          │    └─ OpenCLI（精确适配器）
+目标 URL ─┼─ 静态/半静态网页
+          │    └─ Scrapling HTTP → Dynamic → Stealth 三级降级
+          └─ JS 渲染/交互需求
+               └─ CloakBrowser（CDP + 隐身指纹）
+```
 
 ---
 
-## MCP Tools
+## 13 MCP 工具
 
-| Tool | Description |
-|------|-------------|
-| `research_and_collect` | Full pipeline: classify -> discover -> fetch -> filter -> save |
-| `web_fetch` | Fetch one URL through provider routing and fallback |
-| `web_cli` | Structured site commands through bb-browser/opencli |
-| `web_interact` | Browser automation: click, fill, scroll, screenshot |
-| `web_search` | Multi-provider search and deduplication |
-| `web_crawl` | BFS crawl from a seed URL |
-| `engine_status` | Provider health and capability report |
+| # | 工具 | 用途 |
+|---|------|------|
+| 1 | `research_and_collect` | 完整研究管线：分类 → 发现 → 抓取 → 过滤 → 保存 |
+| 2 | `web_fetch` | 单 URL 抓取，自动引擎路由和降级 |
+| 3 | `web_cli` | 通过 OpenCLI 执行结构化站点命令 |
+| 4 | `web_interact` | 浏览器自动化：点击、填写、滚动、截图 |
+| 5 | `web_search` | 多引擎搜索和去重 |
+| 6 | `web_crawl` | 从种子 URL BFS 爬取 |
+| 7 | `web_profile_list` | 列出可用 CloakBrowser 配置 |
+| 8 | `web_profile_use` | 切换活动 CloakBrowser 配置 |
+| 9 | `engine_status` | 引擎健康和能力报告 |
+| 10 | `credential_status` | 各平台凭证状态报告 |
+| 11 | `credential_inject` | 从 Cookie-Editor JSON 注入 Cookie |
+| 12 | `credential_extract` | 从浏览器或 Agent Reach 提取 Cookie |
+| 13 | `credential_refresh` | 清除平台凭证以供重新提取 |
 
 ---
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 环境要求
 
 ```bash
-# Python 3.12 recommended (3.11+ supported)
+# Python 3.12 推荐
 python -m venv .venv
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 
-# Install browser binaries (one-time)
+# 浏览器二进制（一次性）
 playwright install chromium
-patchright install chromium
 
-# Optional: CLI engines for structured social site data
-npm install -g bb-browser opencli
-
-# Verification
-python -m ruff check app tests
-python -m pytest -q
+# 结构化站点 CLI（可选但推荐）
+npm install -g @jackwener/opencli
 ```
 
-### Diagnostic check
+### 启动
 
 ```bash
-cd /path/to/unified-web-skill
-python check.py
-```
-
-Expected:
-```
-Architecture: v3 engine-manager MCP router
-Registered engines:
-  scrapling: fetch, search
-...
-Critical dependency checks passed.
-```
-
-### Source matrix regression
-
-周期性回归验证使用固定 profile，避免每次手工拼接长参数。promoted 批次使用
-`--fail-on-unverified`，一旦出现 weak/failed 即返回非零退出码；boundary/special
-/rate-limited watch 只产出证据，不自动提升 ProductHunt、Amazon、arXiv API、Open Food Facts 等
-特殊源等级。
-
-```bash
-# promoted HTTP/RSS/API + structured adapter + browser-first regression
-python verify_source_matrix.py --regression-profile promoted-http --fail-on-unverified
-python verify_source_matrix.py --regression-profile promoted-structured --fail-on-unverified
-python verify_source_matrix.py --regression-profile promoted-browser --fail-on-unverified
-
-# boundary/special/rate-limited evidence watch，不影响默认通过线
-python verify_source_matrix.py --regression-profile special-watch
-python verify_source_matrix.py --regression-profile rate-limited-watch
-```
-
-在提供 `make` 的 POSIX 环境里，也可以继续使用 `make source-matrix-regression`
-和 `make source-matrix-watch` 作为快捷入口。
-
-### Start server
-
-```bash
-# stdio mode (for OpenClaw / Claude Code MCP)
+# stdio 模式（OpenClaw / Claude Code）
 python -m app.mcp_server --stdio
 
-# HTTP mode
+# HTTP 模式（端口 8000）
 python -m app.mcp_server
-# -> http://127.0.0.1:8000
-
+# → http://127.0.0.1:8000
 ```
 
----
-
-## Integration
-
-### Step 1 — Find your paths
-
-Before editing any config, run these commands to get the correct values for your machine:
-
-```bash
-# Python executable (use this as "command")
-where python          # Windows
-which python3         # macOS / Linux
-
-# Project directory (use this as "cwd")
-cd /path/to/unified-web-skill && pwd
-
-# bb-browser binary (if installed)
-where bb-browser      # Windows
-which bb-browser      # macOS / Linux
-
-# opencli binary (if installed)
-where opencli         # Windows
-which opencli         # macOS / Linux
-```
-
-> **Why absolute paths?**
-> OpenClaw and most GUI launchers spawn the MCP server as a subprocess with a minimal PATH
-> that often differs from your shell's PATH. Bare names like `"bb-browser"` work in the
-> terminal but silently fail when launched from a GUI. `python check.py` reports the
-> providers that the v3 router can actually initialize; explicit paths are the reliable fallback.
-
----
-
-### OpenClaw (`~/.openclaw/openclaw.json`)
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "unified-web-skill": {
-        "command": "<absolute path to python or python3>",
-        "args": ["-m", "app.mcp_server", "--stdio"],
-        "cwd": "<absolute path to the unified-web-skill directory>",
-        "env": {
-          "OUTPUT_DIR": "<absolute path to unified-web-skill/outputs>"
-        }
-      }
-    }
-  }
-}
-```
-
-If bb-browser / opencli are **not** on the system PATH of the process that launches OpenClaw,
-add their paths explicitly:
-
-```json
-"env": {
-  "BB_BROWSER_BIN": "<absolute path to bb-browser or bb-browser.CMD>",
-  "OPENCLI_BIN":    "<absolute path to opencli or opencli.CMD>",
-  "OUTPUT_DIR":     "<absolute path to unified-web-skill/outputs>"
-}
-```
-
-**Platform examples:**
-
-<details>
-<summary>Windows</summary>
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "unified-web-skill": {
-        "command": "C:\\Python312\\python.exe",
-        "args": ["-m", "app.mcp_server", "--stdio"],
-        "cwd": "C:\\Projects\\unified-web-skill",
-        "env": {
-          "BB_BROWSER_BIN": "C:\\Users\\YourName\\AppData\\Roaming\\npm\\bb-browser.cmd",
-          "OPENCLI_BIN":    "C:\\Users\\YourName\\AppData\\Roaming\\npm\\opencli.cmd",
-          "OUTPUT_DIR":     "C:\\Projects\\unified-web-skill\\outputs"
-        }
-      }
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-<summary>macOS / Linux</summary>
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "unified-web-skill": {
-        "command": "/usr/local/bin/python3",
-        "args": ["-m", "app.mcp_server", "--stdio"],
-        "cwd": "/home/yourname/projects/unified-web-skill",
-        "env": {
-          "OUTPUT_DIR": "/home/yourname/projects/unified-web-skill/outputs"
-        }
-      }
-    }
-  }
-}
-```
-
-On macOS/Linux, `shutil.which()` usually finds bb-browser/opencli automatically if they
-are in `/usr/local/bin` or `~/.npm-global/bin`. Only add `BB_BROWSER_BIN` / `OPENCLI_BIN`
-if `python check.py` reports CLI provider as offline.
-
-</details>
-
----
-
-### Claude Code (`.mcp.json` or project settings)
-
-```json
-{
-  "mcpServers": {
-    "unified-web-skill": {
-      "command": "python3",
-      "args": ["-m", "app.mcp_server", "--stdio"],
-      "cwd": "/path/to/unified-web-skill"
-    }
-  }
-}
-```
-
-Claude Code typically inherits the shell PATH, so bare `python3` usually works.
-Use the absolute Python path if you get "command not found" errors.
-
----
-
-### Verify after configuration
+### 验证
 
 ```bash
 python check.py
-```
-
-If CLI providers show offline, set `BB_BROWSER_BIN`
-and `OPENCLI_BIN` to the absolute paths found with `where` / `which`.
-
-Optional browser providers are disabled by default for a clean local baseline.
-Enable them only after their backing service or binary is installed:
-
-```bash
-LP_ENABLED=true
-CLIBROWSER_ENABLED=true
-PINCHTAB_BASE_URL=http://127.0.0.1:PORT
+python -m pytest tests/unit/ -q
 ```
 
 ---
 
-## Tool Reference
+## 核心优势
 
-See [docs/api.md](docs/api.md) for the full v3 MCP API reference.
+### 1. ResearchPipeline — 真正的杀手级特性
 
-The runtime tools are:
+不是简单的搜 + 抓，而是完整管线：
 
-- `research_and_collect`
-- `web_fetch`
-- `web_cli`
-- `web_interact`
-- `web_search`
-- `web_crawl`
-- `engine_status`
+```
+用户查询
+  └─ IntentClassifier（中文+英文意图分类）
+       └─ QueryPlanner（查询扩展）
+            └─ MultiSourceDiscovery（DDGS + 站点源混合发现）
+                 └─ 并发抓取 + fallback 链
+                      └─ ContentExtractor（正文/摘要 + 质量评分）
+                           └─ Dedup（URL/标题/正文三级去重）
+                                └─ Bundle（结构化输出 + stats）
+```
 
----
+### 2. SmartRouter + SiteRegistry — 真正的工程
 
-## 推荐工具搭配
+不是静态"用 OpenCLI"，而是根据域名、健康状态、断路器状态、历史成功率动态选择最佳引擎链。
 
-同等结果质量下，优先选择更轻、更稳定、依赖更少的 provider。API/RSS/静态页是
-全球覆盖主干；`bb-browser` 是结构化 adapter、动态浏览器和交互会话的强能力补位层。
+### 3. 全球化源矩阵
 
-| 数据需求 | 首选路径 |
-|-----------|-----------|
-| GitHub repos / code / issues | **GitHub MCP**（权威结构化数据） |
-| Library docs / API reference | **Context7 MCP**（最新官方文档） |
-| Wikipedia / deep encyclopedic | **DeepWiki MCP** |
-| 官方 API / RSS / JSON endpoint | `fetch` via `scrapling` |
-| 静态或半静态公开网页 | `fetch` via `scrapling` |
-| 已有结构化站点 adapter | 优先 `opencli`，必要时 `bb-browser site` |
-| 实时搜索 | `search` |
-| Bilibili / Reddit / YouTube / HN 等 adapter 站点 | `site`，并单独验证 adapter 健康 |
-| JS 渲染公开页面 | 浏览器 provider，仅在 HTTP 不足时启用 |
-| 需要登录/cookie 的页面 | `browse` 或 `interact`，显式传入 session 假设 |
-| 多源研究 | `research` |
-| 多页面站点抓取 | `crawl` |
-| 表单、点击、滚动、截图 | `interact` |
+142 个来源，8 轮迭代验证，分类清晰：
 
-GitHub、Context7、DeepWiki 等专用 MCP 在各自领域优先于 scraping，因为它们通常能提供更权威、更稳定的结构化数据。
+- **promoted-http**（44 源）— API/RSS/静态页主干
+- **promoted-structured**（42 源）— OpenCLI 结构化适配器
+- **promoted-browser**（10 源）— 浏览器强依赖源
+- **special-watch**（12 源）— 不稳定但有价值
+- **boundary**（16 源）— 边界测试
+- **rate-limited-watch**（18 源）— 限频观察
 
----
+### 4. Cookie 凭证管理
 
-## Access Boundaries
-
-| Blocker | Status |
-|---------|--------|
-| Cloudflare JS challenge | Best-effort via browser providers; success depends on site policy and provider capability |
-| Bot-detection fingerprinting | Best-effort via stealth/browser providers; not guaranteed |
-| Login-gated content | Supported when valid cookies, user session, or credentials are provided |
-| SMS / CAPTCHA verification | Requires human |
-| Paid subscription paywalls | Requires valid credentials |
+```
+Agent Reach / 浏览器 Cookie
+  └─ CredentialExtractor（browser_cookie3 / Agent Reach 双通道）
+       └─ CredentialStore（YAML 配置 + 可选 AES 加密 + 600 权限）
+            └─ Engine Injection
+                 ├─ OpenCLI → HTTP_COOKIE 环境变量
+                 └─ CloakBrowser → CDP Cookie.set
+```
 
 ---
 
-## Project Structure
+## 平台覆盖
+
+| 平台 | 方式 |
+|------|------|
+| Bilibili / 知乎 / 微博 / 小红书 / 抖音 | OpenCLI 适配器 |
+| GitHub / Hacker News / Reddit / YouTube | OpenCLI 适配器 |
+| arXiv / 学术检索 | Scrapling 搜索 + OpenCLI |
+| 微信公众平台 | Cookie 注入 + CloakBrowser |
+| 100+ 更多站点 | OpenCLI 适配器 + 持续增长 |
+
+---
+
+## 项目结构
 
 ```
 unified-web-skill/
-|-- check.py              Diagnostic: verify v3 providers and live smoke checks
-|-- verify_source_matrix.py  Source matrix live verification and regression profiles
-|-- requirements.txt
-|
-|-- app/                  Single v3 MCP router implementation
-|   |-- mcp_server.py     Runtime entry: 7 MCP tools, 6-engine architecture
-|   |-- engines/          Scrapling, bb-browser, opencli, lightpanda, pinchtab, clibrowser
-|   |-- pipeline/         Research pipeline
-|   `-- discovery/        Intent classifier + source registry
-|
-|-- docs/                 API, architecture, engine docs, implementation plans
-|-- tests/                Unit, integration, and e2e tests
-`-- outputs/              Research outputs (gitignored)
+├── app/
+│   ├── mcp_server.py        # 13 MCP 工具入口
+│   ├── engines/             # 3 引擎 + 管理器 + 健康检查
+│   ├── credential/          # 浏览器 Cookie 提取/加密/注入
+│   ├── pipeline/            # 研究管线 + 质量评分 + 存储
+│   └── discovery/           # 142 站点元数据 + 来源矩阵
+├── docs/                    # 完整文档
+├── tests/                   # 379 测试
+├── check.py                 # 诊断检查
+├── verify_source_matrix.py  # 来源矩阵回归
+└── requirements.txt
 ```
 
 ---
 
-## Changelog
+## 近期路线图
 
-### v3.0.0 (2026-05-13)
+### Phase 1 — Agent 完整案例评测套件
+- [ ] 设计 20+ Agent 评测基准任务
+- [ ] 覆盖：搜索、抓取、研究、交互、凭证、异常恢复
+- [ ] 自动化评测脚本，输出评分卡
 
-- **Single runtime**: v3 `app.mcp_server` is the only supported MCP server.
-- **Removed**: historical ring runtime and duplicate entry points.
-- **Updated**: diagnostics now run through the v3 EngineManager.
-- **Clarified**: access boundaries are provider-dependent and best-effort.
+### Phase 2 — 启动自动恢复
+- [ ] Windows 服务注册（自动重启 MCP 服务器）
+- [ ] 引擎故障自动恢复 + 通知
+
+### Phase 3 — 发布准备
+- [ ] `pyproject.toml` + PyPI 发布
+- [ ] GitHub Action CI（测试 + 回归验证）
+- [ ] Docker 镜像一键部署
+
+### Phase 4 — 能力扩展
+- [ ] 更多站点适配器（持续增长 142+）
+- [ ] 浏览器指纹轮换增强
+- [ ] Agent Reach 凭证同步协议
+
+---
+
+## 变动记录
+
+### v3.0.0 (2026-06-17)
+- **3 引擎精简**：Scrapling + OpenCLI + CloakBrowser
+- **已移除**：bb-browser、Lightpanda、PinchTab、CLIBrowser、SearXNG、Cloak-Manager
+- **13 MCP 工具**：新增 credential 系列 + web_profile 系列
+- **Cookie 凭证管理**：全新 credential 模块
+- **引擎路由优化**：取消 6 引擎复杂降级链，改为 3 引擎精确路由
+- **文档全面更新**：对齐当前架构
+- **379 单元测试全部通过**
 
 ---
 

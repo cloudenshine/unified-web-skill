@@ -20,10 +20,6 @@ VALID_ACCESS_TYPES = {
 VALID_PROVIDERS = {
     "scrapling",
     "opencli",
-    "bb-browser",
-    "lightpanda",
-    "pinchtab",
-    "clibrowser",
 }
 
 VALID_COST_TIERS = {"low", "medium", "high"}
@@ -111,3 +107,4 @@ class SourceMatrix:
             "languages": languages,
             "difficulties": {source.difficulty for source in self._sources},
         }
+

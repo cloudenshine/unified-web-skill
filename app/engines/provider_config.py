@@ -32,13 +32,16 @@ class ProviderProfile:
 def default_provider_profiles() -> list[ProviderProfile]:
     """Return the built-in provider profiles in registration priority order."""
     return [
+
+
         ProviderProfile(
-            name="bb-browser",
-            category="local-cli",
-            capabilities={Capability.FETCH, Capability.SEARCH, Capability.STRUCTURED},
-            enabled=config.BB_BROWSER_ENABLED,
-            description="Site-specific local CLI adapters for global and Chinese sources.",
+            name="cloakbrowser",
+            category="local-browser",
+            capabilities={Capability.FETCH, Capability.INTERACT},
+            enabled=config.CLOAK_BROWSER_ENABLED,
+            description="Primary browser interaction provider backed by CloakBrowser.",
         ),
+
         ProviderProfile(
             name="opencli",
             category="local-cli",
@@ -54,27 +57,9 @@ def default_provider_profiles() -> list[ProviderProfile]:
             optional=False,
             description="Default free local HTTP extraction and discovery provider.",
         ),
-        ProviderProfile(
-            name="lightpanda",
-            category="local-browser",
-            capabilities={Capability.FETCH, Capability.INTERACT},
-            enabled=config.LP_ENABLED,
-            description="Lightweight CDP browser provider.",
-        ),
-        ProviderProfile(
-            name="pinchtab",
-            category="local-browser",
-            capabilities={Capability.INTERACT},
-            enabled=bool(config.PINCHTAB_BASE_URL),
-            description="Optional PinchTab MCP browser interaction provider.",
-        ),
-        ProviderProfile(
-            name="clibrowser",
-            category="local-browser",
-            capabilities={Capability.FETCH},
-            enabled=config.CLIBROWSER_ENABLED,
-            description="Optional zero-dependency browser fetch provider.",
-        ),
+
+
+
     ]
 
 

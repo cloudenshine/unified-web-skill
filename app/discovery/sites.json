@@ -7,7 +7,6 @@
       "b23.tv"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -26,7 +25,6 @@
       "zhihu.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -48,7 +46,6 @@
       "weibo.cn"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -59,7 +56,7 @@
     "country": "cn",
     "default_fetch_mode": "dynamic",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "xiaohongshu",
@@ -68,9 +65,7 @@
       "xiaohongshu.com",
       "xhslink.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "xiaohongshu/search"
     },
@@ -78,7 +73,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "douban",
@@ -87,7 +82,6 @@
       "douban.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -105,9 +99,7 @@
     "domains": [
       "douyin.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "douyin/search",
       "hot": "douyin/hot"
@@ -116,7 +108,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "tieba",
@@ -125,7 +117,6 @@
       "tieba.baidu.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -144,7 +135,6 @@
       "new.qq.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {},
@@ -160,7 +150,6 @@
       "m.baidu.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -177,7 +166,6 @@
       "36kr.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -197,7 +185,6 @@
       "blog.csdn.net"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -215,7 +202,6 @@
       "cnblogs.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -233,7 +219,6 @@
       "v2ex.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -251,9 +236,7 @@
       "okjike.com",
       "m.okjike.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "jike/search"
     },
@@ -261,7 +244,7 @@
     "country": "cn",
     "default_fetch_mode": "dynamic",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "hupu",
@@ -270,7 +253,6 @@
       "hupu.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -288,7 +270,6 @@
       "linux.do"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -307,9 +288,7 @@
       "toutiao.com",
       "m.toutiao.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "toutiao/search",
       "hot": "toutiao/hot"
@@ -326,7 +305,6 @@
       "news.sohu.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {},
@@ -341,7 +319,6 @@
       "xiaoyuzhoufm.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -359,7 +336,6 @@
       "qidian.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {
@@ -378,7 +354,6 @@
       "dict.youdao.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -397,9 +372,7 @@
       "mp.weixin.qq.com",
       "weixin.qq.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "wechat/search"
     },
@@ -407,7 +380,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "xueqiu",
@@ -416,7 +389,6 @@
       "xueqiu.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -436,7 +408,6 @@
       "guba.eastmoney.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -453,9 +424,7 @@
     "domains": [
       "zhipin.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "boss/search"
     },
@@ -463,7 +432,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "ctrip",
@@ -473,7 +442,6 @@
       "m.ctrip.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -490,7 +458,6 @@
       "smzdm.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -509,9 +476,7 @@
       "taobao.com",
       "m.taobao.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "taobao/search"
     },
@@ -519,7 +484,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "jd",
@@ -529,7 +494,6 @@
       "m.jd.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -545,9 +509,7 @@
     "domains": [
       "pinduoduo.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "pinduoduo/search"
     },
@@ -555,7 +517,7 @@
     "country": "cn",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "twitter",
@@ -566,7 +528,6 @@
       "mobile.twitter.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -577,7 +538,7 @@
     "country": "global",
     "default_fetch_mode": "dynamic",
     "auth_required": true,
-    "auth_engine": "pinchtab"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "reddit",
@@ -587,7 +548,6 @@
       "old.reddit.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -607,15 +567,13 @@
       "m.facebook.com",
       "fb.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "social",
     "country": "global",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "instagram",
@@ -623,15 +581,13 @@
     "domains": [
       "instagram.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "social",
     "country": "global",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "tiktok",
@@ -639,9 +595,7 @@
     "domains": [
       "tiktok.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "tiktok/search"
     },
@@ -656,15 +610,13 @@
       "discord.com",
       "discord.gg"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "social",
     "country": "global",
     "default_fetch_mode": "dynamic",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "telegram",
@@ -673,9 +625,7 @@
       "telegram.org",
       "t.me"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "social",
     "country": "global",
@@ -688,7 +638,6 @@
       "bsky.app"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {
@@ -704,9 +653,7 @@
     "domains": [
       "linkedin.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {
       "search": "linkedin/search"
     },
@@ -714,7 +661,7 @@
     "country": "global",
     "default_fetch_mode": "stealth",
     "auth_required": true,
-    "auth_engine": "bb-browser"
+    "auth_engine": "opencli"
   },
   {
     "site_id": "mastodon",
@@ -724,7 +671,6 @@
       "mastodon.online"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -740,7 +686,6 @@
       "github.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -760,7 +705,6 @@
       "stackoverflow.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -778,7 +722,6 @@
       "news.ycombinator.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -797,7 +740,6 @@
       "medium.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {},
@@ -812,7 +754,6 @@
       "dev.to"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -831,7 +772,6 @@
       "www.npmjs.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -866,7 +806,6 @@
       "arxiv.org"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -915,7 +854,6 @@
       "m.youtube.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -971,7 +909,6 @@
       "reuters.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -989,7 +926,6 @@
       "producthunt.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli",
       "scrapling"
     ],
@@ -1026,7 +962,6 @@
       "amazon.co.jp"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {
@@ -1043,7 +978,6 @@
       "nytimes.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {},
@@ -1072,15 +1006,13 @@
       "spotify.com",
       "open.spotify.com"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "video",
     "country": "global",
     "default_fetch_mode": "dynamic",
     "auth_required": true,
-    "auth_engine": "bb-browser",
+    "auth_engine": "opencli",
     "notes": "Music / podcast streaming"
   },
   {
@@ -1089,9 +1021,7 @@
     "domains": [
       "twitch.tv"
     ],
-    "engines": [
-      "bb-browser"
-    ],
+    "engines": [],
     "commands": {},
     "content_type": "video",
     "country": "global",
@@ -1104,7 +1034,6 @@
       "quora.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {},
@@ -1120,7 +1049,6 @@
       "www.google.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -1138,7 +1066,6 @@
       "www.bing.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -1155,7 +1082,6 @@
       "duckduckgo.com"
     ],
     "engines": [
-      "bb-browser",
       "scrapling",
       "opencli"
     ],
@@ -1173,7 +1099,6 @@
       "sogou.com"
     ],
     "engines": [
-      "bb-browser",
       "opencli"
     ],
     "commands": {
@@ -1191,7 +1116,6 @@
       "yandex.ru"
     ],
     "engines": [
-      "bb-browser",
       "scrapling"
     ],
     "commands": {

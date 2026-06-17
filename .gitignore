@@ -47,3 +47,8 @@ Thumbs.db
 
 # Node (for any npm tools)
 node_modules/
+
+# Dev tools (reasonix, codegraph, copilot)
+.codegraph/
+.reasonix/
+.copilot-ilongrun/

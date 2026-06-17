@@ -317,7 +317,7 @@ class BaseEngine(abc.ABC):
         """Run a subprocess with timeout protection. Returns (returncode, stdout, stderr).
 
         On Windows, automatically resolves npm-style `.cmd` wrappers when a bare
-        binary name is supplied (e.g. ``bb-browser`` → ``bb-browser.cmd``).
+        binary name is supplied (e.g. ``opencli`` → ``opencli.cmd``).
         Also handles `.ps1` scripts by invoking them via PowerShell.
         """
         import shutil
@@ -388,3 +388,4 @@ class BaseEngine(abc.ABC):
     def __repr__(self) -> str:
         caps = ", ".join(sorted(c.value for c in self.capabilities))
         return f"<{self.__class__.__name__} name={self.name!r} caps=[{caps}]>"
+

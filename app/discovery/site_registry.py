@@ -24,10 +24,10 @@ class SiteCapability:
     site_id: str                                # e.g. "bilibili"
     display_name: str                           # e.g. "哔哩哔哩"
     domains: list[str]                          # e.g. ["bilibili.com", "b23.tv"]
-    engines: list[str]                          # priority: ["bb-browser", "opencli", "scrapling"]
+    engines: list[str]                          # priority: ["opencli", "scrapling", "cloakbrowser"]
     commands: dict[str, str] = field(default_factory=dict)
     auth_required: bool = False
-    auth_engine: str = ""                       # "pinchtab" | "bb-browser"
+    auth_engine: str = ""                       # "opencli"
     content_type: str = "article"               # video|article|social|news|paper|code|finance|shopping|search|jobs
     country: str = "global"                     # cn|global|us|jp
     default_fetch_mode: str = "auto"            # http|dynamic|stealth|auto
@@ -43,7 +43,7 @@ class SiteRegistry:
         registry.load_builtin()
 
         cap = registry.lookup_by_url("https://www.bilibili.com/video/BV123")
-        print(cap.engines)  # ["bb-browser", "opencli"]
+        print(cap.engines)  # ["opencli", "scrapling"]
     """
 
     _instance: Optional[SiteRegistry] = None

@@ -125,7 +125,7 @@ def test_select_sources_filters_by_strategy_fields():
         _source(
             "browser_promoted",
             access_type="dynamic_browser",
-            preferred_provider="bb-browser",
+            preferred_provider="opencli",
             promotion_status="promoted",
             cost_tier="medium",
         ),

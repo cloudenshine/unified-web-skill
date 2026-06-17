@@ -134,6 +134,14 @@ class ResearchPipeline:
                         )
 
                         if not result.ok:
+                            escalated = await self._browser_escalate(url, task, credibility)
+                            if escalated is not None:
+                                stats.browser_escalations += 1
+                                stats.fallback_count += 1
+                                stats.engines_used[escalated.fetch_engine] = (
+                                    stats.engines_used.get(escalated.fetch_engine, 0) + 1
+                                )
+                                return escalated
                             stats.skipped_blocked += 1
                             _logger.debug("Fetch failed for %s: %s", url, result.error)
                             return None
@@ -149,6 +157,14 @@ class ResearchPipeline:
                             time_window_days=task.time_window_days,
                         )
                         if not passed:
+                            escalated = await self._browser_escalate(url, task, credibility)
+                            if escalated is not None:
+                                stats.browser_escalations += 1
+                                stats.fallback_count += 1
+                                stats.engines_used[escalated.fetch_engine] = (
+                                    stats.engines_used.get(escalated.fetch_engine, 0) + 1
+                                )
+                                return escalated
                             stats.skipped_quality += 1
                             _logger.debug("Quality gate failed for %s: %s", url, reason)
                             return None
@@ -168,6 +184,12 @@ class ResearchPipeline:
                             credibility=credibility,
                             source_type="search",
                             tool_chain=[result.engine] if result.engine else [],
+                            extra={
+                                "trace_id": task.task_id,
+                                "profile_used": "",
+                                "fallback_used": False,
+                                "browser_escalated": False,
+                            },
                         )
 
                         stats.engines_used[result.engine] = stats.engines_used.get(result.engine, 0) + 1
@@ -244,6 +266,54 @@ class ResearchPipeline:
         await _progress("results saved")
         _logger.info("Research complete: %d records in %ss", len(records), stats.total_duration_s)
         return result
+
+    async def _browser_escalate(
+        self,
+        url: str,
+        task: ResearchTask,
+        credibility: float,
+    ) -> Optional[ResearchRecord]:
+        if not task.need_browser_verification:
+            return None
+
+        profile = task.browser_profile.strip()
+        if not profile:
+            return None
+
+        interact = await self._engine_manager.interact(
+            url,
+            [{"type": "wait", "seconds": 1}],
+            engine="cloakbrowser",
+            timeout=task.timeout_seconds,
+            profile=profile,
+            intent=task.browser_intent or "js_render",
+            require_login=False,
+        )
+        if not interact.ok or not interact.text.strip():
+            return None
+
+        text = interact.text.strip()
+        return ResearchRecord(
+            url=url,
+            title=text.splitlines()[0][:200] if text else "",
+            text=text,
+            summary=text[:300].strip(),
+            language=task.language,
+            content_hash="",
+            fetch_engine=interact.engine,
+            fetch_mode="browser_interact",
+            fetch_duration_ms=interact.duration_ms,
+            credibility=credibility,
+            source_type="search",
+            tool_chain=[interact.engine] if interact.engine else [],
+            extra={
+                "trace_id": task.task_id,
+                "profile_used": profile,
+                "fallback_used": True,
+                "browser_escalated": True,
+                "intent": task.browser_intent or "js_render",
+            },
+        )
 
     # ------------------------------------------------------------------
     # Helpers

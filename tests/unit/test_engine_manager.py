@@ -118,54 +118,54 @@ class TestSmartRouter:
         router, sr, hm = self._make_router()
         engines = {
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
-            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
-            "clibrowser": StubEngine("clibrowser", {Capability.FETCH}),
+            "scrapling_pw": StubEngine("scrapling_pw", {Capability.FETCH}),
+            "scrapling_stealth": StubEngine("scrapling_stealth", {Capability.FETCH}),
         }
         order = router.resolve_fetch_order("https://example.com", engines)
         assert "scrapling" in order
-        assert "lightpanda" in order
+        assert "scrapling_pw" in order
 
     def test_site_registry_match(self):
         router, sr, hm = self._make_router()
-        # bilibili.com is in the builtin SiteRegistry with ["bb-browser", "opencli"]
+        # bilibili.com is in the builtin SiteRegistry with ["opencli", "opencli"]
         engines = {
-            "bb-browser": StubEngine("bb-browser", {Capability.FETCH}),
+            "opencli": StubEngine("opencli", {Capability.FETCH}),
             "opencli": StubEngine("opencli", {Capability.FETCH}),
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
         }
         order = router.resolve_fetch_order("https://www.bilibili.com/video/123", engines)
-        assert order[0] == "bb-browser"
-        assert order[1] == "opencli"
+        assert order[0] == "opencli"
+        assert order[1] == "scrapling"
 
     def test_chinese_url_priority(self):
         router, sr, hm = self._make_router()
         engines = {
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
-            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
+            "scrapling_pw": StubEngine("scrapling_pw", {Capability.FETCH}),
         }
-        # Use zhihu.com which IS in registry with engines ["bb-browser","opencli","scrapling"]
+        # Use zhihu.com which IS in registry with engines ["opencli","opencli","scrapling"]
         # Since only scrapling is available from the registry list, scrapling should come first
         order = router.resolve_fetch_order("https://www.zhihu.com/q/123", engines)
         assert order[0] == "scrapling"
-        # lightpanda should still be in the list as a fallback
-        assert "lightpanda" in order
+        # opencli should still be in the list as a fallback
+        assert "scrapling_pw" in order
 
     def test_preferred_engines_override(self):
         router, sr, hm = self._make_router()
         engines = {
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
-            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
+            "scrapling_pw": StubEngine("scrapling_pw", {Capability.FETCH}),
         }
         order = router.resolve_fetch_order(
-            "https://example.com", engines, preferred=["lightpanda", "scrapling"]
+            "https://example.com", engines, preferred=["scrapling_pw", "scrapling"]
         )
-        assert order[0] == "lightpanda"
+        assert order[0] == "scrapling_pw"
 
     def test_preferred_engines_can_disable_implicit_fallbacks(self):
         router, sr, hm = self._make_router()
         engines = {
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
-            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
+            "scrapling_pw": StubEngine("scrapling_pw", {Capability.FETCH}),
         }
 
         order = router.resolve_fetch_order(
@@ -184,7 +184,7 @@ class TestSmartRouter:
             hm.record_failure("scrapling")
         engines = {
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
-            "lightpanda": StubEngine("lightpanda", {Capability.FETCH}),
+            "scrapling_pw": StubEngine("scrapling_pw", {Capability.FETCH}),
         }
         order = router.resolve_fetch_order("https://example.com", engines)
         assert "scrapling" not in order
@@ -192,20 +192,20 @@ class TestSmartRouter:
     def test_resolve_interact_engine(self):
         router, sr, hm = self._make_router()
         engines = {
-            "pinchtab": StubEngine("pinchtab", {Capability.INTERACT, Capability.FETCH}),
+            "cloakbrowser": StubEngine("cloakbrowser", {Capability.INTERACT, Capability.FETCH}),
             "scrapling": StubEngine("scrapling", {Capability.FETCH}),
         }
         chosen = router.resolve_interact_engine("https://example.com", engines)
-        assert chosen == "pinchtab"
+        assert chosen == "cloakbrowser"
 
     def test_resolve_interact_engine_preferred(self):
         router, sr, hm = self._make_router()
         engines = {
-            "pinchtab": StubEngine("pinchtab", {Capability.INTERACT, Capability.FETCH}),
-            "bb_browser": StubEngine("bb_browser", {Capability.INTERACT, Capability.FETCH}),
+            "cloakbrowser": StubEngine("cloakbrowser", {Capability.INTERACT, Capability.FETCH}),
+            "opencli": StubEngine("opencli", {Capability.INTERACT, Capability.FETCH}),
         }
-        chosen = router.resolve_interact_engine("https://example.com", engines, preferred="bb_browser")
-        assert chosen == "bb_browser"
+        chosen = router.resolve_interact_engine("https://example.com", engines, preferred="opencli")
+        assert chosen == "opencli"
 
     def test_resolve_interact_engine_none(self):
         router, sr, hm = self._make_router()
@@ -325,7 +325,7 @@ class TestInteract:
     @pytest.mark.asyncio
     async def test_interact_success(self):
         mgr = EngineManager()
-        mgr.register(StubEngine("pinchtab", {Capability.INTERACT, Capability.FETCH}))
+        mgr.register(StubEngine("cloakbrowser", {Capability.INTERACT, Capability.FETCH}))
         result = await mgr.interact("https://example.com", [{"action": "click"}])
         assert result.ok is True
 
@@ -336,3 +336,4 @@ class TestInteract:
         result = await mgr.interact("https://example.com", [])
         assert result.ok is False
         assert "No engines available" in result.error
+

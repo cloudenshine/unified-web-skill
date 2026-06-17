@@ -3,8 +3,6 @@ import os
 from app.engines.manager import EngineManager
 from app.engines.opencli import OpenCLIEngine
 from app.engines.scrapling_engine import ScraplingEngine
-from app.engines.bb_browser import BBBrowserEngine
-from app.engines.clibrowser import CLIBrowserEngine
 
 def pytest_collection_modifyitems(config, items):
     if not os.getenv("RUN_INTEGRATION"):
@@ -19,6 +17,4 @@ def engine_manager():
     em = EngineManager()
     em.register(ScraplingEngine())
     em.register(OpenCLIEngine())
-    em.register(BBBrowserEngine())
-    em.register(CLIBrowserEngine())
     return em

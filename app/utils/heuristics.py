@@ -37,10 +37,10 @@ def is_js_heavy(url: str, html: str = "") -> bool:
 def suggest_fetch_mode(url: str, task_text: str = "", is_chinese: bool = False) -> str:
     """Suggest fetch mode based on URL and task context.
 
-    Returns: 'pinchtab', 'dynamic', 'http', 'stealth'
+    Returns: 'cloakbrowser', 'dynamic', 'http', 'stealth'
     """
     if is_interactive_task(task_text):
-        return "pinchtab"
+        return "cloakbrowser"
     if is_chinese:
         return "dynamic"
     if is_js_heavy(url):
@@ -59,3 +59,4 @@ def extract_domain(url: str) -> str:
         return urlparse(url).hostname or ""
     except Exception:
         return ""
+

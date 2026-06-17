@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-06-17",
+  "description": "外部依赖版本锁定与状态追踪 — 用于 unified-web-skill 稳定性管理",
+  "scrapling": {
+    "version": "0.4.9",
+    "pinned": false,
+    "minimum": "0.4.9",
+    "install_method": "pip (requirements.txt: scrapling>=0.4.9)",
+    "status": "ACTIVE",
+    "risk": "LOW",
+    "upstream_activity": "极高（64K⭐，月均2-4次发布）",
+    "changelog_url": "https://github.com/D4Vinci/Scrapling/releases",
+    "tested_python": [
+      "3.10",
+      "3.11",
+      "3.12"
+    ],
+    "extras": [
+      "fetchers",
+      "ai",
+      "shell"
+    ],
+    "used_as": "Python 包直接导入（Fetcher, DynamicFetcher, StealthyFetcher）",
+    "integration_depth": "深 — 3-tier fetch 引擎（HTTP→Dynamic→Stealth），search 路由（DuckDuckGo），block 检测逻辑",
+    "update_policy": "minor/patch 自动评估后升级，major 需人工审核API diff",
+    "call_sites": [
+      "app/engines/scrapling_engine.py",
+      "app/engines/manager.py",
+      "app/utils/heuristics.py"
+    ],
+    "notes": "API 极活跃。升级时重点测试 Fetcher/DynamicFetcher/StealthyFetcher 接口变化及 adaptive 特性兼容性。"
+  },
+  "opencli": {
+    "version": "latest (npm @jackwener/opencli)",
+    "install_method": "npm install -g @jackwener/opencli (Node.js >= 20)",
+    "pinned": false,
+    "status": "ACTIVE",
+    "risk": "LOW",
+    "upstream_activity": "极高（24.6K⭐，108 releases，最新 v1.8.4 2026-06-15）",
+    "changelog_url": "https://github.com/jackwener/OpenCLI/releases",
+    "used_as": "subprocess 调用 binary（opencli <site> <command>）",
+    "integration_depth": "深 — 独立 engine（OpenCLIEngine），sites.json 和 global_sources.json 大量引用",
+    "update_policy": "关注 breaking changes（输出格式变化、exit code 含义变化）",
+    "call_sites": [
+      "app/engines/opencli.py",
+      "app/mcp_server.py (web_cli 工具)",
+      "app/discovery/sites.json (~30 站点)",
+      "app/discovery/global_sources.json (~12 源)",
+      "app/discovery/source_matrix.py",
+      "app/config.py (ENGINE_PRIORITY)",
+      "app/engines/provider_config.py (ProviderProfile)"
+    ],
+    "notes": "Node.js ≥ 20 运行时。升级时重点测试 JSON/YAML 输出格式兼容性。"
+  },
+  "cloakbrowser": {
+    "version": "0.3.31",
+    "pinned": true,
+    "install_method": "独立二进制 + HTTP/CDP WebSocket API",
+    "status": "ACTIVE",
+    "risk": "MEDIUM",
+    "upstream_activity": "极高（26K⭐，周均2-5次发布）",
+    "changelog_url": "https://github.com/CloakHQ/CloakBrowser/blob/main/CHANGELOG.md",
+    "used_as": "HTTP REST API + CDP WebSocket 调用（Python websockets 库）",
+    "integration_depth": "中 — CDP Session 包装，Profile 管理，Cookie 注入，5 种交互动作",
+    "update_policy": "每次新版本立即评估（反检测军备竞赛）",
+    "call_sites": [
+      "app/engines/cloak_browser.py",
+      "app/engines/manager.py (_INTERACTIVE_ENGINES)",
+      "app/mcp_server.py (interact/profile 路由)",
+      "app/pipeline/research.py (质量关卡)"
+    ],
+    "notes": "C++ 级 Chromium 补丁（58个），reCAPTCHA v3 达 0.9 分。Chromium 146 二进制。每次主版本升级需全量回归。"
+  }
+}

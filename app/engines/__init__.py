@@ -2,16 +2,7 @@
 
 This package exposes the protocol, data models, base class, health
 monitor, and manager needed to integrate multiple web-fetching backends
-(OpenCLI, Scrapling, Lightpanda, PinchTab, bb-browser, CLIBrowser)
-under a single routing interface.
-
-Quick start::
-
-    from app.engines import EngineManager, Capability, FetchResult
-
-    mgr = EngineManager()
-    mgr.register(my_engine)
-    result = await mgr.fetch_with_fallback("https://example.com")
+(OpenCLI, Scrapling, and CloakBrowser) under a single routing interface.
 """
 
 from .base import (
@@ -22,23 +13,24 @@ from .base import (
     InteractResult,
     SearchResult,
 )
+from .cloak_browser import CloakBrowserEngine
 from .health import EngineHealthMonitor, HealthStatus
 from .manager import EngineManager, SmartRouter
 from ..discovery.site_registry import SiteRegistry
 
 __all__ = [
-    # base protocol & data models
     "Capability",
     "Engine",
     "BaseEngine",
     "FetchResult",
     "SearchResult",
     "InteractResult",
-    # health
     "EngineHealthMonitor",
     "HealthStatus",
-    # manager & routing
     "EngineManager",
     "SmartRouter",
     "SiteRegistry",
+    "CloakBrowserEngine",
 ]
+
+

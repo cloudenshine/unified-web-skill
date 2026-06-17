@@ -28,20 +28,11 @@ class TestConfigDefaults:
             importlib.reload(cfg)
             assert cfg.OPENCLI_ENABLED is True
 
-    def test_lp_cdp_url_default(self):
-        with patch.dict(os.environ, {}, clear=True):
-            import importlib
-            import app.config as cfg
-            importlib.reload(cfg)
-            assert cfg.LP_CDP_URL == "ws://127.0.0.1:9222"
-
     def test_optional_browser_providers_disabled_by_default(self):
         with patch.dict(os.environ, {}, clear=True):
             import importlib
             import app.config as cfg
             importlib.reload(cfg)
-            assert cfg.LP_ENABLED is False
-            assert cfg.CLIBROWSER_ENABLED is False
 
 
 class TestConfigFromEnv:
@@ -62,14 +53,11 @@ class TestConfigFromEnv:
     def test_optional_browser_providers_can_be_enabled(self):
         with patch.dict(
             os.environ,
-            {"LP_ENABLED": "true", "CLIBROWSER_ENABLED": "true"},
             clear=True,
         ):
             import importlib
             import app.config as cfg
             importlib.reload(cfg)
-            assert cfg.LP_ENABLED is True
-            assert cfg.CLIBROWSER_ENABLED is True
 
     def test_custom_output_dir(self):
         with patch.dict(os.environ, {"OUTPUT_DIR": "custom_outputs"}, clear=True):

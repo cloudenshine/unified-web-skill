@@ -21,6 +21,9 @@ class ResearchTask(BaseModel):
     search_engines: list[str] = Field(default_factory=list)
     enable_site_adapters: bool = True
     enable_stealth: bool = False
+    need_browser_verification: bool = False
+    browser_profile: str = ""
+    browser_intent: str = "js_render"
 
     # Quality filters
     min_text_length: int = Field(default=100, ge=0)
@@ -74,6 +77,7 @@ class ResearchStats(BaseModel):
     engines_used: dict[str, int] = Field(default_factory=dict)
     search_engines_used: list[str] = Field(default_factory=list)
     fallback_count: int = 0
+    browser_escalations: int = 0
     avg_fetch_ms: float = 0
     total_duration_s: float = 0
 

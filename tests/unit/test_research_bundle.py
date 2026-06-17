@@ -14,7 +14,7 @@ def _result(records: list[ResearchRecord]) -> ResearchResult:
             skipped_duplicate=1,
             skipped_quality=1,
             skipped_blocked=1,
-            engines_used={"scrapling-http": 2, "bb-browser": 1},
+            engines_used={"scrapling-http": 2, "scrapling": 1},
         ),
         queries_used=["python asyncio", "asyncio tutorial"],
     )
@@ -34,7 +34,7 @@ def test_bundle_deduplicates_by_canonical_url_and_reports_rejections():
             url="https://example.com/a",
             title="A duplicate",
             text="Python asyncio guide " * 10,
-            fetch_engine="bb-browser",
+            fetch_engine="scrapling",
             fetch_mode="dynamic",
             credibility=0.8,
         ),
@@ -108,6 +108,10 @@ def test_bundle_includes_provider_traces_and_failure_stats():
             "fetch_mode": "http",
             "duration_ms": 123.4,
             "tool_chain": ["scrapling-http"],
+            "trace_id": "",
+            "profile_used": "",
+            "fallback_used": False,
+            "browser_escalated": False,
         }
     ]
     assert bundle["stats"]["source_count"] == 1
@@ -297,7 +301,7 @@ def test_bundle_stats_include_provider_and_source_type_distribution():
             url="https://adapter.example/article",
             title="Adapter source",
             text="global source " * 80,
-            fetch_engine="bb-browser",
+            fetch_engine="scrapling",
             source_type="site_adapter",
         ),
         ResearchRecord(
@@ -312,7 +316,7 @@ def test_bundle_stats_include_provider_and_source_type_distribution():
     bundle = ResearchBundleBuilder().build(_result(records))
 
     assert bundle["stats"]["provider_distribution"] == {
-        "bb-browser": 1,
+        "scrapling": 1,
         "scrapling-http": 1,
         "unknown": 1,
     }
@@ -351,3 +355,4 @@ def test_bundle_stats_include_domain_distribution_from_canonical_urls():
         "docs.python.org": 1,
         "example.com": 2,
     }
+

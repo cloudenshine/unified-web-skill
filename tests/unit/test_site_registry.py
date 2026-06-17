@@ -66,7 +66,7 @@ class TestSiteRegistryBuiltin:
 
         for site_id in {"stackoverflow", "reuters"}:
             cap = reg[site_id]
-            assert cap.engines[0] == "bb-browser"
+            assert cap.engines[0] == "scrapling"
             assert "scrapling" in cap.engines
 
     def test_duckduckgo_browser_matrix_source_registered_with_browser(self):
@@ -75,7 +75,7 @@ class TestSiteRegistryBuiltin:
 
         cap = reg["duckduckgo"]
 
-        assert cap.engines[0] == "bb-browser"
+        assert cap.engines[0] == "scrapling"
         assert "scrapling" in cap.engines
 
     def test_arxiv_browser_structured_source_registered_with_browser_first(self):
@@ -84,7 +84,7 @@ class TestSiteRegistryBuiltin:
 
         cap = reg["arxiv"]
 
-        assert cap.engines[0] == "bb-browser"
+        assert cap.engines[0] == "opencli"
         assert "opencli" in cap.engines
         assert "scrapling" in cap.engines
 
@@ -183,7 +183,7 @@ class TestGetPreferredEngines:
         reg.load_builtin()
         engines = reg.get_preferred_engines("https://bilibili.com/video/123")
         assert len(engines) >= 1
-        assert "bb-browser" in engines or "opencli" in engines
+        assert "opencli" in engines or "opencli" in engines
 
     def test_unknown_site_fallback(self):
         reg = SiteRegistry()
@@ -210,12 +210,12 @@ class TestSiteCapabilityFields:
             site_id="auth_site",
             display_name="Auth Site",
             domains=["auth.com"],
-            engines=["bb-browser"],
+            engines=["opencli"],
             auth_required=True,
-            auth_engine="bb-browser",
+            auth_engine="opencli",
         )
         assert cap.auth_required is True
-        assert cap.auth_engine == "bb-browser"
+        assert cap.auth_engine == "opencli"
 
 
 class TestSearchEngines:

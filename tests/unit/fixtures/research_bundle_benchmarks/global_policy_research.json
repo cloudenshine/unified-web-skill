@@ -18,7 +18,7 @@
     "skipped_blocked": 1,
     "engines_used": {
       "scrapling-http": 3,
-      "bb-browser": 1
+      "scrapling": 1
     }
   },
   "records": [
@@ -62,12 +62,12 @@
       "text_length": 3200,
       "published_at": "2026-05-12",
       "language": "en",
-      "fetch_engine": "bb-browser",
-      "fetch_mode": "bb-browser:arxiv/search",
+      "fetch_engine": "scrapling",
+      "fetch_mode": "opencli:arxiv/search",
       "credibility": 0.68,
       "source_type": "site_adapter",
       "tool_chain": [
-        "bb-browser",
+        "scrapling",
         "arxiv/search"
       ]
     },
@@ -134,7 +134,7 @@
       "rejected_count": 1,
       "engines_used": {
         "scrapling-http": 3,
-        "bb-browser": 1
+        "scrapling": 1
       },
       "failure_stats": {
         "skipped_quality": 2,
@@ -148,7 +148,7 @@
         "en": 3
       },
       "provider_distribution": {
-        "bb-browser": 1,
+        "scrapling": 1,
         "scrapling-http": 2
       },
       "source_type_distribution": {

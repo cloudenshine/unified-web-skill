@@ -53,7 +53,7 @@
 │  └───────────────────────────────────────────────────────────────┘  │
 ├────────┬────────┬────────┬────────┬────────┬────────────────────────┤
 │        │        │        │        │        │                        │
-│ OpenCLI│Scraplng│ Light  │ Pinch  │  bb-   │   CLIBrowser           │
+│ OpenCLI│Scrapling│ CloakBrowser                         │
 │        │ 3-tier │ panda  │  Tab   │browser │                        │
 │ CLI    │HTTP/PW │  CDP   │  MCP   │  CLI   │    CLI                 │
 │ binary │/Stealt │  WS    │  HTTP  │ binary │   binary               │
@@ -114,10 +114,9 @@ class Capability(enum.Enum):
 BaseEngine
   ├── OpenCLIEngine      (FETCH, SEARCH, STRUCTURED)
   ├── ScraplingEngine     (FETCH)
-  ├── LightpandaEngine    (FETCH, INTERACT)
-  ├── PinchTabEngine      (FETCH, INTERACT)
+  ├── CloakBrowserEngine  (FETCH, INTERACT)
   ├── BBBrowserEngine     (FETCH, SEARCH, INTERACT, STRUCTURED)
-  └── CLIBrowserEngine    (FETCH, SEARCH)
+
 ```
 
 辅助方法：
@@ -145,11 +144,11 @@ resolve_fetch_order(url, available_engines, preferred) → list[str]
               ├── 是 → 使用注册表引擎列表
               └── 否 → 3. 中文域名?
                          ├── 是 → 中文优先序列:
-                         │        lightpanda → scrapling_pw →
-                         │        scrapling_stealth → scrapling → clibrowser
+                         │        cloakbrowser → scrapling_pw →
+                         │        scrapling_stealth → scrapling
                          └── 否 → 默认序列:
-                                  scrapling → lightpanda → scrapling_pw →
-                                  scrapling_stealth → clibrowser
+                                  scrapling → cloakbrowser → scrapling_pw →
+                                  scrapling_stealth
 
 过滤: 仅保留 (已注册 ∩ 支持 FETCH ∩ 健康) 的引擎
 补充: 追加其余健康 FETCH 引擎
@@ -161,7 +160,7 @@ resolve_fetch_order(url, available_engines, preferred) → list[str]
 resolve_interact_engine(url, available_engines, preferred) → str | None
 ```
 
-优先级固定序列: `pinchtab → bb_browser → lightpanda → scrapling_pw`
+优先级固定序列: `cloakbrowser → scrapling_pw`
 
 过滤条件: 支持 INTERACT + HealthMonitor 可用
 
@@ -204,7 +203,7 @@ Phase 3.1 将 `SourceMatrix` 从“代表 URL 清单”升级为 provider 路由
 边界场景，再选择最轻的可行 provider。
 
 当前路由原则是：API/RSS/静态页面优先走 `scrapling`；同等结构化效果下优先
-`opencli`；`bb-browser` 用于 adapter 覆盖更好、需要浏览器能力或需要交互的场景；
+`opencli`；`cloakbrowser` 用于需要浏览器能力或需要交互的场景；
 CAPTCHA、短信验证、严格反爬和付费墙记录为边界，不自动晋升到默认运行时路由。
 
 `verify_source_matrix.py` 提供周期性回归入口。`--regression-profile` 固化了
@@ -223,10 +222,10 @@ class SiteCapability:
     site_id: str              # "bilibili"
     display_name: str         # "哔哩哔哩"
     domains: list[str]        # ["bilibili.com", "b23.tv"]
-    engines: list[str]        # ["bb-browser", "opencli"]  (优先级顺序)
+    engines: list[str]        # ["opencli", "cloakbrowser"]  (优先级顺序)
     commands: dict[str, str]  # {"search": "bilibili/search", "hot": "bilibili/hot"}
     auth_required: bool       # 是否需要认证
-    auth_engine: str          # 认证引擎 ("pinchtab" / "bb-browser")
+    auth_engine: str          # 认证引擎 ("opencli")
     content_type: str         # video / article / social / news / paper / code / finance / shopping / search / jobs
     country: str              # cn / global / us / jp
     default_fetch_mode: str   # http / dynamic / stealth / auto
@@ -598,7 +597,7 @@ python -m app.mcp_server
 |------|------|
 | Protocol (structural typing) 而非基类继承 | 引擎可以来自不同包，无需 import base |
 | BaseEngine ABC 提供默认实现 | 减少样板代码，具体引擎只覆盖声明能力的方法 |
-| `_run_subprocess` 统一子进程管理 | CLI 引擎 (opencli, bb-browser, clibrowser) 共享超时/错误处理 |
+| `_run_subprocess` 统一子进程管理 | CLI 引擎 (opencli) 共享超时/错误处理 |
 | 永不抛异常的 fetch/interact | MCP 工具层简化，始终返回结构化结果 |
 | Singleton SiteRegistry | 全局共享站点数据，避免重复加载 |
 | 每域名独立限流 | 避免某个域名被封导致全局受影响 |

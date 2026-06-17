@@ -14,7 +14,7 @@ from app.constants import (
     FETCH_MODE_HTTP,
     FETCH_MODE_DYNAMIC,
     FETCH_MODE_STEALTH,
-    FETCH_MODE_PINCHTAB,
+    
 )
 
 
@@ -110,10 +110,10 @@ class TestFetchModes:
         assert isinstance(FETCH_MODE_HTTP, str)
         assert isinstance(FETCH_MODE_DYNAMIC, str)
         assert isinstance(FETCH_MODE_STEALTH, str)
-        assert isinstance(FETCH_MODE_PINCHTAB, str)
-
+        
     def test_mode_values(self):
         assert FETCH_MODE_HTTP == "http"
         assert FETCH_MODE_DYNAMIC == "dynamic"
         assert FETCH_MODE_STEALTH == "stealth"
-        assert FETCH_MODE_PINCHTAB == "pinchtab"
+
+
