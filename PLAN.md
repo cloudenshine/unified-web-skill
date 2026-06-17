@@ -1,46 +1,114 @@
 # Plan — Unified Web Skill
 
-> Current: **Phase 0 (v3 Baseline Complete)**. Next: Agent Benchmark Suite.
+> **产品定位**：AI Agent 的通用 Web 接入标准层。不是爬虫工具，是 Agent 互联网基础设施。
+> **当前**：v3.0.0 基线完成（3 引擎 / 13 工具 / 142 源 / 379 测试）。
 
 ---
 
-## Phase 0 — v3 Baseline ✅
+## 已完成
 
-- [x] 3-engine router: scrapling, opencli, cloakbrowser
-- [x] 13 MCP tools (research, fetch, cli, interact, search, crawl, profiles, credentials)
-- [x] Engine cleanup: removed 6 deprecated engines
-- [x] Credential module: browser extraction + encrypted storage + engine injection
-- [x] Documentation: all docs updated to v3 architecture
-- [x] Source matrix: 142 sources, 6 regression profiles
-- [x] 379 unit tests passing
-
----
-
-## Phase 1 — Agent Benchmark Suite
-
-- [ ] 20+ agent evaluation tasks
-- [ ] Coverage: search, fetch, research, interact, credential, error recovery
-- [ ] Automated evaluation script + scoring card
+- [x] **v3 基线** — 3 引擎路由（Scrapling / OpenCLI / CloakBrowser），13 MCP 工具
+- [x] **引擎瘦身** — 删除 6 个废弃引擎，代码清零
+- [x] **全球化源矩阵** — 142 源 / 6 回归 profile / 8 轮验证
+- [x] **研究管线** — 意图分类 → 查询扩展 → 多源发现 → 并发抓取 → 质量评分 → Bundle 输出
+- [x] **Cookie 管理** — 浏览器提取 + 加密存储 + 引擎注入
+- [x] **文档重写** — 全部对齐 v3 架构
 
 ---
 
-## Phase 2 — Startup Auto-Recovery
+## Phase 1 — Provider 插件生态
 
-- [ ] Windows Service registration for MCP server
-- [ ] Engine failure auto-recovery + notification
+**目标**：从 3 个内置引擎扩展到开放 Provider 体系，任何人可以写 Provider 接入。
 
----
-
-## Phase 3 — Release
-
-- [ ] pyproject.toml + PyPI publishing
-- [ ] GitHub Actions CI
-- [ ] Docker one-click deployment
+- [ ] **Provider SDK** — 标准接口规范（BaseProvider），第三方一行注册
+- [ ] **内置付费 Provider** — Jina Reader / Firecrawl / Exa / Tavily / Perplexity Sonar
+- [ ] **Provider 热加载** — 无需重启即可注册/注销 Provider
+- [ ] **Provider 市场目录** — providers.json 社区可贡献
+- [ ] **成本感知路由** — 优先免费 Provider，按需升级付费，透明账单
 
 ---
 
-## Phase 4 — Capability Expansion
+## Phase 2 — Agent 自适应路由
 
-- [ ] More site adapters (142+)
-- [ ] Browser fingerprint rotation
+**目标**：路由不再是静态规则，而是基于历史成功率和实时状态的动态决策。
 
+- [ ] **成功率追踪** — 每个 Provider x Domain 组合的成功率统计
+- [ ] **自适应路由** — 根据实时成功率、延迟、成本自动选择最优 Provider
+- [ ] **预测性熔断** — 在 Provider 完全挂掉之前提前降级
+- [ ] **Agent 反馈闭环** — Agent 对结果质量打分，反哺路由决策
+- [ ] **A/B 路由实验** — 对比不同 Provider 链的结果质量
+
+---
+
+## Phase 3 — 全球覆盖统治
+
+**目标**：从 142 源扩展到 500+ 已验证源，覆盖全球主要语言和内容类型。
+
+- [ ] **500 源矩阵** — 按语言/地区/内容类型/难度分级
+- [ ] **自动源发现** — 根据 Agent 查询自动挖掘新源
+- [ ] **源质量排行榜** — 按稳定性/速度/内容质量排名
+- [ ] **区域深度覆盖** — 东南亚/中东/拉美/非洲 专项扩展
+- [ ] **实时源健康监控** — 自动检测源失效并触发替换
+
+---
+
+## Phase 4 — 多模态 Web 接入
+
+**目标**：从纯文本扩展到图片/视频/音频/结构化数据的统一接入。
+
+- [ ] **视觉抓取** — 截图 + OCR + 视觉理解（对接 VL 模型）
+- [ ] **视频源接入** — YouTube/Bilibili/TikTok 元数据 + 字幕
+- [ ] **结构化数据提取** — 表格/列表/API 响应自动解析
+- [ ] **实时数据流** — WebSocket/RSS 实时推送，非轮询
+- [ ] **PDF/文档解析** — 学术论文/财报/政府公报自动提取
+
+---
+
+## Phase 5 — 企业级部署
+
+**目标**：从个人工具到可商业化部署的基础设施。
+
+- [ ] **多租户架构** — 租户隔离 + 配额管理
+- [ ] **用量分析与计费** — 调用次数/Token/带宽多维统计
+- [ ] **审计日志** — 完整的请求-响应链路追踪
+- [ ] **合规框架** — GDPR / 数据本地化 / 敏感信息过滤
+- [ ] **SLA 监控** — 可用性/延迟/错误率实时看板
+
+---
+
+## Phase 6 — 生态与分发
+
+**目标**：成为 AI Agent Web 接入的事实标准。
+
+- [ ] **PyPI 发布** — pip install unified-web-skill
+- [ ] **Docker 官方镜像** — docker run unified-web-skill
+- [ ] **TypeScript SDK** — Node.js Agent 原生接入
+- [ ] **MCP 市场入驻** — 官方 MCP Server 列表收录
+- [ ] **社区 Provider 贡献** — GitHub Action 自动验证第三方 Provider
+- [ ] **文档站** — VitePress 独立文档站点
+
+---
+
+## Phase 7 — 性能与规模
+
+**目标**：从单机到分布式，支撑生产级 Agent 负载。
+
+- [ ] **流式响应** — 研究结果边产出边返回，不等全量
+- [ ] **分布式缓存** — Redis 缓存层，跨进程共享
+- [ ] **请求队列** — 过载保护 + 优先级调度
+- [ ] **水平扩展** — 无状态 MCP Server + 共享状态后端
+- [ ] **边缘部署** — Cloudflare Workers / Fly.io 全球分布
+
+---
+
+## 当前优先级
+
+| 优先级 | Phase | 为什么现在 |
+|--------|-------|-----------|
+| P0 | Phase 1 Provider 插件 | 从 3 引擎到开放生态是质变，解锁全部上层能力 |
+| P1 | Phase 2 自适应路由 | 路由智能化是产品壁垒，静态规则无法长期竞争 |
+| P1 | Phase 6 生态分发 | PyPI + Docker 是获取用户的最低门槛 |
+| P2 | Phase 3 全球覆盖 | 500 源是差异化数据壁垒 |
+| P2 | Phase 5 企业部署 | 商业化才有持续资源投入 |
+| P3 | Phase 4 多模态 | 文本之后自然扩展，但文本是主体 |
+| P3 | Phase 7 性能规模 | 有用户之后再优化不迟 |
