@@ -6,6 +6,7 @@ Free tier: 1,000 requests/month. Requires JINA_API_KEY environment variable.
 
 from __future__ import annotations
 
+import hashlib
 import logging
 import os
 from typing import Any
@@ -32,14 +33,15 @@ class JinaReaderEngine(BaseEngine):
 
     # ── BaseEngine abstract methods ──────────────────────────────────
 
-    def health_check(self) -> bool:
+    async def health_check(self) -> bool:
         """Return True if the API key is configured and the endpoint is reachable."""
         if not self._api_key:
             logger.debug("Jina Reader: no API key set")
             return False
         try:
-            resp = httpx.get(f"{BASE_URL}/", timeout=10)
-            return resp.status_code < 500
+            async with httpx.AsyncClient(timeout=10) as client:
+                resp = await client.get(f"{BASE_URL}/")
+                return resp.status_code < 500
         except httpx.HTTPError:
             return False
 
@@ -96,7 +98,8 @@ class JinaReaderEngine(BaseEngine):
                 error="Jina Reader returned empty or too-short content",
             )
 
-        return FetchResult(ok=True, url=url, text=text)
+        return FetchResult(ok=True, url=url, text=text, engine=self.name,
+                        quality_score=0.8, content_hash=hashlib.sha256(text.encode()).hexdigest()[:12])
 
     def version_info(self) -> dict[str, str]:
         return {"engine": "jina-reader", "version": "1.0", "api": BASE_URL}

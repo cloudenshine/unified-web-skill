@@ -65,6 +65,7 @@ def _get_engine_manager():
 
     from .engines.cloak_browser import CloakBrowserEngine
     from .engines.manager import EngineManager
+    from .engines.provider_loader import load_provider_profiles, register_from_profiles
     from .engines.scrapling_engine import ScraplingEngine
 
     _engine_manager = EngineManager()
@@ -86,9 +87,11 @@ def _get_engine_manager():
     provider_manifest = os.path.join(os.path.dirname(__file__), "engines", "providers.json")
     if os.path.exists(provider_manifest):
         ext_profiles = load_provider_profiles(provider_manifest)
+        # Only register external API providers (not built-in engines)
+        ext_profiles = [p for p in ext_profiles if 'providers.' in (p.module_path or '')]
         registered = register_from_profiles(_engine_manager, ext_profiles)
         if registered:
-            logger.info("Registered %d external provider(s) from manifest", registered)
+            _logger.info("Registered %d external provider(s) from manifest", registered)
 
 
 

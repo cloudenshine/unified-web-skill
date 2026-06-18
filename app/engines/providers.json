@@ -62,9 +62,9 @@
       "fetch",
       "search"
     ],
-    "enabled": false,
+    "enabled": true,
     "optional": true,
-    "description": "Firecrawl API — web scraping and search with LLM-ready output (api.firecrawl.dev). Free tier: 1000 credits/mo.",
+    "description": "Firecrawl API \u2014 web scraping and search with LLM-ready output (api.firecrawl.dev). Free tier: 1000 credits/mo.",
     "api_key_env": "FIRECRAWL_API_KEY",
     "base_url": "https://api.firecrawl.dev",
     "cost_per_fetch": 0.001,
