@@ -21,6 +21,8 @@ from .base import (
 )
 from .health import EngineHealthMonitor, HealthStatus
 from .provider_config import ProviderProfile, default_provider_profiles
+from .routing_stats import RoutingStats
+from ..utils.heuristics import extract_domain
 from ..discovery.site_registry import SiteRegistry
 
 logger = logging.getLogger(__name__)
@@ -63,10 +65,12 @@ class SmartRouter:
         site_registry: SiteRegistry,
         health_monitor: EngineHealthMonitor,
         provider_profiles: list[ProviderProfile] | None = None,
+        routing_stats: RoutingStats | None = None,
     ) -> None:
         self._site_registry = site_registry
         self._health = health_monitor
         self._provider_profiles = provider_profiles or []
+        self._routing_stats = routing_stats
 
     def _is_chinese_url(self, url: str) -> bool:
         return self._site_registry.is_chinese_domain(url)
@@ -132,19 +136,17 @@ class SmartRouter:
                     continue
                 result.append(name)
 
-        # ponytail: cost-aware sort — free engines before paid; paid by cost ascending.
-        # Ceiling: linear scan over <20 profiles. Upgrade: dict cache at 20+.
-        free: list[str] = []
-        paid: list[str] = []
-        for name in result:
+        # Adaptive scoring sort: higher adaptive score first; cost as tiebreaker
+        # ponytail: linear scan over <20 profiles. Upgrade: dict cache at 20+.
+        def _adaptive_key(name: str) -> tuple:
+            domain = extract_domain(url)
+            s = self._routing_stats.score(name, domain) if self._routing_stats else 0.6
             profile = next((p for p in self._provider_profiles if p.name == name), None)
-            if profile and not profile.free_tier and profile.cost_per_fetch > 0:
-                paid.append(name)
-            else:
-                free.append(name)
-        paid.sort(key=lambda n: next((p.cost_per_fetch for p in self._provider_profiles if p.name == n), 0))
-        result = free + paid
+            cost_bucket = 0 if (profile and profile.free_tier) else 1
+            cost_sort = profile.cost_per_fetch if profile else 0.0
+            return (-s, cost_bucket, cost_sort)
 
+        result.sort(key=_adaptive_key)
         return result
 
     def resolve_interact_engine(
@@ -202,9 +204,11 @@ class EngineManager:
             else default_provider_profiles()
         )
         self._health_monitor = EngineHealthMonitor()
+        self._routing_stats = RoutingStats()
         self._site_registry = SiteRegistry.get_instance()
         self._router = SmartRouter(
-            self._site_registry, self._health_monitor, self._provider_profiles
+            self._site_registry, self._health_monitor,
+            self._provider_profiles, self._routing_stats,
         )
 
     # -- registration -------------------------------------------------------
@@ -250,6 +254,10 @@ class EngineManager:
             name: sorted(c.value for c in eng.capabilities)
             for name, eng in self._engines.items()
         }
+
+    @property
+    def routing_stats(self) -> RoutingStats:
+        return self._routing_stats
 
     def list_provider_profiles(self) -> list[dict[str, Any]]:
         """Return provider metadata for diagnostics and configuration UIs."""
@@ -382,6 +390,8 @@ class EngineManager:
 
                 if result.ok:
                     self._health_monitor.record_success(engine_name)
+                    domain = extract_domain(url)
+                    self._routing_stats.record(engine_name, domain, True, result.duration_ms, quality_score=result.quality_score)
                     result.engine = result.engine or engine_name
                     # Store in cache
                     if not no_cache:
@@ -400,6 +410,8 @@ class EngineManager:
                     engine_name, url, last_error,
                 )
                 self._health_monitor.record_failure(engine_name)
+                domain = extract_domain(url)
+                self._routing_stats.record(engine_name, domain, False, result.duration_ms)
 
             except NotImplementedError:
                 last_error = f"{engine_name} does not implement fetch"
@@ -408,6 +420,8 @@ class EngineManager:
                 last_error = f"{engine_name} raised {type(exc).__name__}: {exc}"
                 logger.warning("Engine %s hard-failed: %s", engine_name, exc)
                 self._health_monitor.record_failure(engine_name)
+                # ponytail: no duration for hard failures
+                self._routing_stats.record(engine_name, extract_domain(url), False, 0.0)
 
         return FetchResult(
             ok=False,

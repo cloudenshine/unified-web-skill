@@ -48,6 +48,7 @@ class FetchResult:
 
     ok: bool
     url: str
+    quality_score: float = 0.0   # 0.0-1.0, set by caller after content eval
     status: int = 0
     text: str = ""
     html: str = ""
