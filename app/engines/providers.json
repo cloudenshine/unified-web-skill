@@ -1,0 +1,58 @@
+[
+  {
+    "name": "scrapling",
+    "category": "local-http",
+    "capabilities": [
+      "fetch",
+      "search"
+    ],
+    "enabled": true,
+    "optional": false,
+    "description": "Default free local HTTP extraction and discovery provider.",
+    "module_path": "app.engines.scrapling_engine:ScraplingEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
+  },
+  {
+    "name": "opencli",
+    "category": "local-cli",
+    "capabilities": [
+      "fetch",
+      "search",
+      "structured"
+    ],
+    "enabled": true,
+    "description": "Local CLI adapters for supported sites.",
+    "module_path": "app.engines.opencli:OpenCLIEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
+  },
+  {
+    "name": "cloakbrowser",
+    "category": "local-browser",
+    "capabilities": [
+      "fetch",
+      "interact"
+    ],
+    "enabled": true,
+    "description": "Primary browser interaction provider backed by CloakBrowser.",
+    "module_path": "app.engines.cloak_browser:CloakBrowserEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
+  },
+  {
+    "name": "jina-reader",
+    "category": "hosted-api",
+    "capabilities": [
+      "fetch"
+    ],
+    "enabled": false,
+    "optional": true,
+    "description": "Jina Reader API - free tier content extraction (r.jina.ai). Set JINA_API_KEY env var.",
+    "api_key_env": "JINA_API_KEY",
+    "base_url": "https://r.jina.ai",
+    "cost_per_fetch": 0.0,
+    "free_tier": true,
+    "module_path": "app.engines.providers.jina_reader:JinaReaderEngine"
+  }
+]

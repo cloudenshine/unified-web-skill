@@ -82,6 +82,14 @@ def _get_engine_manager():
 
     _engine_manager.register(ScraplingEngine())
 
+    # Load external API providers from manifest (if any enabled)
+    provider_manifest = os.path.join(os.path.dirname(__file__), "engines", "providers.json")
+    if os.path.exists(provider_manifest):
+        ext_profiles = load_provider_profiles(provider_manifest)
+        registered = register_from_profiles(_engine_manager, ext_profiles)
+        if registered:
+            logger.info("Registered %d external provider(s) from manifest", registered)
+
 
 
 

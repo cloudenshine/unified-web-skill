@@ -62,9 +62,11 @@ class SmartRouter:
         self,
         site_registry: SiteRegistry,
         health_monitor: EngineHealthMonitor,
+        provider_profiles: list[ProviderProfile] | None = None,
     ) -> None:
         self._site_registry = site_registry
         self._health = health_monitor
+        self._provider_profiles = provider_profiles or []
 
     def _is_chinese_url(self, url: str) -> bool:
         return self._site_registry.is_chinese_domain(url)
@@ -130,6 +132,19 @@ class SmartRouter:
                     continue
                 result.append(name)
 
+        # ponytail: cost-aware sort — free engines before paid; paid by cost ascending.
+        # Ceiling: linear scan over <20 profiles. Upgrade: dict cache at 20+.
+        free: list[str] = []
+        paid: list[str] = []
+        for name in result:
+            profile = next((p for p in self._provider_profiles if p.name == name), None)
+            if profile and not profile.free_tier and profile.cost_per_fetch > 0:
+                paid.append(name)
+            else:
+                free.append(name)
+        paid.sort(key=lambda n: next((p.cost_per_fetch for p in self._provider_profiles if p.name == n), 0))
+        result = free + paid
+
         return result
 
     def resolve_interact_engine(
@@ -188,7 +203,9 @@ class EngineManager:
         )
         self._health_monitor = EngineHealthMonitor()
         self._site_registry = SiteRegistry.get_instance()
-        self._router = SmartRouter(self._site_registry, self._health_monitor)
+        self._router = SmartRouter(
+            self._site_registry, self._health_monitor, self._provider_profiles
+        )
 
     # -- registration -------------------------------------------------------
 
