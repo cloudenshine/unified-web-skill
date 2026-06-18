@@ -54,5 +54,21 @@
     "cost_per_fetch": 0.0,
     "free_tier": true,
     "module_path": "app.engines.providers.jina_reader:JinaReaderEngine"
+  },
+  {
+    "name": "firecrawl",
+    "category": "hosted-api",
+    "capabilities": [
+      "fetch",
+      "search"
+    ],
+    "enabled": false,
+    "optional": true,
+    "description": "Firecrawl API — web scraping and search with LLM-ready output (api.firecrawl.dev). Free tier: 1000 credits/mo.",
+    "api_key_env": "FIRECRAWL_API_KEY",
+    "base_url": "https://api.firecrawl.dev",
+    "cost_per_fetch": 0.001,
+    "free_tier": true,
+    "module_path": "app.engines.providers.firecrawl:FirecrawlEngine"
   }
 ]
