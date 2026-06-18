@@ -18,6 +18,12 @@ class ProviderProfile:
     enabled: bool = True
     optional: bool = True
     description: str = ""
+    # ――― Provider plugin / API provider fields ―――
+    api_key_env: str = ""       # Env var name for the API key (e.g. "JINA_API_KEY")
+    base_url: str = ""          # API endpoint base URL
+    cost_per_fetch: float = 0.0 # Estimated USD per fetch call
+    free_tier: bool = True      # Whether a free tier is available
+    module_path: str = ""       # Python import path for dynamic loading, e.g. "app.engines.providers.jina_reader:JinaReaderEngine"
 
     @property
     def capability_values(self) -> list[str]:
@@ -27,6 +33,19 @@ class ProviderProfile:
             for cap in self.capabilities
         ]
         return sorted(values)
+
+    @property
+    def is_api_provider(self) -> bool:
+        """True if this provider connects via HTTP API rather than local binary/library."""
+        return bool(self.api_key_env or self.base_url)
+
+    @property
+    def has_api_key(self) -> bool:
+        """True if the API key env var is set."""
+        if not self.api_key_env:
+            return True  # no key needed
+        import os
+        return bool(os.environ.get(self.api_key_env))
 
 
 def default_provider_profiles() -> list[ProviderProfile]:
@@ -40,6 +59,7 @@ def default_provider_profiles() -> list[ProviderProfile]:
             capabilities={Capability.FETCH, Capability.INTERACT},
             enabled=config.CLOAK_BROWSER_ENABLED,
             description="Primary browser interaction provider backed by CloakBrowser.",
+            module_path="app.engines.cloak_browser:CloakBrowserEngine",
         ),
 
         ProviderProfile(
@@ -48,6 +68,7 @@ def default_provider_profiles() -> list[ProviderProfile]:
             capabilities={Capability.FETCH, Capability.SEARCH, Capability.STRUCTURED},
             enabled=config.OPENCLI_ENABLED,
             description="Local CLI adapters for supported sites.",
+            module_path="app.engines.opencli:OpenCLIEngine",
         ),
         ProviderProfile(
             name="scrapling",
@@ -56,6 +77,7 @@ def default_provider_profiles() -> list[ProviderProfile]:
             enabled=True,
             optional=False,
             description="Default free local HTTP extraction and discovery provider.",
+            module_path="app.engines.scrapling_engine:ScraplingEngine",
         ),
 
 
