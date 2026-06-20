@@ -106,5 +106,51 @@
     "module_path": "app.engines.providers.video_extract:VideoExtractEngine",
     "free_tier": true,
     "cost_per_fetch": 0.0
+  },
+  {
+    "name": "exa-search",
+    "category": "hosted-api",
+    "capabilities": [
+      "search",
+      "fetch"
+    ],
+    "enabled": true,
+    "optional": true,
+    "description": "Exa semantic search API \u2014 academic/tech focus. Set EXA_API_KEY.",
+    "api_key_env": "EXA_API_KEY",
+    "base_url": "https://api.exa.ai",
+    "cost_per_fetch": 0.01,
+    "free_tier": false,
+    "module_path": "app.engines.providers.exa_search:ExaSearchEngine"
+  },
+  {
+    "name": "tavily-search",
+    "category": "hosted-api",
+    "capabilities": [
+      "search"
+    ],
+    "enabled": true,
+    "optional": true,
+    "description": "Tavily AI search API \u2014 real-time web. Set TAVILY_API_KEY.",
+    "api_key_env": "TAVILY_API_KEY",
+    "base_url": "https://api.tavily.com",
+    "cost_per_fetch": 0.005,
+    "free_tier": false,
+    "module_path": "app.engines.providers.tavily_search:TavilySearchEngine"
+  },
+  {
+    "name": "perplexity-search",
+    "category": "hosted-api",
+    "capabilities": [
+      "search"
+    ],
+    "enabled": true,
+    "optional": true,
+    "description": "Perplexity Sonar API \u2014 reasoning + citations. Set PERPLEXITY_API_KEY.",
+    "api_key_env": "PERPLEXITY_API_KEY",
+    "base_url": "https://api.perplexity.ai",
+    "cost_per_fetch": 0.02,
+    "free_tier": false,
+    "module_path": "app.engines.providers.perplexity_search:PerplexitySearchEngine"
   }
 ]
