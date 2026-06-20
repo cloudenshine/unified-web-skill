@@ -70,5 +70,41 @@
     "cost_per_fetch": 0.001,
     "free_tier": true,
     "module_path": "app.engines.providers.firecrawl:FirecrawlEngine"
+  },
+  {
+    "name": "pdf-parser",
+    "category": "local-parse",
+    "capabilities": [
+      "fetch"
+    ],
+    "enabled": true,
+    "description": "PDF text extraction via pdfplumber",
+    "module_path": "app.engines.providers.pdf_parser:PDFParserEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
+  },
+  {
+    "name": "rss-feed",
+    "category": "local-parse",
+    "capabilities": [
+      "fetch"
+    ],
+    "enabled": true,
+    "description": "RSS/Atom feed parsing via feedparser",
+    "module_path": "app.engines.providers.rss_feed:RSSFeedEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
+  },
+  {
+    "name": "video-extract",
+    "category": "local-cli",
+    "capabilities": [
+      "fetch"
+    ],
+    "enabled": true,
+    "description": "Video subtitle/metadata extraction via yt-dlp",
+    "module_path": "app.engines.providers.video_extract:VideoExtractEngine",
+    "free_tier": true,
+    "cost_per_fetch": 0.0
   }
 ]

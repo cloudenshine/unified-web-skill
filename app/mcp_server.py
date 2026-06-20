@@ -67,6 +67,9 @@ def _get_engine_manager():
     from .engines.manager import EngineManager
     from .engines.provider_loader import load_provider_profiles, register_from_profiles
     from .engines.scrapling_engine import ScraplingEngine
+    from .engines.providers.pdf_parser import PDFParserEngine
+    from .engines.providers.rss_feed import RSSFeedEngine
+    from .engines.providers.video_extract import VideoExtractEngine
 
     _engine_manager = EngineManager()
 
@@ -83,12 +86,20 @@ def _get_engine_manager():
 
     _engine_manager.register(ScraplingEngine())
 
+    # Register multimodal engines (PDF, RSS, Video)
+    _engine_manager.register(PDFParserEngine())
+    _engine_manager.register(RSSFeedEngine())
+    _engine_manager.register(VideoExtractEngine())
+
     # Load external API providers from manifest (if any enabled)
     provider_manifest = os.path.join(os.path.dirname(__file__), "engines", "providers.json")
     if os.path.exists(provider_manifest):
         ext_profiles = load_provider_profiles(provider_manifest)
         # Only register external API providers (not built-in engines)
         ext_profiles = [p for p in ext_profiles if 'providers.' in (p.module_path or '')]
+        # Skip multimodal engines already registered above
+        _MULTIMODAL = {"pdf-parser", "rss-feed", "video-extract"}
+        ext_profiles = [p for p in ext_profiles if p.name not in _MULTIMODAL]
         registered = register_from_profiles(_engine_manager, ext_profiles)
         if registered:
             _logger.info("Registered %d external provider(s) from manifest", registered)
