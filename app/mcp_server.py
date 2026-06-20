@@ -1010,6 +1010,46 @@ if mcp is not None:
             }
 
 
+    @mcp.tool()
+    async def web_rate_result(url: str, engine: str, score: int) -> dict:
+        """Rate the quality of a previous fetch result.
+
+        Submit quality feedback (1-5) for a specific engine+URL pair.
+        This feedback is fed into the adaptive routing system so future
+        requests can make better engine selection decisions.
+
+        Args:
+            url: The URL that was fetched (domain is extracted automatically).
+            engine: Engine name that handled the fetch (e.g. scrapling, opencli).
+            score: Quality score 1=terrible 2=poor 3=fair 4=good 5=excellent.
+
+        Returns:
+            dict with status, domain, and the updated adaptive score.
+        """
+        from urllib.parse import urlparse
+
+        em = _get_engine_manager()
+        if not hasattr(em, "routing_stats") or em.routing_stats is None:
+            return {"status": "error", "message": "RoutingStats not available"}
+
+        domain = urlparse(url).netloc.lower()
+        quality = max(0.0, min(1.0, score / 5.0))
+        em.routing_stats.update_quality(engine, domain, quality)
+        updated_score = em.routing_stats.score(engine, domain)
+
+        _logger.info(
+            "web_rate_result: engine=%s domain=%s user_score=%d quality=%.2f new_score=%.3f",
+            engine, domain, score, quality, updated_score,
+        )
+        return {
+            "status": "ok",
+            "domain": domain,
+            "engine": engine,
+            "user_score": score,
+            "new_adaptive_score": round(updated_score, 3),
+        }
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # Tools 8-11 — Credential management  (NEW)
 # ═══════════════════════════════════════════════════════════════════════════
