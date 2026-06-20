@@ -3080,5 +3080,803 @@
     "content_type": "news",
     "country": "mx",
     "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_aws_amazon_com",
+    "display_name": "AWS Machine Learning Blog",
+    "domains": [
+      "aws.amazon.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_tools",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_deepmind_com",
+    "display_name": "Google DeepMind Blog",
+    "domains": [
+      "deepmind.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_tools",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_segmentfault_com",
+    "display_name": "SegmentFault 最新的文章",
+    "domains": [
+      "segmentfault.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "cn",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blogs_microsoft_com",
+    "display_name": "blogs.microsoft.com",
+    "domains": [
+      "blogs.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_tech_meituan_com",
+    "display_name": "美团技术团队",
+    "domains": [
+      "tech.meituan.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blogs_aws_amazon_com",
+    "display_name": "AWS Security Blog",
+    "domains": [
+      "blogs.aws.amazon.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_atredis_com",
+    "display_name": "Blog - Atredis Partners",
+    "domains": [
+      "www.atredis.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_devblogs_microsoft_com",
+    "display_name": "devblogs.microsoft.com/oldnewthing",
+    "domains": [
+      "devblogs.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_elcomsoft_com",
+    "display_name": "ElcomSoft blog",
+    "domains": [
+      "blog.elcomsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_spectrum_ieee_org",
+    "display_name": "IEEE Spectrum",
+    "domains": [
+      "spectrum.ieee.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_cloudblogs_microsoft_com",
+    "display_name": "Microsoft Security",
+    "domains": [
+      "cloudblogs.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_microsoft_com",
+    "display_name": "Microsoft Security Blog",
+    "domains": [
+      "www.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blogs_nvidia_com",
+    "display_name": "NVIDIA AI Blog",
+    "domains": [
+      "blogs.nvidia.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_openai_com",
+    "display_name": "OpenAI Blog",
+    "domains": [
+      "openai.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_theregister_co_uk",
+    "display_name": "The Register - Security",
+    "domains": [
+      "www.theregister.co.uk"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_venturebeat_com",
+    "display_name": "VentureBeat AI",
+    "domains": [
+      "venturebeat.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_mongodb_com",
+    "display_name": "MongoDB Blog",
+    "domains": [
+      "www.mongodb.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "data_engineering",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_docker_com",
+    "display_name": "Docker",
+    "domains": [
+      "www.docker.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "devops",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_azure_microsoft_com",
+    "display_name": "Microsoft Azure Blog",
+    "domains": [
+      "azure.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "devops",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_amazon_science",
+    "display_name": "Amazon Science Homepage",
+    "domains": [
+      "www.amazon.science"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_feeds_feedburner_com",
+    "display_name": "Google AI Blog",
+    "domains": [
+      "feeds.feedburner.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_magenta_tensorflow_org",
+    "display_name": "Magenta",
+    "domains": [
+      "magenta.tensorflow.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_news_mit_edu",
+    "display_name": "MIT News - Artificial intelligence",
+    "domains": [
+      "news.mit.edu"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_bair_berkeley_edu",
+    "display_name": "The Berkeley Artificial Intelligence Research Blog",
+    "domains": [
+      "bair.berkeley.edu"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_towardsdatascience_com",
+    "display_name": "Towards Data Science - Medium",
+    "domains": [
+      "towardsdatascience.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "ai_research",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_codeascraft_com",
+    "display_name": "Code as Craft",
+    "domains": [
+      "codeascraft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_research_microsoft_com",
+    "display_name": "Microsoft Research Blog",
+    "domains": [
+      "research.microsoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_miragecraft_com",
+    "display_name": "Miragecraft",
+    "domains": [
+      "www.miragecraft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_samuelkraft_com",
+    "display_name": "Samuel Kraft",
+    "domains": [
+      "samuelkraft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "finance",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_brachiosoft_com",
+    "display_name": "軟體考古學家",
+    "domains": [
+      "blog.brachiosoft.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "mobile",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_hellogithub_com",
+    "display_name": "HelloGitHub 月刊",
+    "domains": [
+      "hellogithub.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "newsletter",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_plink_anyfeeder_com",
+    "display_name": "华尔街日报",
+    "domains": [
+      "plink.anyfeeder.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "newsletter",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_databricks_com",
+    "display_name": "Databricks",
+    "domains": [
+      "www.databricks.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "open_source",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_deno_com",
+    "display_name": "Deno",
+    "domains": [
+      "deno.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "open_source",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_stackoverflow_blog",
+    "display_name": "Stack Overflow Blog",
+    "domains": [
+      "stackoverflow.blog"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "open_source",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_engineering_fb_com",
+    "display_name": "Web - Engineering at Meta",
+    "domains": [
+      "engineering.fb.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "open_source",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_feeds_arstechnica_com",
+    "display_name": "Ars Technica",
+    "domains": [
+      "feeds.arstechnica.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_rss_arxiv_org",
+    "display_name": "arXiv AI",
+    "domains": [
+      "rss.arxiv.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_deepmind_google",
+    "display_name": "Google DeepMind Blog",
+    "domains": [
+      "deepmind.google"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_jetbrains_com",
+    "display_name": "Kotlin : A concise multiplatform language developed by JetBr",
+    "domains": [
+      "blog.jetbrains.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_python_org",
+    "display_name": "Python Blog",
+    "domains": [
+      "blog.python.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_rust-lang_org",
+    "display_name": "Rust Blog",
+    "domains": [
+      "blog.rust-lang.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_simonwillison_net",
+    "display_name": "Simon Willison's Weblog",
+    "domains": [
+      "simonwillison.net"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_engineering_atspotify_com",
+    "display_name": "Spotify Engineering",
+    "domains": [
+      "engineering.atspotify.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_stripe_com",
+    "display_name": "Stripe Blog",
+    "domains": [
+      "stripe.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_svelte_dev",
+    "display_name": "Svelte Blog",
+    "domains": [
+      "svelte.dev"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_github_blog",
+    "display_name": "The GitHub Blog",
+    "domains": [
+      "github.blog"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_vuejs_org",
+    "display_name": "Vue Blog",
+    "domains": [
+      "blog.vuejs.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_newscientist_com",
+    "display_name": "New Scientist - Space",
+    "domains": [
+      "www.newscientist.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "science",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_developer_nvidia_com",
+    "display_name": "Nvidia Developer Blog",
+    "domains": [
+      "developer.nvidia.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_quantamagazine_org",
+    "display_name": "Quanta Magazine",
+    "domains": [
+      "www.quantamagazine.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_www_sciencealert_com",
+    "display_name": "ScienceAlert",
+    "domains": [
+      "www.sciencealert.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_slack_engineering",
+    "display_name": "Slack Engineering",
+    "domains": [
+      "slack.engineering"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_thenextweb_com",
+    "display_name": "The Next Web",
+    "domains": [
+      "thenextweb.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_blog_pragmaticengineer_com",
+    "display_name": "The Pragmatic Engineer",
+    "domains": [
+      "blog.pragmaticengineer.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "startups",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_reactjs_org",
+    "display_name": "React Blog",
+    "domains": [
+      "reactjs.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "frontend",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rss_news_vuejs_org",
+    "display_name": "Vue News",
+    "domains": [
+      "news.vuejs.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "frontend",
+    "country": "global",
+    "default_fetch_mode": "http"
   }
 ]
