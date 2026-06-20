@@ -15,7 +15,7 @@
 | **全球化源矩阵** | 142 个来源经过 8 轮迭代验证，有 `sites.json` 做元数据管理，有 `verify_source_matrix.py` 做回归 |
 | **3 引擎统一接口** | Scrapling（HTTP/JS/Stealth 三层）、OpenCLI（100+ 结构化站点）、CloakBrowser（隐身 Chromium） |
 | **Cookie 凭证管理** | 浏览器 Cookie 提取 → 加密存储 → 引擎注入，支持跨平台 |
-| **Agent 原生设计** | 13 个 MCP 工具，工具名即语义，Agent 无需操心底层引擎 |
+| **Agent 原生设计** | 14 个 MCP 工具，工具名即语义，Agent 无需操心底层引擎 |
 
 ---
 
@@ -184,14 +184,14 @@ unified-web-skill 的长期目标是成为 **AI Agent Web 接入的事实标准*
 
 | Phase | 目标 | 状态 |
 |-------|------|:----:|
-| v3 基线 | 3 引擎 / 13 工具 / 142 源 | ✅ |
-| Provider 插件生态 | 标准 SDK，接入 Jina/Firecrawl/Exa/Tavily | 🔜 |
-| 自适应路由 | 成功率驱动的动态引擎选择 | 📋 |
-| 全球覆盖统治 | 500+ 源按语言/地区/类型分级 | 📋 |
-| 多模态接入 | 图片/视频/PDF 统一提取 | 📋 |
-| 企业级部署 | 多租户 / 审计 / SLA | 📋 |
-| 生态与分发 | PyPI / Docker / TypeScript SDK | 📋 |
-| 性能与规模 | 流式响应 / 分布式缓存 / 水平扩展 | 📋 |
+| v3 基线 | 3 引擎 / 14 工具 / 142+ 源 | ✅ |
+| Provider 插件生态 | Jina / Firecrawl / Exa / Tavily / Perplexity | ✅ |
+| 自适应路由 | EWMA 评分 + web_rate_result 反馈 | ✅ |
+| 全球覆盖统治 | 199 源 / 28 国家 / auto_discovery | ✅ |
+| 多模态接入 | PDF / RSS / Video 提取引擎 | ✅ |
+| 企业级部署 | 多租户 / 审计 / SLA | 🔜 |
+| 生态与分发 | PyPI / Docker / GitHub CI | 🔜 |
+| 性能与规模 | 流式 / 分布式缓存 / 水平扩展 | 🔜 |
 
 详见 [PLAN.md](PLAN.md).
 
