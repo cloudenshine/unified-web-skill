@@ -20,6 +20,8 @@ VALID_ACCESS_TYPES = {
 VALID_PROVIDERS = {
     "scrapling",
     "opencli",
+    "firecrawl",
+    "jina-reader",
 }
 
 VALID_COST_TIERS = {"low", "medium", "high"}

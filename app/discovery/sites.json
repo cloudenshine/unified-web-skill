@@ -2330,5 +2330,755 @@
     "country": "global",
     "default_fetch_mode": "http",
     "notes": "Promoted from SourceMatrix Phase 3.7; source_id=social_discourse_meta_latest; access_type=api."
+  },
+  {
+    "site_id": "apnews",
+    "display_name": "AP News",
+    "domains": [
+      "apnews.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "theguardian",
+    "display_name": "The Guardian",
+    "domains": [
+      "theguardian.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "news",
+    "country": "gb",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "wsj",
+    "display_name": "Wall Street Journal",
+    "domains": [
+      "wsj.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "ft",
+    "display_name": "Financial Times",
+    "domains": [
+      "ft.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "gb",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "bloomberg",
+    "display_name": "Bloomberg",
+    "domains": [
+      "bloomberg.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "washingtonpost",
+    "display_name": "Washington Post",
+    "domains": [
+      "washingtonpost.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "news",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "techcrunch",
+    "display_name": "TechCrunch",
+    "domains": [
+      "techcrunch.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "theverge",
+    "display_name": "The Verge",
+    "domains": [
+      "theverge.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "wired",
+    "display_name": "Wired",
+    "domains": [
+      "wired.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "tech",
+    "country": "us",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "arstechnica",
+    "display_name": "Ars Technica",
+    "domains": [
+      "arstechnica.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "tech",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "zdnet",
+    "display_name": "ZDNet",
+    "domains": [
+      "zdnet.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "tech",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "theregister",
+    "display_name": "The Register",
+    "domains": [
+      "theregister.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "tech",
+    "country": "gb",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "npmjs",
+    "display_name": "npm",
+    "domains": [
+      "npmjs.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "code",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "naturesite",
+    "display_name": "Nature",
+    "domains": [
+      "nature.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "academic",
+    "country": "gb",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "sciencemag",
+    "display_name": "Science Magazine",
+    "domains": [
+      "science.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "academic",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "ieeexplore",
+    "display_name": "IEEE Xplore",
+    "domains": [
+      "ieeexplore.ieee.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "academic",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "acmdl",
+    "display_name": "ACM Digital Library",
+    "domains": [
+      "dl.acm.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "academic",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "semanticscholar",
+    "display_name": "Semantic Scholar",
+    "domains": [
+      "semanticscholar.org"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "academic",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "arxivsite",
+    "display_name": "arXiv",
+    "domains": [
+      "arxiv.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "academic",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "dwnews",
+    "display_name": "Deutsche Welle",
+    "domains": [
+      "dw.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "news",
+    "country": "de",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "scmp",
+    "display_name": "South China Morning Post",
+    "domains": [
+      "scmp.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "news",
+    "country": "hk",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "japantimes",
+    "display_name": "Japan Times",
+    "domains": [
+      "japantimes.co.jp"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "jp",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "straitstimes",
+    "display_name": "Straits Times",
+    "domains": [
+      "straitstimes.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "sg",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "thehindu",
+    "display_name": "The Hindu",
+    "domains": [
+      "thehindu.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "in",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "timesofindia",
+    "display_name": "Times of India",
+    "domains": [
+      "timesofindia.indiatimes.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "in",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "folha",
+    "display_name": "Folha de S.Paulo",
+    "domains": [
+      "folha.uol.com.br"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "br",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "globo",
+    "display_name": "Globo",
+    "domains": [
+      "globo.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "br",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "mdndocs",
+    "display_name": "MDN Web Docs",
+    "domains": [
+      "developer.mozilla.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "docs",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "rustdocs",
+    "display_name": "Rust Docs",
+    "domains": [
+      "doc.rust-lang.org"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "docs",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "godocs",
+    "display_name": "Go Docs",
+    "domains": [
+      "pkg.go.dev"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "docs",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "govuk",
+    "display_name": "UK Government",
+    "domains": [
+      "gov.uk"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "government",
+    "country": "gb",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "canadaca",
+    "display_name": "Government of Canada",
+    "domains": [
+      "canada.ca"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "government",
+    "country": "ca",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "data_gov",
+    "display_name": "US Government Data",
+    "domains": [
+      "data.gov"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "government",
+    "country": "us",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "koreatimes",
+    "display_name": "Korea Times",
+    "domains": [
+      "koreatimes.co.kr"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "kr",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "koreanherald",
+    "display_name": "Korea Herald",
+    "domains": [
+      "koreaherald.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "kr",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "khaleejtimes",
+    "display_name": "Khaleej Times",
+    "domains": [
+      "khaleejtimes.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ae",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "gulfnews",
+    "display_name": "Gulf News",
+    "domains": [
+      "gulfnews.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ae",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "arabnews",
+    "display_name": "Arab News",
+    "domains": [
+      "arabnews.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "sa",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "tehrantimes",
+    "display_name": "Tehran Times",
+    "domains": [
+      "tehrantimes.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ir",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "ynetnews",
+    "display_name": "Ynetnews",
+    "domains": [
+      "ynetnews.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "il",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "kompas",
+    "display_name": "Kompas",
+    "domains": [
+      "kompas.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "id",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "vnexpress",
+    "display_name": "VN Express",
+    "domains": [
+      "vnexpress.net"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "vn",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "nationthailand",
+    "display_name": "The Nation Thailand",
+    "domains": [
+      "nationthailand.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "th",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "philstar",
+    "display_name": "Philippine Star",
+    "domains": [
+      "philstar.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ph",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "allafrica",
+    "display_name": "AllAfrica",
+    "domains": [
+      "allafrica.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "nairametrics",
+    "display_name": "Naira Metrics",
+    "domains": [
+      "nairametrics.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ng",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "daily_maverick",
+    "display_name": "Daily Maverick",
+    "domains": [
+      "dailymaverick.co.za"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "za",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "elpais",
+    "display_name": "El Pais",
+    "domains": [
+      "elpais.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "es",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "repubblica",
+    "display_name": "La Repubblica",
+    "domains": [
+      "repubblica.it"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "it",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "spon",
+    "display_name": "Spiegel Online",
+    "domains": [
+      "spiegel.de"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "de",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "lemonde",
+    "display_name": "Le Monde",
+    "domains": [
+      "lemonde.fr"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "fr",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "tass",
+    "display_name": "TASS",
+    "domains": [
+      "tass.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ru",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "substack",
+    "display_name": "Substack",
+    "domains": [
+      "substack.com"
+    ],
+    "engines": [
+      "scrapling",
+      "firecrawl"
+    ],
+    "content_type": "article",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "notion",
+    "display_name": "Notion",
+    "domains": [
+      "notion.so"
+    ],
+    "engines": [
+      "firecrawl"
+    ],
+    "content_type": "docs",
+    "country": "global",
+    "default_fetch_mode": "dynamic"
+  },
+  {
+    "site_id": "figma",
+    "display_name": "Figma",
+    "domains": [
+      "figma.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "docs",
+    "country": "global",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "clarin",
+    "display_name": "Clarin",
+    "domains": [
+      "clarin.com"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "ar",
+    "default_fetch_mode": "http"
+  },
+  {
+    "site_id": "elmanana",
+    "display_name": "El Manana",
+    "domains": [
+      "elmanana.com.mx"
+    ],
+    "engines": [
+      "scrapling"
+    ],
+    "content_type": "news",
+    "country": "mx",
+    "default_fetch_mode": "http"
   }
 ]

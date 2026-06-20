@@ -2681,5 +2681,2811 @@
       "timeout",
       "rate_limited"
     ]
+  },
+  {
+    "source_id": "source_weibo",
+    "site_id": "weibo",
+    "display_name": "微博",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://weibo.com/",
+    "expected_provider": "opencli",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_xiaohongshu",
+    "site_id": "xiaohongshu",
+    "display_name": "小红书",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://xiaohongshu.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_douban",
+    "site_id": "douban",
+    "display_name": "豆瓣",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://douban.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_douyin",
+    "site_id": "douyin",
+    "display_name": "抖音",
+    "category": "video",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://douyin.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (video, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_tieba",
+    "site_id": "tieba",
+    "display_name": "百度贴吧",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://tieba.baidu.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_qq",
+    "site_id": "qq",
+    "display_name": "腾讯网",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://qq.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_baidu",
+    "site_id": "baidu",
+    "display_name": "百度",
+    "category": "search",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://baidu.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (search, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_36kr",
+    "site_id": "36kr",
+    "display_name": "36氪",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://36kr.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_csdn",
+    "site_id": "csdn",
+    "display_name": "CSDN",
+    "category": "code",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://csdn.net/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (code, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_cnblogs",
+    "site_id": "cnblogs",
+    "display_name": "博客园",
+    "category": "code",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://cnblogs.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (code, cn)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_v2ex",
+    "site_id": "v2ex",
+    "display_name": "V2EX",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://v2ex.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_jike",
+    "site_id": "jike",
+    "display_name": "即刻",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://okjike.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_hupu",
+    "site_id": "hupu",
+    "display_name": "虎扑",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://hupu.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_linuxdo",
+    "site_id": "linuxdo",
+    "display_name": "LINUX DO",
+    "category": "social",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://linux.do/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_toutiao",
+    "site_id": "toutiao",
+    "display_name": "今日头条",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://toutiao.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_sohu",
+    "site_id": "sohu",
+    "display_name": "搜狐",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://sohu.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_xiaoyuzhoufm",
+    "site_id": "xiaoyuzhoufm",
+    "display_name": "小宇宙FM",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://xiaoyuzhoufm.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_qidian",
+    "site_id": "qidian",
+    "display_name": "起点中文网",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://qidian.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_youdao",
+    "site_id": "youdao",
+    "display_name": "有道",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://youdao.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, cn)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_wechat",
+    "site_id": "wechat",
+    "display_name": "微信公众号",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://mp.weixin.qq.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_xueqiu",
+    "site_id": "xueqiu",
+    "display_name": "雪球",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://xueqiu.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (finance, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_eastmoney",
+    "site_id": "eastmoney",
+    "display_name": "东方财富",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://eastmoney.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (finance, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_boss",
+    "site_id": "boss",
+    "display_name": "BOSS直聘",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://zhipin.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (jobs, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_ctrip",
+    "site_id": "ctrip",
+    "display_name": "携程",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://ctrip.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (shopping, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_smzdm",
+    "site_id": "smzdm",
+    "display_name": "什么值得买",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://smzdm.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (shopping, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_taobao",
+    "site_id": "taobao",
+    "display_name": "淘宝",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://taobao.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (shopping, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_jd",
+    "site_id": "jd",
+    "display_name": "京东",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://jd.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (shopping, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_pinduoduo",
+    "site_id": "pinduoduo",
+    "display_name": "拼多多",
+    "category": "other",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://pinduoduo.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (shopping, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_twitter",
+    "site_id": "twitter",
+    "display_name": "X (Twitter)",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://twitter.com/",
+    "expected_provider": "opencli",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_facebook",
+    "site_id": "facebook",
+    "display_name": "Facebook",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://facebook.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_instagram",
+    "site_id": "instagram",
+    "display_name": "Instagram",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://instagram.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_tiktok",
+    "site_id": "tiktok",
+    "display_name": "TikTok",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://tiktok.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (video, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_discord",
+    "site_id": "discord",
+    "display_name": "Discord",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://discord.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_telegram",
+    "site_id": "telegram",
+    "display_name": "Telegram",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://telegram.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_bluesky",
+    "site_id": "bluesky",
+    "display_name": "Bluesky",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://bsky.app/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_linkedin",
+    "site_id": "linkedin",
+    "display_name": "LinkedIn",
+    "category": "social",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "hard",
+    "verification_url": "https://linkedin.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (social, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_medium",
+    "site_id": "medium",
+    "display_name": "Medium",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://medium.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_devto",
+    "site_id": "devto",
+    "display_name": "DEV Community",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://dev.to/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (code, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "opencli"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_gitlab",
+    "site_id": "gitlab",
+    "display_name": "GitLab",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://gitlab.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (code, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_imdb",
+    "site_id": "imdb",
+    "display_name": "IMDb",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://imdb.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (video, global)",
+    "access_type": "static_html",
+    "preferred_provider": "opencli",
+    "fallback_providers": [
+      "scrapling"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_nytimes",
+    "site_id": "nytimes",
+    "display_name": "The New York Times",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://nytimes.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_cnn",
+    "site_id": "cnn",
+    "display_name": "CNN",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://cnn.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_spotify",
+    "site_id": "spotify",
+    "display_name": "Spotify",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://spotify.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": true,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (video, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_twitch",
+    "site_id": "twitch",
+    "display_name": "Twitch",
+    "category": "video",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://twitch.tv/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (video, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_quora",
+    "site_id": "quora",
+    "display_name": "Quora",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://quora.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_google",
+    "site_id": "google",
+    "display_name": "Google",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://google.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (search, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_sogou",
+    "site_id": "sogou",
+    "display_name": "搜狗",
+    "category": "search",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://sogou.com/",
+    "expected_provider": "opencli",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (search, cn)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "opencli",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_yandex",
+    "site_id": "yandex",
+    "display_name": "Yandex",
+    "category": "search",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://yandex.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (search, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_apnews",
+    "site_id": "apnews",
+    "display_name": "AP News",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://apnews.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_theguardian",
+    "site_id": "theguardian",
+    "display_name": "The Guardian",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://theguardian.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, gb)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_wsj",
+    "site_id": "wsj",
+    "display_name": "Wall Street Journal",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://wsj.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_ft",
+    "site_id": "ft",
+    "display_name": "Financial Times",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://ft.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, gb)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_bloomberg",
+    "site_id": "bloomberg",
+    "display_name": "Bloomberg",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://bloomberg.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_washingtonpost",
+    "site_id": "washingtonpost",
+    "display_name": "Washington Post",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://washingtonpost.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_techcrunch",
+    "site_id": "techcrunch",
+    "display_name": "TechCrunch",
+    "category": "tech",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://techcrunch.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_theverge",
+    "site_id": "theverge",
+    "display_name": "The Verge",
+    "category": "tech",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://theverge.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_wired",
+    "site_id": "wired",
+    "display_name": "Wired",
+    "category": "tech",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://wired.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, us)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_arstechnica",
+    "site_id": "arstechnica",
+    "display_name": "Ars Technica",
+    "category": "tech",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://arstechnica.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_zdnet",
+    "site_id": "zdnet",
+    "display_name": "ZDNet",
+    "category": "tech",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://zdnet.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_theregister",
+    "site_id": "theregister",
+    "display_name": "The Register",
+    "category": "tech",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://theregister.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (tech, gb)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_npmjs",
+    "site_id": "npmjs",
+    "display_name": "npm",
+    "category": "code",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://npmjs.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (code, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_naturesite",
+    "site_id": "naturesite",
+    "display_name": "Nature",
+    "category": "academic",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://nature.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, gb)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_sciencemag",
+    "site_id": "sciencemag",
+    "display_name": "Science Magazine",
+    "category": "academic",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://science.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_ieeexplore",
+    "site_id": "ieeexplore",
+    "display_name": "IEEE Xplore",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://ieeexplore.ieee.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_acmdl",
+    "site_id": "acmdl",
+    "display_name": "ACM Digital Library",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://dl.acm.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_semanticscholar",
+    "site_id": "semanticscholar",
+    "display_name": "Semantic Scholar",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://semanticscholar.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_arxivsite",
+    "site_id": "arxivsite",
+    "display_name": "arXiv",
+    "category": "academic",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://arxiv.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (academic, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_dwnews",
+    "site_id": "dwnews",
+    "display_name": "Deutsche Welle",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://dw.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, de)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_scmp",
+    "site_id": "scmp",
+    "display_name": "South China Morning Post",
+    "category": "news",
+    "region": "cn",
+    "languages": [
+      "en",
+      "zh"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://scmp.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, hk)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_japantimes",
+    "site_id": "japantimes",
+    "display_name": "Japan Times",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://japantimes.co.jp/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, jp)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_straitstimes",
+    "site_id": "straitstimes",
+    "display_name": "Straits Times",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://straitstimes.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, sg)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_thehindu",
+    "site_id": "thehindu",
+    "display_name": "The Hindu",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://thehindu.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, in)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_timesofindia",
+    "site_id": "timesofindia",
+    "display_name": "Times of India",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://timesofindia.indiatimes.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, in)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_folha",
+    "site_id": "folha",
+    "display_name": "Folha de S.Paulo",
+    "category": "news",
+    "region": "sa",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://folha.uol.com.br/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, br)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_globo",
+    "site_id": "globo",
+    "display_name": "Globo",
+    "category": "news",
+    "region": "sa",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://globo.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, br)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_mdndocs",
+    "site_id": "mdndocs",
+    "display_name": "MDN Web Docs",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://developer.mozilla.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (docs, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_rustdocs",
+    "site_id": "rustdocs",
+    "display_name": "Rust Docs",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://doc.rust-lang.org/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (docs, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_godocs",
+    "site_id": "godocs",
+    "display_name": "Go Docs",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://pkg.go.dev/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (docs, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_govuk",
+    "site_id": "govuk",
+    "display_name": "UK Government",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://gov.uk/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (government, gb)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_canadaca",
+    "site_id": "canadaca",
+    "display_name": "Government of Canada",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://canada.ca/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (government, ca)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_data_gov",
+    "site_id": "data_gov",
+    "display_name": "US Government Data",
+    "category": "news",
+    "region": "na",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://data.gov/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (government, us)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_koreatimes",
+    "site_id": "koreatimes",
+    "display_name": "Korea Times",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://koreatimes.co.kr/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, kr)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_koreanherald",
+    "site_id": "koreanherald",
+    "display_name": "Korea Herald",
+    "category": "news",
+    "region": "ap",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://koreaherald.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, kr)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_khaleejtimes",
+    "site_id": "khaleejtimes",
+    "display_name": "Khaleej Times",
+    "category": "news",
+    "region": "me",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://khaleejtimes.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ae)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_gulfnews",
+    "site_id": "gulfnews",
+    "display_name": "Gulf News",
+    "category": "news",
+    "region": "me",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://gulfnews.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ae)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_arabnews",
+    "site_id": "arabnews",
+    "display_name": "Arab News",
+    "category": "news",
+    "region": "me",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://arabnews.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, sa)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_tehrantimes",
+    "site_id": "tehrantimes",
+    "display_name": "Tehran Times",
+    "category": "news",
+    "region": "me",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://tehrantimes.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ir)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_ynetnews",
+    "site_id": "ynetnews",
+    "display_name": "Ynetnews",
+    "category": "news",
+    "region": "me",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://ynetnews.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, il)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_kompas",
+    "site_id": "kompas",
+    "display_name": "Kompas",
+    "category": "news",
+    "region": "sea",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://kompas.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, id)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_vnexpress",
+    "site_id": "vnexpress",
+    "display_name": "VN Express",
+    "category": "news",
+    "region": "sea",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://vnexpress.net/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, vn)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_nationthailand",
+    "site_id": "nationthailand",
+    "display_name": "The Nation Thailand",
+    "category": "news",
+    "region": "sea",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://nationthailand.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, th)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_philstar",
+    "site_id": "philstar",
+    "display_name": "Philippine Star",
+    "category": "news",
+    "region": "sea",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://philstar.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ph)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_allafrica",
+    "site_id": "allafrica",
+    "display_name": "AllAfrica",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://allafrica.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_nairametrics",
+    "site_id": "nairametrics",
+    "display_name": "Naira Metrics",
+    "category": "news",
+    "region": "af",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://nairametrics.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ng)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_daily_maverick",
+    "site_id": "daily_maverick",
+    "display_name": "Daily Maverick",
+    "category": "news",
+    "region": "af",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://dailymaverick.co.za/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, za)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_elpais",
+    "site_id": "elpais",
+    "display_name": "El Pais",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://elpais.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, es)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_repubblica",
+    "site_id": "repubblica",
+    "display_name": "La Repubblica",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://repubblica.it/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, it)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_spon",
+    "site_id": "spon",
+    "display_name": "Spiegel Online",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://spiegel.de/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, de)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_lemonde",
+    "site_id": "lemonde",
+    "display_name": "Le Monde",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://lemonde.fr/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, fr)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_tass",
+    "site_id": "tass",
+    "display_name": "TASS",
+    "category": "news",
+    "region": "eu",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://tass.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ru)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_substack",
+    "site_id": "substack",
+    "display_name": "Substack",
+    "category": "news",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://substack.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (article, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [
+      "firecrawl"
+    ],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_notion",
+    "site_id": "notion",
+    "display_name": "Notion",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "medium",
+    "verification_url": "https://notion.so/",
+    "expected_provider": "firecrawl",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (docs, global)",
+    "access_type": "dynamic_browser",
+    "preferred_provider": "firecrawl",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "matrix_only",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_figma",
+    "site_id": "figma",
+    "display_name": "Figma",
+    "category": "docs",
+    "region": "global",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://figma.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (docs, global)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_clarin",
+    "site_id": "clarin",
+    "display_name": "Clarin",
+    "category": "news",
+    "region": "sa",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://clarin.com/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, ar)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
+  },
+  {
+    "source_id": "source_elmanana",
+    "site_id": "elmanana",
+    "display_name": "El Manana",
+    "category": "news",
+    "region": "sa",
+    "languages": [
+      "en"
+    ],
+    "difficulty": "easy",
+    "verification_url": "https://elmanana.com.mx/",
+    "expected_provider": "scrapling",
+    "requires_auth": false,
+    "status": "seeded",
+    "notes": "Auto-generated from sites.json (news, mx)",
+    "access_type": "static_html",
+    "preferred_provider": "scrapling",
+    "fallback_providers": [],
+    "cost_tier": "low",
+    "stability_tier": "stable",
+    "promotion_status": "promoted",
+    "failure_modes": [
+      "timeout",
+      "empty_content"
+    ]
   }
 ]
