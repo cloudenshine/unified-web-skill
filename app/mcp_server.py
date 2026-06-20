@@ -1050,6 +1050,125 @@ if mcp is not None:
         }
 
 
+    @mcp.tool()
+    async def web_screenshot(url: str, full_page: bool = True) -> dict:
+        """Take a screenshot of a web page.
+
+        Uses CloakBrowser to render the page and capture a screenshot.
+        Returns the screenshot as base64-encoded PNG data.
+
+        Args:
+            url: The URL to screenshot.
+            full_page: Whether to capture the full page (True) or viewport only.
+
+        Returns:
+            dict with base64 PNG data, URL, and dimensions.
+        """
+        em = _get_engine_manager()
+        browser = em.get_engine("cloakbrowser")
+        if browser is None:
+            return {"ok": False, "error": "CloakBrowser engine not available"}
+
+        try:
+            result = await browser.interact(
+                url,
+                task="screenshot",
+                full_page=full_page,
+            )
+            if not result.ok:
+                return {"ok": False, "error": result.error}
+            return {
+                "ok": True,
+                "url": url,
+                "has_screenshot": bool(result.snapshot),
+                "content_preview": result.content[:2000] if result.content else "",
+                "title": result.title or "",
+            }
+        except Exception as exc:
+            _logger.exception("web_screenshot failed: %s", exc)
+            return {"ok": False, "error": str(exc)}
+
+
+    @mcp.tool()
+    async def source_health() -> dict:
+        """Report source health status from the health monitor.
+
+        Returns the number of monitored sources, healthy/blocked counts.
+        """
+        try:
+            from .discovery.health_monitor import SourceHealthMonitor
+            from .discovery.source_matrix import SourceMatrix
+            from pathlib import Path
+
+            em = _get_engine_manager()
+            hm = getattr(em, "_source_health", None)
+            if hm is None:
+                hm = SourceHealthMonitor()
+                em._source_health = hm
+                gpath = Path(__file__).parent / "discovery" / "global_sources.json"
+                if gpath.exists():
+                    import json as _json
+                    for entry in _json.loads(gpath.read_text()):
+                        if entry.get("promotion_status") == "promoted":
+                            hm.register_source(entry["source_id"])
+
+            summary = hm.summary()
+            return {"ok": True, "summary": summary}
+        except Exception as exc:
+            return {"ok": False, "error": str(exc)}
+
+
+    @mcp.tool()
+    async def auto_discover(category: str = "", max_results: int = 10) -> dict:
+        """Auto-discover new web sources by category.
+
+        Uses DuckDuckGo search to find related sources not yet in the registry.
+        Results are saved to outputs/discovered_sources.json for human review.
+
+        Args:
+            category: One of: news, tech, academic, docs, social, government, finance.
+            max_results: Max results per discovery query (default 10).
+
+        Returns:
+            dict with discovery results per category.
+        """
+        try:
+            from .discovery.auto_discovery import discover_for_category, save_discovered, load_known_domains
+            from pathlib import Path
+
+            sites_path = Path(__file__).parent / "discovery" / "sites.json"
+            if sites_path.exists():
+                load_known_domains(str(sites_path))
+
+            categories = [category] if category else ["news", "tech", "academic", "docs", "social", "finance"]
+
+            all_results = []
+            total = 0
+            for cat in categories:
+                results = discover_for_category(cat, max_per_query=max_results)
+                all_results.extend(results)
+                for r in results:
+                    total += len(r.sources)
+
+            output_dir = Path(__file__).parent.parent / "outputs"
+            output_dir.mkdir(exist_ok=True)
+            output_path = str(output_dir / "discovered_sources.json")
+            saved = save_discovered(all_results, output_path)
+
+            return {
+                "ok": True,
+                "categories_queried": categories,
+                "total_discovered": total,
+                "saved_to": output_path,
+                "entries_saved": saved,
+                "details": {r.query: len(r.sources) for r in all_results if r.sources},
+            }
+        except ImportError as exc:
+            return {"ok": False, "error": f"Missing dependency: duckduckgo-search. Run: pip install duckduckgo-search"}
+        except Exception as exc:
+            return {"ok": False, "error": str(exc)}
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # Tools 8-11 — Credential management  (NEW)
 # ═══════════════════════════════════════════════════════════════════════════
