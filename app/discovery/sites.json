@@ -3148,7 +3148,7 @@
       "firecrawl"
     ],
     "content_type": "tech",
-    "country": "global",
+    "country": "cn",
     "default_fetch_mode": "http"
   },
   {
@@ -3441,7 +3441,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "finance",
+    "content_type": "tech",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3455,7 +3455,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "finance",
+    "content_type": "ai_research",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3469,7 +3469,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "finance",
+    "content_type": "tech",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3483,7 +3483,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "finance",
+    "content_type": "tech",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3498,7 +3498,7 @@
       "firecrawl"
     ],
     "content_type": "mobile",
-    "country": "global",
+    "country": "cn",
     "default_fetch_mode": "http"
   },
   {
@@ -3512,7 +3512,7 @@
       "firecrawl"
     ],
     "content_type": "newsletter",
-    "country": "global",
+    "country": "cn",
     "default_fetch_mode": "http"
   },
   {
@@ -3526,7 +3526,7 @@
       "firecrawl"
     ],
     "content_type": "newsletter",
-    "country": "global",
+    "country": "cn",
     "default_fetch_mode": "http"
   },
   {
@@ -3777,7 +3777,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "ai_tools",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3791,7 +3791,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "science",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3805,7 +3805,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "science",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3819,7 +3819,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "tech",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3833,7 +3833,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "tech",
     "country": "global",
     "default_fetch_mode": "http"
   },
@@ -3847,7 +3847,7 @@
       "scrapling",
       "firecrawl"
     ],
-    "content_type": "startups",
+    "content_type": "newsletter",
     "country": "global",
     "default_fetch_mode": "http"
   },

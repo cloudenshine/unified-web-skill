@@ -39,4 +39,7 @@ pytest-timeout>=2.4.0
 ruff>=0.15.17
 
 
-pdfplumber>=0.10.0\nfeedparser>=6.0.0\nyt-dlp>=2024.0.0\n
+# ── Optional: PDF / RSS / Video providers ──────────────────────────────────
+pdfplumber>=0.10.0
+feedparser>=6.0.0
+yt-dlp>=2024.0.0

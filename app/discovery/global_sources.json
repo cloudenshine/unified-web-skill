@@ -5605,9 +5605,9 @@
     "site_id": "rss_tech_meituan_com",
     "display_name": "美团技术团队",
     "category": "tech",
-    "region": "global",
+    "region": "cn",
     "languages": [
-      "en"
+      "zh"
     ],
     "difficulty": "easy",
     "verification_url": "https://tech.meituan.com/feed",
@@ -6192,7 +6192,7 @@
     "source_id": "rss_codeascraft_com",
     "site_id": "rss_codeascraft_com",
     "display_name": "Code as Craft",
-    "category": "finance",
+    "category": "tech",
     "region": "global",
     "languages": [
       "en"
@@ -6220,7 +6220,7 @@
     "source_id": "rss_research_microsoft_com",
     "site_id": "rss_research_microsoft_com",
     "display_name": "Microsoft Research Blog",
-    "category": "finance",
+    "category": "ai_research",
     "region": "global",
     "languages": [
       "en"
@@ -6248,7 +6248,7 @@
     "source_id": "rss_www_miragecraft_com",
     "site_id": "rss_www_miragecraft_com",
     "display_name": "Miragecraft",
-    "category": "finance",
+    "category": "tech",
     "region": "global",
     "languages": [
       "en"
@@ -6276,7 +6276,7 @@
     "source_id": "rss_samuelkraft_com",
     "site_id": "rss_samuelkraft_com",
     "display_name": "Samuel Kraft",
-    "category": "finance",
+    "category": "tech",
     "region": "global",
     "languages": [
       "en"
@@ -6305,9 +6305,9 @@
     "site_id": "rss_blog_brachiosoft_com",
     "display_name": "軟體考古學家",
     "category": "mobile",
-    "region": "global",
+    "region": "cn",
     "languages": [
-      "en"
+      "zh"
     ],
     "difficulty": "easy",
     "verification_url": "https://blog.brachiosoft.com/index.xml",
@@ -6333,9 +6333,9 @@
     "site_id": "rss_hellogithub_com",
     "display_name": "HelloGitHub 月刊",
     "category": "newsletter",
-    "region": "global",
+    "region": "cn",
     "languages": [
-      "en"
+      "zh"
     ],
     "difficulty": "easy",
     "verification_url": "https://hellogithub.com/rss",
@@ -6361,9 +6361,9 @@
     "site_id": "rss_plink_anyfeeder_com",
     "display_name": "华尔街日报",
     "category": "newsletter",
-    "region": "global",
+    "region": "cn",
     "languages": [
-      "en"
+      "zh"
     ],
     "difficulty": "easy",
     "verification_url": "https://plink.anyfeeder.com/wsj/cn",
@@ -6864,7 +6864,7 @@
     "source_id": "rss_developer_nvidia_com",
     "site_id": "rss_developer_nvidia_com",
     "display_name": "Nvidia Developer Blog",
-    "category": "startups",
+    "category": "ai_tools",
     "region": "global",
     "languages": [
       "en"
@@ -6892,7 +6892,7 @@
     "source_id": "rss_www_quantamagazine_org",
     "site_id": "rss_www_quantamagazine_org",
     "display_name": "Quanta Magazine",
-    "category": "startups",
+    "category": "science",
     "region": "global",
     "languages": [
       "en"
@@ -6920,7 +6920,7 @@
     "source_id": "rss_www_sciencealert_com",
     "site_id": "rss_www_sciencealert_com",
     "display_name": "ScienceAlert",
-    "category": "startups",
+    "category": "science",
     "region": "global",
     "languages": [
       "en"
@@ -6948,7 +6948,7 @@
     "source_id": "rss_slack_engineering",
     "site_id": "rss_slack_engineering",
     "display_name": "Slack Engineering",
-    "category": "startups",
+    "category": "tech",
     "region": "global",
     "languages": [
       "en"
@@ -6976,7 +6976,7 @@
     "source_id": "rss_thenextweb_com",
     "site_id": "rss_thenextweb_com",
     "display_name": "The Next Web",
-    "category": "startups",
+    "category": "tech",
     "region": "global",
     "languages": [
       "en"
@@ -7004,7 +7004,7 @@
     "source_id": "rss_blog_pragmaticengineer_com",
     "site_id": "rss_blog_pragmaticengineer_com",
     "display_name": "The Pragmatic Engineer",
-    "category": "startups",
+    "category": "newsletter",
     "region": "global",
     "languages": [
       "en"
